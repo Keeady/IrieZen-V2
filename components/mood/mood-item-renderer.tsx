@@ -30,6 +30,7 @@ export type MoodItemRendererProps = {
   height: number;
   reflectionMessage: string[];
   onComplete: () => void;
+  reflectionTitle: string;
 };
 
 export default function MoodItemRenderer({
@@ -58,6 +59,7 @@ export default function MoodItemRenderer({
   height,
   reflectionMessage,
   onComplete,
+  reflectionTitle
 }: MoodItemRendererProps) {
   let screenComponent = null;
 
@@ -120,7 +122,7 @@ export default function MoodItemRenderer({
         onComplete={onComplete}
         loadingReflection={loadingReflection}
         height={height}
-        title="A moment of reflection with yourself"
+        title={reflectionTitle}
       />
     );
   }

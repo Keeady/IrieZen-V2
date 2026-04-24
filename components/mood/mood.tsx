@@ -5,6 +5,7 @@ import React, { useCallback, useState } from "react";
 import {
   getMoodIntroMessage,
   getRandomMoodTitlePrompt,
+  getRandomReflectionIntroMessage,
   primaryMoods,
   secondaryMixedMoods,
   secondaryMoods,
@@ -109,6 +110,8 @@ export default function MoodScreen({
     }
   };
 
+  const reflectionTitle = getRandomReflectionIntroMessage();
+
   return (
     <MoodFlowRenderer
       moodRef={moodRef}
@@ -140,6 +143,7 @@ export default function MoodScreen({
           height={height}
           reflectionMessage={reflectionMessage || []}
           onComplete={onComplete}
+          reflectionTitle={reflectionTitle}
         />
       )}
       height={height}

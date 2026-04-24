@@ -66,6 +66,20 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
     color: "#4A7FA5", // primary blue — one step lighter than headline
   },
+  button: {
+    marginHorizontal: 24,
+    marginTop: 32,
+    marginBottom: 50,
+    borderRadius: 2, // sharp corners vs default pill shape
+    borderWidth: 1.5,
+    borderColor: "#4A7FA5", // primary blue — matches last paragraph border
+  },
+  buttonLabel: {
+    fontFamily: "Lora_400Regular", // matches reflection typography
+    fontSize: 15,
+    letterSpacing: 1.8, // spaced caps feel intentional and calm
+    textTransform: "uppercase",
+  },
 });
 
 export default styles;

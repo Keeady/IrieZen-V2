@@ -643,4 +643,19 @@ export function getRandomWinsIntroMessage(): string {
   return winsIntroMessages[randomIndex];
 }
 
+const reflectionIntroMessages = [
+  "A moment of reflection with yourself.",
+  "Let’s take a quiet moment to look inward.",
+  "A gentle pause to connect with your thoughts.",
+  "Finding insight through stillness.",
+  "A soft reset to check in with your inner world.",
+  "Settle in. Let your reflections come naturally.",
+  "Discovering clarity through self-reflection.",
+];
 
+export function getRandomReflectionIntroMessage(): string {
+  const randomIndex = Math.floor(
+    Math.random() * reflectionIntroMessages.length
+  );
+  return reflectionIntroMessages[randomIndex];
+}
