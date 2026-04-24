@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import styles from "../styles";
-import { Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 
 export type GratitudeFlowRendererProps = {
   onComplete: () => void;
@@ -9,6 +9,7 @@ export type GratitudeFlowRendererProps = {
   text: string;
   setText: (text: string) => void;
   placeholder: string;
+  disabled: boolean;
 };
 
 export default function GratitudeFlowRenderer({
@@ -18,6 +19,7 @@ export default function GratitudeFlowRenderer({
   text,
   setText,
   placeholder,
+  disabled,
 }: GratitudeFlowRendererProps) {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
@@ -27,7 +29,7 @@ export default function GratitudeFlowRenderer({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.container}
       >
-        <View style={{flexGrow: 1}}>
+        <View style={{ flexGrow: 1 }}>
           <Text variant="headlineMedium" style={styles.title}>
             {title}
           </Text>
@@ -50,6 +52,14 @@ export default function GratitudeFlowRenderer({
               placeholder={placeholder}
             />
           </View>
+          <Button
+            mode="contained"
+            onPress={onComplete}
+            disabled={disabled}
+            style={styles.button}
+          >
+            Done
+          </Button>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

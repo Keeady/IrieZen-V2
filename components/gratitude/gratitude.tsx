@@ -9,6 +9,7 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
     const [label, setLabel] = useState("");
+  const [disabled, setDisabled] = useState(false);
 
   useMemo(() => {
     const message = getRandomGratitudeIntroMessage();
@@ -16,14 +17,19 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
     const label = getRandomGratitudeLabelPrompt();
     setLabel(label);
   }, []);
+
   return (
     <GratitudeFlowRenderer
-      onComplete={onComplete}
+      onComplete={() => {
+              setDisabled(true);
+              onComplete();
+            }}
       title={message}
       text={text}
       setText={setText}
       label={label}
       placeholder={placeholder}
+      disabled={disabled}
     />
   );
 }
