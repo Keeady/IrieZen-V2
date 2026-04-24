@@ -24,7 +24,7 @@ export default function ScreenFlowRenderer({
   message,
   fadeAnim,
 }: FlowRendererProps) {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   return (
     <View style={{ backgroundColor: colors.background }}>
       <FlatList

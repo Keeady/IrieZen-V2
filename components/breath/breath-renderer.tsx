@@ -101,8 +101,9 @@ export default function BreathFlowRenderer({
               mode="contained"
               onPress={handleStart}
               style={styles.button}
+              disabled={disabled}
             >
-              Start
+              Restart
             </Button>
             <Button
               mode="contained"

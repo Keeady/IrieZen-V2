@@ -90,9 +90,6 @@ export default function MoodScreen({
     setDisabled(true);
     scrollToNextScreen(3);
 
-    console.log("Selected moods:", selectedMoods);
-    console.log("Selected emotions:", emotions);
-
     getSmartResponse({
       userMessage: selectedMoods,
       coreMood: mixedCoreMood || coreMood || "",
@@ -112,7 +109,6 @@ export default function MoodScreen({
   const scrollToEndOfScreen = () => {
     // only scroll once
     if (!scrollToEndOnceDone) {
-      console.log("Scrolling to end of screen...");
       moodRef.current?.scrollToEnd();
       setScrollToEndOnceDone(true);
     }

@@ -41,8 +41,6 @@ export default function MorningFlow() {
 
     if (nextIndex > screens.length) return;
 
-    console.log("Screen complete: ", screens[index].message);
-
     showMessage(screens[index].message, nextIndex);
   };
 
