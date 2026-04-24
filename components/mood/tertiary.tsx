@@ -1,6 +1,6 @@
-import { Button, Chip, Text, useTheme } from "react-native-paper";
 import { View } from "react-native";
-import styles from "./styles";
+import { Button, Text, useTheme } from "react-native-paper";
+import styles from "../styles";
 import MoodChip from "./mood-chip";
 
 export type TertiaryMoodScreenProps = {
@@ -31,10 +31,7 @@ export default function TertiaryMoodScreen({
     <View style={styles.container}>
       {(tertiaryMoods[coreMood] ||
         (mixedCoreMood && tertiaryMoods[mixedCoreMood])) && (
-        <Text
-          variant="titleSmall"
-          style={ styles.tertiaryTitle }
-        >
+        <Text variant="titleSmall" style={styles.tertiaryTitle}>
           Let's dive deeper. Do any of these resonate?
         </Text>
       )}

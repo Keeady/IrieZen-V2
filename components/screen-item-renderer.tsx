@@ -1,9 +1,9 @@
 import { Screen } from "@/data/screens";
+import React from "react";
+import { Text, View } from "react-native";
+import BreathScreen from "./breath/breath";
 import MoodScreen from "./mood/mood";
-import React, { use } from "react";
 import SummaryScreen from "./summary/summary";
-import { View, Text, useWindowDimensions } from "react-native";
-import styles from "./mood/styles";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -27,30 +27,44 @@ export const ScreenItemRenderer = ({
   let screenComponent;
   if (item.id === "mood") {
     screenComponent = (
-      
       <MoodScreen
         onComplete={() => onScreenComplete(index)}
         setCoreEmotion={setCoreEmotion}
         width={width}
         height={height}
       />
-      
     );
   } else if (item.id === "gratitude") {
-      screenComponent = <View style={{flex: 1}}><Text>Gratitude</Text></View>; /*(
+    screenComponent = (
+      <View style={{ flex: 1 }}>
+        <Text>Gratitude</Text>
+      </View>
+    ); /*(
         <GratitudeScreen onComplete={() => onScreenComplete(index)} />
       );*/
-    } else if (item.id === "breath") {
-      screenComponent = <View><Text>Breath</Text></View> /*(
-        <BreathScreen onComplete={() => onScreenComplete(index)} />
-      );*/
-    } else if (item.id === "focus") {
-      screenComponent = <View><Text>Focus</Text></View> /*(
+  } else if (item.id === "breath") {
+    screenComponent = (
+      <BreathScreen
+        onComplete={() => onScreenComplete(index)}
+        width={width}
+        height={height}
+      />
+    );
+  } else if (item.id === "focus") {
+    screenComponent = (
+      <View>
+        <Text>Focus</Text>
+      </View>
+    ); /*(
         <FocusScreen onComplete={() => onScreenComplete(index)} />
       );*/
-    } else if (item.id === "wins") {
-      screenComponent = <View><Text>Wins</Text></View> /*<WinsScreen onComplete={() => onScreenComplete(index)} />;*/
-    } else {
+  } else if (item.id === "wins") {
+    screenComponent = (
+      <View>
+        <Text>Wins</Text>
+      </View>
+    ); /*<WinsScreen onComplete={() => onScreenComplete(index)} />;*/
+  } else {
     screenComponent = (
       <SummaryScreen
         onComplete={() => onScreenComplete(index)}
@@ -59,17 +73,17 @@ export const ScreenItemRenderer = ({
     );
   }
 
-    return (
-        <View
-          style={{
-            flex: 1,
-            alignContent: "center",
-            justifyContent: "center",
-            padding: 10,
-            width,
-          }}
-        >
-          {screenComponent}
-        </View>
-    );
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignContent: "center",
+        justifyContent: "center",
+        padding: 10,
+        width,
+      }}
+    >
+      {screenComponent}
+    </View>
+  );
 };

@@ -1,40 +1,36 @@
-
 import { View } from "react-native";
-import { Text, Chip } from "react-native-paper";
-import styles from "./styles";
+import { Text } from "react-native-paper";
+import styles from "../styles";
 import MoodChip from "./mood-chip";
 
 export type SecondaryMoodScreenProps = {
-    primaryMood: string | null;
-    coreMood: string | null;
-    secondaryMoodIntroMessage: string;
-    secondaryMoods: Record<string, string[]>;
-    secondaryMixedMoods: Record<string, string[]>;
-    selectedMoods: string[];
-    toggleMood: (mood: string, coreMood: string) => void;
-    setSelectedSecondaryMood: (mood: string | null) => void;
-    scrollToNextScreen: (index: number) => void;
-    setMixedCoreMood: (core: string | null) => void;
+  primaryMood: string | null;
+  coreMood: string | null;
+  secondaryMoodIntroMessage: string;
+  secondaryMoods: Record<string, string[]>;
+  secondaryMixedMoods: Record<string, string[]>;
+  selectedMoods: string[];
+  toggleMood: (mood: string, coreMood: string) => void;
+  setSelectedSecondaryMood: (mood: string | null) => void;
+  scrollToNextScreen: (index: number) => void;
+  setMixedCoreMood: (core: string | null) => void;
 };
 
 export default function SecondaryMoodScreen({
-    primaryMood,
-    coreMood,
-    secondaryMoodIntroMessage,
-    secondaryMoods,
-    secondaryMixedMoods,
-    selectedMoods,
-    toggleMood,
-    setSelectedSecondaryMood,
-    scrollToNextScreen,
-    setMixedCoreMood
+  primaryMood,
+  coreMood,
+  secondaryMoodIntroMessage,
+  secondaryMoods,
+  secondaryMixedMoods,
+  selectedMoods,
+  toggleMood,
+  setSelectedSecondaryMood,
+  scrollToNextScreen,
+  setMixedCoreMood,
 }: SecondaryMoodScreenProps) {
-    return (
+  return (
     <View style={styles.container}>
-      <Text
-        variant="titleLarge"
-        style={styles.secondaryTitle}
-      >
+      <Text variant="titleLarge" style={styles.secondaryTitle}>
         {secondaryMoodIntroMessage}
       </Text>
       <View style={styles.chipContainer}>
@@ -87,7 +83,7 @@ export default function SecondaryMoodScreen({
                           textAlign: "left",
                         }}
                         showSelectedOverlay*/
-                     />
+                      />
                     );
                   })}
               </View>

@@ -1,9 +1,8 @@
-import { View } from "react-native";
-import { Button, useTheme, Text } from "react-native-paper";
 import LottieView from "lottie-react-native";
-import { Animated } from "react-native";
+import { Animated, View } from "react-native";
+import { Button, Text, useTheme } from "react-native-paper";
+import styles from "../styles";
 import FadeInMessages from "./animate";
-import styles from "./styles";
 
 export type ReflectionScreenProps = {
   messages: string[];
@@ -48,9 +47,7 @@ export default function ReflectionScreen({
 
       {loadingReflection === false && (
         <>
-          <Text style={styles.headline}>
-            {title}
-          </Text>
+          <Text style={styles.headline}>{title}</Text>
           <FadeInMessages messages={messages} />
           <Button
             mode="contained"

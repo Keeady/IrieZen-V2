@@ -1,7 +1,7 @@
 import { PrimaryMood } from "@/data/moodList";
-import { View, StyleSheet } from "react-native";
-import { Text, Chip, Icon } from "react-native-paper";
-import styles from "./styles";
+import { View } from "react-native";
+import { Icon, Text } from "react-native-paper";
+import styles from "../styles";
 import MoodChip from "./mood-chip";
 
 export type PrimaryMoodScreenProps = {
@@ -29,10 +29,7 @@ export default function PrimaryMoodScreen({
 }: PrimaryMoodScreenProps) {
   return (
     <View style={styles.container}>
-      <Text
-        variant="headlineMedium"
-        style={styles.title}
-      >
+      <Text variant="headlineMedium" style={styles.title}>
         {randomTitlePrompt}
       </Text>
       <View style={styles.chipContainer}>
@@ -58,5 +55,3 @@ export default function PrimaryMoodScreen({
     </View>
   );
 }
-
-

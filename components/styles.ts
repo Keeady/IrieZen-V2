@@ -80,6 +80,22 @@ const styles = StyleSheet.create({
     letterSpacing: 1.8, // spaced caps feel intentional and calm
     textTransform: "uppercase",
   },
+  instruction: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 20,
+    fontWeight: "400",
+    textAlign: "center",
+    marginTop: 20,
+    color: "#2C4A5E",
+  },
+  subtext: {
+    fontFamily: "Lora_400Regular",
+    fontWeight: "400",
+    textAlign: "center",
+    marginTop: 8,
+    fontSize: 13,
+    color: "#4A7FA5",
+  },
 });
 
 export default styles;
