@@ -5,6 +5,7 @@ import BreathScreen from "./breath/breath";
 import MoodScreen from "./mood/mood";
 import SummaryScreen from "./summary/summary";
 import GratitudeScreen from "./gratitude/gratitude";
+import FocusScreen from "./focus/focus";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -53,12 +54,12 @@ export const ScreenItemRenderer = ({
     );
   } else if (item.id === "focus") {
     screenComponent = (
-      <View>
-        <Text>Focus</Text>
-      </View>
-    ); /*(
-        <FocusScreen onComplete={() => onScreenComplete(index)} />
-      );*/
+      <FocusScreen
+        onComplete={() => onScreenComplete(index)}
+        width={width}
+        height={height}
+      />
+    );
   } else if (item.id === "wins") {
     screenComponent = (
       <View>

@@ -551,22 +551,22 @@ export function getMoodIntroMessage(mood: string): string {
 
 const moodTitlePrompts = [
   "How are you feeling right now?",
-  "What’s present for you right now?",
-  "How’s your inner world today?",
-  "What’s moving through you today?",
-  "What’s the weather like inside? ☁️",
-  "Take a moment — what feeling stands out?",
-  "How’s your heart today?",
-  "Pause and check in — where are you emotionally?",
-  "What’s your current mood whispering?",
-  "Let’s begin with a quick check-in.",
-  "Before we start, how are you doing, really?",
-  "Where are you landing this morning?",
-  "How’s your energy today?",
-  "What kind of day does it feel like?",
-  "How’s your mind and body feeling right now?",
-  "What’s alive in you at this moment?",
-  "What kind of rhythm are you in today?",
+  "What's present for you today?",
+  "Where are you landing this moment?",
+  "What's the weather inside? ☁️",
+  "How's your heart today?",
+  "What feeling is closest to the surface?",
+  "Check in — what's here right now?",
+  "What are you carrying today?",
+  "What's true for you right now?",
+  "How does this moment feel?",
+  "What's alive in you today?",
+  "What's your body telling you?",
+  "How are you, really?",
+  "What's underneath the surface today?",
+  "Where are you right now?",
+  "What color is your mood today?",
+  "What's the texture of this moment?",
 ];
 
 export function getRandomMoodTitlePrompt(): string {
@@ -575,13 +575,13 @@ export function getRandomMoodTitlePrompt(): string {
 }
 
 const breathingIntroMessages = [
-  "Let’s take a quiet moment together.",
-  "A gentle pause to find your calm.",
-  "Breathe in ease, breathe out the noise.",
-  "Let’s come back to center.",
-  "A soft reset through your breath.",
-  "Settle in. Let your breath do the rest.",
-  "Find stillness in your breath.",
+  "Let your breath lead the way.",
+  "In. Hold. Out. Just this.",
+  "Follow the circle. Nothing else.",
+  "Your breath is already slowing down.",
+  "Let the rhythm carry you.",
+  "Soften. The rest can wait.",
+  "Just breathe. That's enough.",
 ];
 
 export function getRandomBreathingIntroMessage(): string {
@@ -590,13 +590,13 @@ export function getRandomBreathingIntroMessage(): string {
 }
 
 const gratitudeIntroMessages = [
-  "Let’s focus on what brings you joy.",
-  "A moment to appreciate the good around you.",
-  "Shining a light on your blessings.",
-  "Cultivating thankfulness in your heart.",
-  "Finding joy in the little things.",
-  "Gratitude opens the door to happiness.",
-  "Noticing the positive in your life.",
+  "Something good is already here.",
+  "What feels like enough right now?",
+  "A moment worth holding onto.",
+  "What's quietly working in your favor?",
+  "Noticing what's genuinely good.",
+  "What would you hate to take for granted?",
+  "Something small, something real.",
 ];
 
 export function getRandomGratitudeIntroMessage(): string {
@@ -605,13 +605,13 @@ export function getRandomGratitudeIntroMessage(): string {
 }
 
 const focusIntroMessages = [
-  "What’s one thing you want to bring your attention to today?",
-  "Let’s set a gentle intention for your day.",
-  "A small focus can lead to big changes.",
-  "What’s one positive thought to carry with you?",
-  "Center your mind on what matters most.",
-  "A clear focus helps guide your actions.",
-  "What’s one thing that would make today meaningful?",
+  "One thing to carry into your day.",
+  "What would make today feel complete?",
+  "A gentle intention goes a long way.",
+  "What do you want to bring more of today?",
+  "Something worth holding onto today.",
+  "What does a good day look like for you?",
+  "One small focus can change everything.",
 ];
 
 export function getRandomFocusIntroMessage(): string {
@@ -620,13 +620,13 @@ export function getRandomFocusIntroMessage(): string {
 }
 
 const winsIntroMessages = [
-  "Celebrate your progress, no matter how small.",
-  "Reflecting on wins fuels future success.",
-  "Every step forward is worth acknowledging.",
-  "Your achievements, big and small, matter.",
-  "Recognizing wins builds confidence and momentum.",
-  "Look back on what you’ve accomplished with pride.",
-  "Honoring your efforts encourages continued growth.",
+  "Something went right. What was it?",
+  "You showed up. That counts.",
+  "Even small wins deserve a moment.",
+  "What's worth a quiet nod today?",
+  "Progress looks different every day.",
+  "What did you do that was hard, or kind, or brave?",
+  "Resting is a win too.",
 ];
 
 export function getRandomWinsIntroMessage(): string {
@@ -635,13 +635,13 @@ export function getRandomWinsIntroMessage(): string {
 }
 
 const reflectionIntroMessages = [
-  "A moment of reflection with yourself.",
-  "Let’s take a quiet moment to look inward.",
-  "A gentle pause to connect with your thoughts.",
-  "Finding insight through stillness.",
-  "A soft reset to check in with your inner world.",
-  "Settle in. Let your reflections come naturally.",
-  "Discovering clarity through self-reflection.",
+  "A quiet moment with yourself.",
+  "Just noticing what's here.",
+  "Sitting with what's true right now.",
+  "No fixing. Just feeling.",
+  "A pause before moving on.",
+  "What's present doesn't need to be solved.",
+  "Gently turning inward.",
 ];
 
 export function getRandomReflectionIntroMessage(): string {
@@ -652,16 +652,61 @@ export function getRandomReflectionIntroMessage(): string {
 }
 
 const gratitudeLabelPrompts = [
-  "Today, I’m grateful for...",
-  "I appreciate...",
-  "I’m thankful for...",
-  "Grateful for...",
-  "I feel blessed for...",
-  "I want to acknowledge...",
-  "I’m fortunate to have...",
+  "A moment that made me smile today...",
+  "Someone who made things a little easier...",
+  "Something small I usually overlook...",
+  "A comfort I'm glad existed today...",
+  "One thing that went better than expected...",
+  "Something that made today feel more alive...",
+  "A person I'm quietly thankful for...",
+  "Something that brought me a sense of calm...",
+  "A small thing I'd miss if it were gone...",
+  "One moment I wouldn't trade today...",
+  "Something that made me feel less alone...",
+  "A simple pleasure I got to enjoy...",
 ];
 
 export function getRandomGratitudeLabelPrompt(): string {
   const randomIndex = Math.floor(Math.random() * gratitudeLabelPrompts.length);
   return gratitudeLabelPrompts[randomIndex];
+}
+
+const focusLabelPrompts = [
+  "Today I want to show up as...",
+  "One thing I want to be more of today...",
+  "I want to make space for...",
+  "Today I'll try to let go of...",
+  "Something I want to bring my full attention to...",
+  "One way I want to be kind to myself today...",
+  "Today feels like a good day to...",
+  "I want to move through today with...",
+  "One thing that would make today feel meaningful...",
+  "Something I want to notice more of today...",
+  "Today I choose to focus on...",
+  "I want to hold onto...",
+];
+
+export function getRandomFocusLabelPrompt(): string {
+  const randomIndex = Math.floor(Math.random() * focusLabelPrompts.length);
+  return focusLabelPrompts[randomIndex];
+}
+
+const winsLabelPrompts = [
+  "Something I did that took effort...",
+  "A moment I handled better than I expected...",
+  "I showed up for myself by...",
+  "Something I finished, started, or let go of...",
+  "I was kind to myself when I...",
+  "Something small that still counts...",
+  "I gave myself permission to...",
+  "A habit I kept, even just once...",
+  "Something I did despite not feeling like it...",
+  "I took care of myself by...",
+  "One thing I can quietly be proud of...",
+  "I made space for myself by...",
+];
+
+export function getRandomWinsLabelPrompt(): string {
+  const randomIndex = Math.floor(Math.random() * winsLabelPrompts.length);
+  return winsLabelPrompts[randomIndex];
 }
