@@ -6,6 +6,7 @@ import MoodScreen from "./mood/mood";
 import SummaryScreen from "./summary/summary";
 import GratitudeScreen from "./gratitude/gratitude";
 import FocusScreen from "./focus/focus";
+import WinsScreen from "./wins/wins";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -62,10 +63,12 @@ export const ScreenItemRenderer = ({
     );
   } else if (item.id === "wins") {
     screenComponent = (
-      <View>
-        <Text>Wins</Text>
-      </View>
-    ); /*<WinsScreen onComplete={() => onScreenComplete(index)} />;*/
+      <WinsScreen
+        onComplete={() => onScreenComplete(index)}
+        width={width}
+        height={height}
+      />
+    );
   } else {
     screenComponent = (
       <SummaryScreen
