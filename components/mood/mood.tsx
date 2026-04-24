@@ -1,7 +1,7 @@
 import { FlatList, useWindowDimensions } from "react-native";
 import { ScreenProps } from "../screen.interface";
 import MoodFlowRenderer from "./mood-renderer";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   getMoodIntroMessage,
   getRandomMoodTitlePrompt,
@@ -43,6 +43,14 @@ export default function MoodScreen({
   const [emotions, setSelectedEmotions] = useState<{ [key: string]: string[] }>(
     {},
   );
+
+  useEffect(() => {
+    if (mixedCoreMood) {
+      setCoreEmotion?.(mixedCoreMood);
+    } else {
+      coreMood && setCoreEmotion?.(coreMood);
+    }
+  }, [coreMood, mixedCoreMood]);
 
   const toggleMood = (mood: string, coreMood: string) => {
     if (selectedMoods.includes(mood)) {
@@ -106,7 +114,7 @@ export default function MoodScreen({
     if (!scrollToEndOnceDone) {
       console.log("Scrolling to end of screen...");
       moodRef.current?.scrollToEnd();
-      // setScrollToEndOnceDone(true);
+      setScrollToEndOnceDone(true);
     }
   };
 

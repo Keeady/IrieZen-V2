@@ -95,6 +95,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 13,
     color: "#4A7FA5",
+    letterSpacing: 1.2,
+    fontStyle: "italic",
   },
   textarea: {
     width: "100%",
