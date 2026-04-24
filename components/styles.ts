@@ -96,6 +96,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#4A7FA5",
   },
+  textarea: {
+    width: "100%",
+    height: 150,
+    textAlignVertical: "top", // ensures text starts at top
+    textAlign: "left",
+    flexGrow: 1,
+  },
 });
 
 export default styles;

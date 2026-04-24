@@ -181,14 +181,7 @@ export const secondaryMixedMoods = {
   Hopeful: ["Peaceful", "Powerful"],
   Frustrated: ["Sad"],
   Meh: ["Sad", "Scared", "Peaceful"],
-  "A Lot": [
-    "Mad",
-    "Powerful",
-    "Scared",
-    "Joyful",
-    "Sad",
-    "Peaceful",
-  ],
+  "A Lot": ["Mad", "Powerful", "Scared", "Joyful", "Sad", "Peaceful"],
   Tired: ["Peaceful", "Sad", "Scared"],
 };
 
@@ -332,7 +325,7 @@ export const tertiaryMoods = {
     "Unfocused",
     "Unmotivated",
     "Tense",
-    "Disconnected"
+    "Disconnected",
   ],
   Joyful: [
     "Daring",
@@ -607,9 +600,7 @@ const gratitudeIntroMessages = [
 ];
 
 export function getRandomGratitudeIntroMessage(): string {
-  const randomIndex = Math.floor(
-    Math.random() * gratitudeIntroMessages.length
-  );
+  const randomIndex = Math.floor(Math.random() * gratitudeIntroMessages.length);
   return gratitudeIntroMessages[randomIndex];
 }
 
@@ -655,7 +646,22 @@ const reflectionIntroMessages = [
 
 export function getRandomReflectionIntroMessage(): string {
   const randomIndex = Math.floor(
-    Math.random() * reflectionIntroMessages.length
+    Math.random() * reflectionIntroMessages.length,
   );
   return reflectionIntroMessages[randomIndex];
+}
+
+const gratitudeLabelPrompts = [
+  "Today, I’m grateful for...",
+  "I appreciate...",
+  "I’m thankful for...",
+  "Grateful for...",
+  "I feel blessed for...",
+  "I want to acknowledge...",
+  "I’m fortunate to have...",
+];
+
+export function getRandomGratitudeLabelPrompt(): string {
+  const randomIndex = Math.floor(Math.random() * gratitudeLabelPrompts.length);
+  return gratitudeLabelPrompts[randomIndex];
 }

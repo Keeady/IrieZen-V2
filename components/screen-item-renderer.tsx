@@ -4,6 +4,7 @@ import { Text, View } from "react-native";
 import BreathScreen from "./breath/breath";
 import MoodScreen from "./mood/mood";
 import SummaryScreen from "./summary/summary";
+import GratitudeScreen from "./gratitude/gratitude";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -36,12 +37,12 @@ export const ScreenItemRenderer = ({
     );
   } else if (item.id === "gratitude") {
     screenComponent = (
-      <View style={{ flex: 1 }}>
-        <Text>Gratitude</Text>
-      </View>
-    ); /*(
-        <GratitudeScreen onComplete={() => onScreenComplete(index)} />
-      );*/
+      <GratitudeScreen
+        onComplete={() => onScreenComplete(index)}
+        width={width}
+        height={height}
+      />
+    );
   } else if (item.id === "breath") {
     screenComponent = (
       <BreathScreen
