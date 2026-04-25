@@ -18,11 +18,11 @@ export const screens: Screen[] = [
   {
     id: "gratitude",
     title: "Gratitude",
-    message: "Great job! Let's move on to today's focus.",
+    message: "Great job! Let's move on to today's intention.",
   },
   {
     id: "focus",
-    title: "Today's Focus",
+    title: "Today's Intention",
     message: "Great job! Let's move on to yesterday's wins.",
   },
   {

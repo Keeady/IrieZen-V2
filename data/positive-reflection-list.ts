@@ -17,4 +17,5 @@ export const investigationIntro = [
 export const nurturingIntro = [
   "May you offer yourself kindness for experiencing this mix of feelings.",
   "Take a moment to simply be present with the goodness that is here.",
+  "As you rest in these emotions, offer yourself a moment of kindness.",
 ];

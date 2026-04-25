@@ -35,6 +35,7 @@ export const acceptanceOutro = [
   "There's no need to change or fix anything; simply allow them space to exist within you for a moment.",
   "There's no need to change or question them; just let them settle and unfold naturally within your awareness.",
   "You can gently allow them space to exist within you , without needing to change or judge them in this moment.",
+  "There's no need to rush or hold onto these feelings; simply allow them to be present.",
 ];
 
 export const investigationIntro = [
