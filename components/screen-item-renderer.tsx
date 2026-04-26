@@ -1,6 +1,6 @@
 import { Screen } from "@/data/screens";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import BreathScreen from "./breath/breath";
 import MoodScreen from "./mood/mood";
 import SummaryScreen from "./summary/summary";

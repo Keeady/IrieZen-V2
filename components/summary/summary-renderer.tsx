@@ -1,4 +1,4 @@
-import { ScrollView, View, StyleSheet } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Text } from "react-native-paper";
 import styles from "../styles";
 

@@ -8,24 +8,14 @@ export type PrimaryMoodScreenProps = {
   randomTitlePrompt: string;
   primaryMoods: PrimaryMood[];
   selectedMoods: string[];
-  setCoreMood: (core: string) => void;
-  setPrimaryMood: (mood: string) => void;
-  toggleMood: (mood: string, coreMood: string) => void;
-  setSelectedSecondaryMood: (mood: string | null) => void;
-  scrollToNextScreen: (index: number) => void;
-  setMixedCoreMood: (core: string | null) => void;
+  onPress: (mood: PrimaryMood) => void;
 };
 
 export default function PrimaryMoodScreen({
   randomTitlePrompt,
   primaryMoods,
   selectedMoods,
-  setCoreMood,
-  setPrimaryMood,
-  toggleMood,
-  setSelectedSecondaryMood,
-  scrollToNextScreen,
-  setMixedCoreMood,
+  onPress,
 }: PrimaryMoodScreenProps) {
   return (
     <View style={styles.container}>
@@ -38,16 +28,7 @@ export default function PrimaryMoodScreen({
             key={mood.label}
             mood={mood.label}
             selected={selectedMoods.includes(mood.label)}
-            onPress={() => {
-              setCoreMood(mood.core);
-              setPrimaryMood(mood.label);
-              toggleMood(mood.label, mood.core);
-              setSelectedSecondaryMood(null);
-              scrollToNextScreen(1);
-              setMixedCoreMood(null);
-            }}
-            /*style={styles.primaryChip}
-            showSelectedOverlay*/
+            onPress={() => onPress(mood)}
             icon={() => <Icon source={mood.icon} size={48} />}
           />
         ))}

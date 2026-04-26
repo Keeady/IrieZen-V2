@@ -12,25 +12,21 @@ export type MoodItemRendererProps = {
   primaryMoods: PrimaryMood[];
   coreMood: string | null;
   selectedMoods: string[];
-  setCoreMood: (core: string) => void;
-  setPrimaryMood: (mood: string) => void;
-  toggleMood: (mood: string, coreMood: string) => void;
-  setSelectedSecondaryMood: (mood: string | null) => void;
-  scrollToNextScreen: (index: number) => void;
-  setMixedCoreMood: (core: string | null) => void;
   secondaryMoods: Record<string, string[]>;
   secondaryMixedMoods: Record<string, string[]>;
   selectedSecondaryMood: string | null;
   onSelectionComplete: () => void;
-  scrollToEndOfScreen: () => void;
   disabled: boolean;
   tertiaryMoods: Record<string, string[]>;
   mixedCoreMood: string | null;
   loadingReflection: boolean | undefined;
   height: number;
   reflectionMessage: string[];
-  onComplete: () => void;
   reflectionTitle: string;
+  onPrimaryMoodPress: (mood: PrimaryMood) => void;
+  onSecondaryMoodPress: (mood: string, mixedMood: string | null) => void;
+  onTertiaryMoodPress: (mood: string) => void;
+  onReflectionComplete: () => void;
 };
 
 export default function MoodItemRenderer({
@@ -41,25 +37,21 @@ export default function MoodItemRenderer({
   primaryMoods,
   selectedMoods,
   coreMood,
-  setCoreMood,
-  setPrimaryMood,
-  toggleMood,
   selectedSecondaryMood,
-  setSelectedSecondaryMood,
-  scrollToNextScreen,
-  setMixedCoreMood,
   secondaryMoods,
   secondaryMixedMoods,
   onSelectionComplete,
-  scrollToEndOfScreen,
   disabled,
   tertiaryMoods,
   mixedCoreMood,
   loadingReflection,
   height,
   reflectionMessage,
-  onComplete,
-  reflectionTitle
+  reflectionTitle,
+  onPrimaryMoodPress,
+  onSecondaryMoodPress,
+  onTertiaryMoodPress,
+  onReflectionComplete,
 }: MoodItemRendererProps) {
   let screenComponent = null;
 
@@ -69,12 +61,7 @@ export default function MoodItemRenderer({
         randomTitlePrompt={randomTitlePrompt}
         primaryMoods={primaryMoods}
         selectedMoods={selectedMoods}
-        setCoreMood={setCoreMood}
-        setPrimaryMood={setPrimaryMood}
-        toggleMood={toggleMood}
-        setSelectedSecondaryMood={setSelectedSecondaryMood}
-        scrollToNextScreen={scrollToNextScreen}
-        setMixedCoreMood={setMixedCoreMood}
+        onPress={onPrimaryMoodPress}
       />
     );
   } else if (item === "secondary") {
@@ -90,10 +77,7 @@ export default function MoodItemRenderer({
         secondaryMoods={secondaryMoods}
         secondaryMixedMoods={secondaryMixedMoods}
         selectedMoods={selectedMoods}
-        toggleMood={toggleMood}
-        setSelectedSecondaryMood={setSelectedSecondaryMood}
-        scrollToNextScreen={scrollToNextScreen}
-        setMixedCoreMood={setMixedCoreMood}
+        onPress={onSecondaryMoodPress}
       />
     );
   } else if (item === "tertiary") {
@@ -104,12 +88,11 @@ export default function MoodItemRenderer({
         coreMood={coreMood}
         selectedSecondaryMood={selectedSecondaryMood}
         selectedMoods={selectedMoods}
-        toggleMood={toggleMood}
         onSelectionComplete={onSelectionComplete}
         disabled={disabled}
         mixedCoreMood={mixedCoreMood}
-        scrollToEndOfScreen={scrollToEndOfScreen}
         tertiaryMoods={tertiaryMoods}
+        onPress={onTertiaryMoodPress}
       />
     );
   } else if (item === "reflection") {
@@ -119,7 +102,7 @@ export default function MoodItemRenderer({
     screenComponent = (
       <ReflectionScreen
         messages={reflectionMessage}
-        onComplete={onComplete}
+        onPress={onReflectionComplete}
         loadingReflection={loadingReflection}
         height={height}
         title={reflectionTitle}

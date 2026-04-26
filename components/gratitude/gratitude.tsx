@@ -4,8 +4,7 @@ import {
 } from "@/data/moodList";
 import { ScreenProps } from "../screen.interface";
 import GratitudeFlowRenderer from "./gratitude-renderer";
-import { useState } from "react";
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 
 export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   const placeholder = "";

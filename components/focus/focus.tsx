@@ -4,8 +4,7 @@ import {
 } from "@/data/moodList";
 import { ScreenProps } from "../screen.interface";
 import FocusFlowRenderer from "./focus-renderer";
-import { useState } from "react";
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 
 export default function FocusScreen({ onComplete, height }: ScreenProps) {
   const placeholder =

@@ -1,4 +1,4 @@
-import { FlatList, useWindowDimensions } from "react-native";
+import { FlatList } from "react-native";
 import { ScreenProps } from "../screen.interface";
 import MoodFlowRenderer from "./mood-renderer";
 import React, { useCallback, useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import {
   getMoodIntroMessage,
   getRandomMoodTitlePrompt,
   getRandomReflectionIntroMessage,
+  PrimaryMood,
   primaryMoods,
   secondaryMixedMoods,
   secondaryMoods,
@@ -39,10 +40,35 @@ export default function MoodScreen({
     null,
   );
   const [scrollToEndOnceDone, setScrollToEndOnceDone] = useState(false);
+  const [selectedTertiaryMood, setSelectedTertiaryMood] = useState<
+    string | null
+  >(null);
 
-  const [emotions, setSelectedEmotions] = useState<{ [key: string]: string[] }>(
-    {},
-  );
+  const scrollToEndOfScreen = () => {
+    // only scroll once
+    if (!scrollToEndOnceDone) {
+      moodRef.current?.scrollToEnd();
+      // setScrollToEndOnceDone(true);
+    }
+  };
+
+  useEffect(() => {
+    if (coreMood) {
+      scrollToNextScreen(1);
+    }
+  }, [coreMood]);
+
+  useEffect(() => {
+    if (selectedSecondaryMood) {
+      scrollToNextScreen(2);
+    }
+  }, [selectedSecondaryMood]);
+
+  useEffect(() => {
+    if (selectedTertiaryMood) {
+      scrollToEndOfScreen();
+    }
+  }, [selectedTertiaryMood]);
 
   useEffect(() => {
     if (mixedCoreMood) {
@@ -50,31 +76,14 @@ export default function MoodScreen({
     } else {
       coreMood && setCoreEmotion?.(coreMood);
     }
-  }, [coreMood, mixedCoreMood]);
+  }, [coreMood, mixedCoreMood, setCoreEmotion]);
 
-  const toggleMood = (mood: string, coreMood: string) => {
+  const toggleMood = (mood: string) => {
     if (selectedMoods.includes(mood)) {
       setSelectedMoods(selectedMoods.filter((m) => m !== mood));
     } else {
       setSelectedMoods([...selectedMoods, mood]);
     }
-
-    setSelectedEmotions((prevEmotions) => {
-      if (!coreMood || coreMood === "Mixed") return prevEmotions;
-      const updatedEmotions = { ...prevEmotions };
-      if (updatedEmotions[coreMood]) {
-        if (updatedEmotions[coreMood].includes(mood)) {
-          updatedEmotions[coreMood] = updatedEmotions[coreMood].filter(
-            (m) => m !== mood,
-          );
-        } else {
-          updatedEmotions[coreMood].push(mood);
-        }
-      } else {
-        updatedEmotions[coreMood] = [mood];
-      }
-      return updatedEmotions;
-    });
   };
 
   const scrollToNextScreen = (nextIndex: number) => {
@@ -88,7 +97,7 @@ export default function MoodScreen({
   const onSelectionComplete = () => {
     setLoadingReflection(true);
     setDisabled(true);
-    scrollToNextScreen(3);
+    scrollToEndOfScreen();
 
     getSmartResponse({
       userMessage: selectedMoods,
@@ -103,15 +112,35 @@ export default function MoodScreen({
           "Great job! Let's move on to expressing gratitude.",
         ]);
       }
+      scrollToNextScreen(3);
     });
   };
 
-  const scrollToEndOfScreen = () => {
-    // only scroll once
-    if (!scrollToEndOnceDone) {
-      moodRef.current?.scrollToEnd();
-      setScrollToEndOnceDone(true);
-    }
+  const onDonePress = () => {
+    onSelectionComplete();
+  };
+
+  const onPrimaryMoodPress = (mood: PrimaryMood) => {
+    setCoreMood(mood.core);
+    setPrimaryMood(mood.label);
+    toggleMood(mood.label);
+    setSelectedSecondaryMood(null);
+    setMixedCoreMood(null);
+  };
+
+  const onSecondaryMoodPress = (mood: string, mixedMood: string | null) => {
+    setSelectedSecondaryMood(mood);
+    toggleMood(mood);
+    setMixedCoreMood(mixedMood);
+  };
+
+  const onTertiaryMoodPress = (mood: string) => {
+    setSelectedTertiaryMood(mood);
+    toggleMood(mood);
+  };
+
+  const onReflectionComplete = () => {
+    onComplete();
   };
 
   const reflectionTitle = getRandomReflectionIntroMessage();
@@ -127,27 +156,23 @@ export default function MoodScreen({
           randomTitlePrompt={randomTitlePrompt}
           secondaryMoodIntroMessage={secondaryMoodIntroMessage()}
           selectedMoods={selectedMoods}
-          toggleMood={toggleMood}
-          setPrimaryMood={setPrimaryMood}
-          setCoreMood={setCoreMood}
-          setMixedCoreMood={setMixedCoreMood}
-          setSelectedSecondaryMood={setSelectedSecondaryMood}
-          scrollToNextScreen={scrollToNextScreen}
           primaryMood={primaryMood}
           coreMood={coreMood}
           secondaryMoods={secondaryMoods}
           secondaryMixedMoods={secondaryMixedMoods}
           selectedSecondaryMood={selectedSecondaryMood}
-          onSelectionComplete={onSelectionComplete}
-          scrollToEndOfScreen={scrollToEndOfScreen}
+          onSelectionComplete={onDonePress}
           disabled={disabled || !coreMood || !selectedSecondaryMood}
           tertiaryMoods={tertiaryMoods}
           mixedCoreMood={mixedCoreMood}
           loadingReflection={loadingReflection}
           height={height}
           reflectionMessage={reflectionMessage || []}
-          onComplete={onComplete}
           reflectionTitle={reflectionTitle}
+          onPrimaryMoodPress={onPrimaryMoodPress}
+          onSecondaryMoodPress={onSecondaryMoodPress}
+          onTertiaryMoodPress={onTertiaryMoodPress}
+          onReflectionComplete={onReflectionComplete}
         />
       )}
       height={height}

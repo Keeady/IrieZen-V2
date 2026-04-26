@@ -12,9 +12,6 @@ export default function MoodChip({
   icon?: () => React.ReactNode;
 }) {
   const { colors } = useTheme();
-  const ACCENT = "124, 111, 142"; // your brand color as r,g,b
-
-  const withOpacity = (opacity: number) => `rgba(${ACCENT}, ${opacity})`;
 
   return (
     <Chip
@@ -24,17 +21,15 @@ export default function MoodChip({
       mode={selected ? "flat" : "outlined"}
       style={{
         minWidth: 150,
-        borderRadius: 2, // sharp corners, matches button
+        borderRadius: 2,
         borderWidth: 1.5,
-        borderColor: selected ? colors.primary : colors.outline, // subtle when unselected
-        backgroundColor: selected
-          ? colors.secondary // very faint primary fill — not a solid blob
-          : colors.background,
+        borderColor: selected ? colors.primary : colors.outline,
+        backgroundColor: selected ? colors.secondary : colors.background,
         height: icon ? 60 : undefined,
       }}
-      showSelectedOverlay={false} // disable — we're handling selected state manually
+      showSelectedOverlay={false}
       textStyle={{
-        fontFamily: "Lora_400Regular", // matches reflection + button
+        fontFamily: "Lora_400Regular",
         fontSize: 15,
         letterSpacing: 0.8,
         fontWeight: "400",

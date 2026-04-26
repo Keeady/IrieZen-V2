@@ -10,10 +10,7 @@ export type SecondaryMoodScreenProps = {
   secondaryMoods: Record<string, string[]>;
   secondaryMixedMoods: Record<string, string[]>;
   selectedMoods: string[];
-  toggleMood: (mood: string, coreMood: string) => void;
-  setSelectedSecondaryMood: (mood: string | null) => void;
-  scrollToNextScreen: (index: number) => void;
-  setMixedCoreMood: (core: string | null) => void;
+  onPress: (mood: string, mixedMood: string | null) => void;
 };
 
 export default function SecondaryMoodScreen({
@@ -23,10 +20,7 @@ export default function SecondaryMoodScreen({
   secondaryMoods,
   secondaryMixedMoods,
   selectedMoods,
-  toggleMood,
-  setSelectedSecondaryMood,
-  scrollToNextScreen,
-  setMixedCoreMood,
+  onPress,
 }: SecondaryMoodScreenProps) {
   return (
     <View style={styles.container}>
@@ -42,18 +36,7 @@ export default function SecondaryMoodScreen({
                 key={mood}
                 mood={mood}
                 selected={selectedMoods.includes(mood)}
-                onPress={() => {
-                  setSelectedSecondaryMood(mood);
-                  toggleMood(mood, coreMood!);
-                  scrollToNextScreen(2);
-                  setMixedCoreMood(null);
-                }}
-                /*style={styles.chip}
-                textStyle={{
-                  fontWeight: "400",
-                  textAlign: "left",
-                }}
-                showSelectedOverlay*/
+                onPress={() => onPress(mood, null)}
               />
             );
           })}
@@ -71,18 +54,7 @@ export default function SecondaryMoodScreen({
                         key={`${mixedMood}-${mood}`}
                         mood={mood}
                         selected={selectedMoods.includes(mood)}
-                        onPress={() => {
-                          setSelectedSecondaryMood(mood);
-                          toggleMood(mood, mixedMood);
-                          scrollToNextScreen(2);
-                          setMixedCoreMood(mixedMood);
-                        }}
-                        /* style={styles.chip}
-                        textStyle={{
-                          fontWeight: "400",
-                          textAlign: "left",
-                        }}
-                        showSelectedOverlay*/
+                        onPress={() => onPress(mood, mixedMood)}
                       />
                     );
                   })}

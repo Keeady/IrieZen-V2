@@ -6,7 +6,7 @@ import FadeInMessages from "./animate";
 
 export type ReflectionScreenProps = {
   messages: string[];
-  onComplete: () => void;
+  onPress: () => void;
   loadingReflection: boolean | undefined;
   height: number;
   title: string;
@@ -14,7 +14,7 @@ export type ReflectionScreenProps = {
 
 export default function ReflectionScreen({
   messages,
-  onComplete,
+  onPress,
   loadingReflection,
   height,
   title,
@@ -51,22 +51,19 @@ export default function ReflectionScreen({
           <FadeInMessages messages={messages} />
           <Button
             mode="contained"
-            onPress={() => {
-              // Complete the mood screen
-              onComplete();
-            }}
+            onPress={onPress}
             style={{
               marginHorizontal: 24,
               marginTop: 32,
               marginBottom: 50,
-              borderRadius: 2, // sharp corners vs default pill shape
+              borderRadius: 2,
               borderWidth: 1.5,
               borderColor: colors.primary,
             }}
             labelStyle={{
-              fontFamily: "Lora_400Regular", // matches reflection typography
+              fontFamily: "Lora_400Regular",
               fontSize: 15,
-              letterSpacing: 1.8, // spaced caps feel intentional and calm
+              letterSpacing: 1.8,
               textTransform: "uppercase",
             }}
           >

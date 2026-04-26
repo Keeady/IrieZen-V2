@@ -7,24 +7,22 @@ export type TertiaryMoodScreenProps = {
   coreMood: string;
   selectedSecondaryMood: string | null;
   selectedMoods: string[];
-  toggleMood: (mood: string, coreMood: string) => void;
-  onSelectionComplete: (selection: string) => void;
+  onSelectionComplete: () => void;
   disabled: boolean;
   mixedCoreMood: string | null;
-  scrollToEndOfScreen: () => void;
   tertiaryMoods: Record<string, string[]>;
+  onPress: (mood: string, mixedMood: string | null) => void;
 };
 
 export default function TertiaryMoodScreen({
   coreMood,
   selectedSecondaryMood,
   selectedMoods,
-  toggleMood,
   onSelectionComplete,
   disabled,
   mixedCoreMood,
-  scrollToEndOfScreen,
   tertiaryMoods,
+  onPress,
 }: TertiaryMoodScreenProps) {
   const { colors } = useTheme();
   return (
@@ -32,7 +30,7 @@ export default function TertiaryMoodScreen({
       {(tertiaryMoods[coreMood] ||
         (mixedCoreMood && tertiaryMoods[mixedCoreMood])) && (
         <Text variant="titleSmall" style={styles.tertiaryTitle}>
-          Let's dive deeper. Do any of these resonate?
+          Let&apos;s dive deeper. Do any of these resonate?
         </Text>
       )}
 
@@ -45,16 +43,7 @@ export default function TertiaryMoodScreen({
                 key={mood}
                 mood={mood}
                 selected={selectedMoods.includes(mood)}
-                onPress={() => {
-                  toggleMood(mood, coreMood);
-                  scrollToEndOfScreen();
-                }}
-                // style={styles.chip}
-                // showSelectedOverlay
-                /*textStyle={{
-                  fontWeight: "400",
-                  textAlign: "right",
-                }}*/
+                onPress={() => onPress(mood, null)}
               />
             ))}
         </View>
@@ -69,10 +58,7 @@ export default function TertiaryMoodScreen({
                 key={mood}
                 mood={mood}
                 selected={selectedMoods.includes(mood)}
-                onPress={() => {
-                  toggleMood(mood, mixedCoreMood);
-                  scrollToEndOfScreen();
-                }}
+                onPress={() => onPress(mood, mixedCoreMood)}
               />
             ))}
         </View>
@@ -80,23 +66,20 @@ export default function TertiaryMoodScreen({
       {coreMood && selectedSecondaryMood && (
         <Button
           mode="contained"
-          onPress={() => {
-            onSelectionComplete(selectedMoods.join(", "));
-            scrollToEndOfScreen();
-          }}
+          onPress={onSelectionComplete}
           disabled={disabled}
           style={{
             marginHorizontal: 24,
             marginTop: 32,
             marginBottom: 50,
-            borderRadius: 2, // sharp corners vs default pill shape
+            borderRadius: 2,
             borderWidth: 1.5,
             borderColor: colors.primary,
           }}
           labelStyle={{
-            fontFamily: "Lora_400Regular", // matches reflection typography
+            fontFamily: "Lora_400Regular",
             fontSize: 15,
-            letterSpacing: 1.8, // spaced caps feel intentional and calm
+            letterSpacing: 1.8,
             textTransform: "uppercase",
           }}
         >

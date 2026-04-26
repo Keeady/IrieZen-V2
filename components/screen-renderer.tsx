@@ -1,5 +1,5 @@
 import { Screen } from "@/data/screens";
-import { JSX, useState } from "react";
+import { JSX } from "react";
 import { Animated, FlatList, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
