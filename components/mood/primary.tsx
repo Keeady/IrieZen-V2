@@ -24,13 +24,15 @@ export default function PrimaryMoodScreen({
       </Text>
       <View style={styles.chipContainer}>
         {primaryMoods.map((mood) => (
-          <MoodChip
-            key={mood.label}
-            mood={mood.label}
-            selected={selectedMoods.includes(mood.label)}
-            onPress={() => onPress(mood)}
-            icon={() => <Icon source={mood.icon} size={48} />}
-          />
+          <View key={mood.label} style={styles.gridItem}>
+            <MoodChip
+              key={mood.label}
+              mood={mood.label}
+              selected={selectedMoods.includes(mood.label)}
+              onPress={() => onPress(mood)}
+              icon={() => <Icon source={mood.icon} size={48} />}
+            />
+          </View>
         ))}
       </View>
     </View>

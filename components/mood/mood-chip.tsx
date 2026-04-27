@@ -20,7 +20,6 @@ export default function MoodChip({
       onPress={onPress}
       mode={selected ? "flat" : "outlined"}
       style={{
-        minWidth: 150,
         borderRadius: 2,
         borderWidth: 1.5,
         borderColor: selected ? colors.primary : colors.outline,
@@ -33,8 +32,9 @@ export default function MoodChip({
         fontSize: 15,
         letterSpacing: 0.8,
         fontWeight: "400",
-        textAlign: "right",
+        textAlign: "center",
         color: selected ? colors.primary : colors.onSurface,
+        paddingVertical: 5
       }}
       icon={icon}
     >

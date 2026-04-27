@@ -3,26 +3,23 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignContent: "center",
     justifyContent: "center",
     paddingVertical: 100,
   },
   chipContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
-    gap: 20,
+    alignContent: "center",
+    justifyContent: "center",
+    gap: 10,
   },
-  primaryChip: {
-    minWidth: 150,
-    height: 60,
-  },
-  chip: {
-    minWidth: 150,
+  gridItem: {
+    width: "47%",                      // two columns with gap
   },
   title: {
-    marginBottom: 20,
+    marginVertical: 40,
     textAlign: "center",
-
     fontFamily: "Lora_600SemiBold",
     fontSize: 28,
     lineHeight: 36,
@@ -30,7 +27,7 @@ const styles = StyleSheet.create({
     color: "#2C4A5E", // deep sky blue — darker than primary, feels grounded
   },
   secondaryTitle: {
-    marginBottom: 20,
+    marginBottom: 40,
     textAlign: "center",
     fontFamily: "Lora_400Regular",
     fontSize: 20,
@@ -39,7 +36,7 @@ const styles = StyleSheet.create({
     color: "#4A7FA5", // primary blue — one step lighter than headline
   },
   tertiaryTitle: {
-    marginBottom: 20,
+    marginBottom: 40,
     textAlign: "center",
     fontStyle: "italic",
     fontFamily: "Lora_400Regular",

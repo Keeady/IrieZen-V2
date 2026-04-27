@@ -32,12 +32,14 @@ export default function SecondaryMoodScreen({
           secondaryMoods[coreMood] &&
           secondaryMoods[coreMood].map((mood) => {
             return (
-              <MoodChip
-                key={mood}
-                mood={mood}
-                selected={selectedMoods.includes(mood)}
-                onPress={() => onPress(mood, null)}
-              />
+              <View key={mood} style={styles.gridItem}>
+                <MoodChip
+                  key={mood}
+                  mood={mood}
+                  selected={selectedMoods.includes(mood)}
+                  onPress={() => onPress(mood, null)}
+                />
+              </View>
             );
           })}
 
@@ -50,12 +52,17 @@ export default function SecondaryMoodScreen({
                   secondaryMoods[mixedMood] &&
                   secondaryMoods[mixedMood].map((mood) => {
                     return (
-                      <MoodChip
+                      <View
                         key={`${mixedMood}-${mood}`}
-                        mood={mood}
-                        selected={selectedMoods.includes(mood)}
-                        onPress={() => onPress(mood, mixedMood)}
-                      />
+                        style={styles.gridItem}
+                      >
+                        <MoodChip
+                          key={`${mixedMood}-${mood}`}
+                          mood={mood}
+                          selected={selectedMoods.includes(mood)}
+                          onPress={() => onPress(mood, mixedMood)}
+                        />
+                      </View>
                     );
                   })}
               </View>

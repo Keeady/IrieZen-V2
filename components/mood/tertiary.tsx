@@ -39,12 +39,14 @@ export default function TertiaryMoodScreen({
           {coreMood &&
             tertiaryMoods[coreMood] &&
             tertiaryMoods[coreMood].map((mood) => (
-              <MoodChip
-                key={mood}
-                mood={mood}
-                selected={selectedMoods.includes(mood)}
-                onPress={() => onPress(mood, null)}
-              />
+              <View key={mood} style={styles.gridItem}>
+                <MoodChip
+                  key={mood}
+                  mood={mood}
+                  selected={selectedMoods.includes(mood)}
+                  onPress={() => onPress(mood, null)}
+                />
+              </View>
             ))}
         </View>
       )}
@@ -54,12 +56,14 @@ export default function TertiaryMoodScreen({
           {mixedCoreMood &&
             tertiaryMoods[mixedCoreMood] &&
             tertiaryMoods[mixedCoreMood].map((mood) => (
-              <MoodChip
-                key={mood}
-                mood={mood}
-                selected={selectedMoods.includes(mood)}
-                onPress={() => onPress(mood, mixedCoreMood)}
-              />
+              <View key={mood} style={styles.gridItem}>
+                <MoodChip
+                  key={mood}
+                  mood={mood}
+                  selected={selectedMoods.includes(mood)}
+                  onPress={() => onPress(mood, mixedCoreMood)}
+                />
+              </View>
             ))}
         </View>
       )}
