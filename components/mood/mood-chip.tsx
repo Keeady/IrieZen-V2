@@ -34,9 +34,11 @@ export default function MoodChip({
         fontWeight: "400",
         textAlign: "center",
         color: selected ? colors.primary : colors.onSurface,
-        paddingVertical: 5
+        paddingVertical: 5,
+        flexShrink: 1,
       }}
       icon={icon}
+      ellipsizeMode="tail"
     >
       {mood}
     </Chip>

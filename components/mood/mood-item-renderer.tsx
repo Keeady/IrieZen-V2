@@ -3,6 +3,7 @@ import { PrimaryMood } from "@/data/moodList";
 import SecondaryMoodScreen from "./secondary";
 import TertiaryMoodScreen from "./tertiary";
 import ReflectionScreen from "./reflection";
+import BodySensationScreen from "./body";
 
 export type MoodItemRendererProps = {
   item: string;
@@ -27,6 +28,9 @@ export type MoodItemRendererProps = {
   onSecondaryMoodPress: (mood: string, mixedMood: string | null) => void;
   onTertiaryMoodPress: (mood: string) => void;
   onReflectionComplete: () => void;
+  onBodySensationComplete: (bodyParts: string[]) => void;
+  bodySensationIntroMessage: string;
+  showBodyScreen: boolean;
 };
 
 export default function MoodItemRenderer({
@@ -52,6 +56,9 @@ export default function MoodItemRenderer({
   onSecondaryMoodPress,
   onTertiaryMoodPress,
   onReflectionComplete,
+  onBodySensationComplete,
+  bodySensationIntroMessage,
+  showBodyScreen,
 }: MoodItemRendererProps) {
   let screenComponent = null;
 
@@ -106,6 +113,17 @@ export default function MoodItemRenderer({
         loadingReflection={loadingReflection}
         height={height}
         title={reflectionTitle}
+      />
+    );
+  } else if (item === "body") {
+    if (!selectedMoods || !showBodyScreen) return null;
+
+    screenComponent = (
+      <BodySensationScreen
+        selectedEmotions={selectedMoods}
+        onComplete={onBodySensationComplete}
+        title={bodySensationIntroMessage}
+        disabled={disabled}
       />
     );
   }

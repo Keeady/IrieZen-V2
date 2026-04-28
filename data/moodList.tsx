@@ -710,3 +710,23 @@ export function getRandomWinsLabelPrompt(): string {
   const randomIndex = Math.floor(Math.random() * winsLabelPrompts.length);
   return winsLabelPrompts[randomIndex];
 }
+
+const bodySensationIntroMessages = [
+  "Where are these feelings living in you?",
+  "What is your body holding right now?",
+  "Where do these settle inside you?",
+  "Your body is carrying something. Where?",
+  "Notice where these land in your body.",
+  "Where are you feeling all of this?",
+  "What does your body want you to notice?",
+  "Where are you carrying these right now?",
+  "These feelings live somewhere. Where?",
+  "Tune in. Where does your body speak?",
+];
+
+export function getBodySensationIntroMessage(): string {
+  const randomIndex = Math.floor(
+    Math.random() * bodySensationIntroMessages.length,
+  );
+  return bodySensationIntroMessages[randomIndex];
+}

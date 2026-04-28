@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   gridItem: {
-    width: "47%",                      // two columns with gap
+    width: "47%", // two columns with gap
   },
   title: {
     marginVertical: 40,
@@ -101,6 +101,35 @@ const styles = StyleSheet.create({
     textAlignVertical: "top", // ensures text starts at top
     textAlign: "left",
     flexGrow: 1,
+  },
+  hint: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 13,
+    letterSpacing: 0.8,
+    fontStyle: "italic",
+    opacity: 0.7,
+    textAlign: "center",
+  },
+  toggle: {
+    flexDirection: "row",
+    gap: 12,
+    marginTop: 8,
+  },
+  toggleButton: {
+    borderRadius: 2,
+    borderWidth: 1.5,
+    minWidth: 90,
+    marginBottom: 50,
+  },
+  bodyContainer: {
+    marginVertical: 8,
+  },
+  summary: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 13,
+    letterSpacing: 1.2,
+    textAlign: "center",
+    opacity: 0.8,
   },
 });
 

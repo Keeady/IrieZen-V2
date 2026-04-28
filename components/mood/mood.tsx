@@ -3,6 +3,7 @@ import { ScreenProps } from "../screen.interface";
 import MoodFlowRenderer from "./mood-renderer";
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  getBodySensationIntroMessage,
   getMoodIntroMessage,
   getRandomMoodTitlePrompt,
   getRandomReflectionIntroMessage,
@@ -22,7 +23,7 @@ export default function MoodScreen({
   height,
 }: ScreenProps) {
   const moodRef = React.useRef<FlatList<string> | null>(null);
-  const moodScreens = ["primary", "secondary", "tertiary", "reflection"];
+  const moodScreens = ["primary", "secondary", "tertiary", "reflection", "body"];
   const randomTitlePrompt = getRandomMoodTitlePrompt();
 
   const [primaryMood, setPrimaryMood] = useState<string | null>(null);
@@ -43,12 +44,13 @@ export default function MoodScreen({
   const [selectedTertiaryMood, setSelectedTertiaryMood] = useState<
     string | null
   >(null);
+  const [showBodyScreen, setShowBodyScreen] = useState(false);
 
   const scrollToEndOfScreen = () => {
     // only scroll once
     if (!scrollToEndOnceDone) {
       moodRef.current?.scrollToEnd();
-      // setScrollToEndOnceDone(true);
+      setScrollToEndOnceDone(true);
     }
   };
 
@@ -94,6 +96,10 @@ export default function MoodScreen({
     return getMoodIntroMessage(primaryMood || "");
   }, [primaryMood]);
 
+  const bodySensationIntroMessage = useCallback(() => {
+    return getBodySensationIntroMessage();
+  }, []);
+
   const onSelectionComplete = () => {
     setLoadingReflection(true);
     setDisabled(true);
@@ -113,6 +119,7 @@ export default function MoodScreen({
         ]);
       }
       scrollToNextScreen(3);
+      setShowBodyScreen(true);
     });
   };
 
@@ -140,6 +147,10 @@ export default function MoodScreen({
   };
 
   const onReflectionComplete = () => {
+    scrollToNextScreen(4);
+  };
+
+  const onBodySensationComplete = (_bodyParts: string[]) => {
     onComplete();
   };
 
@@ -173,6 +184,9 @@ export default function MoodScreen({
           onSecondaryMoodPress={onSecondaryMoodPress}
           onTertiaryMoodPress={onTertiaryMoodPress}
           onReflectionComplete={onReflectionComplete}
+          onBodySensationComplete={onBodySensationComplete}
+          bodySensationIntroMessage={bodySensationIntroMessage()}
+          showBodyScreen={showBodyScreen}
         />
       )}
       height={height}
