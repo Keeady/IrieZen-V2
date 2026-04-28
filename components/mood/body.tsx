@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import { Text, Button, useTheme } from "react-native-paper";
-import BodyHighlighter, { BodyPart } from "react-native-body-highlighter";
+import BodyHighlighter, {
+  ExtendedBodyPart,
+} from "react-native-body-highlighter";
 import styles from "../styles";
-
-type BodyPartSlug = {
-  slug: string;
-  intensity: 1 | 2;
-};
 
 type BodySensationScreenProps = {
   selectedEmotions: string[];
@@ -23,10 +20,10 @@ export default function BodySensationScreen({
   disabled,
 }: BodySensationScreenProps) {
   const { colors } = useTheme();
-  const [selectedParts, setSelectedParts] = useState<BodyPartSlug[]>([]);
+  const [selectedParts, setSelectedParts] = useState<ExtendedBodyPart[]>([]);
   const [side, setSide] = useState<"front" | "back">("front");
 
-  const handleBodyPartPress = (part: BodyPart) => {
+  const handleBodyPartPress = (part: ExtendedBodyPart) => {
     setSelectedParts((prev) => {
       const exists = prev.find((p) => p.slug === part.slug);
       if (exists) {
@@ -40,10 +37,7 @@ export default function BodySensationScreen({
 
   return (
     <ScrollView
-      contentContainerStyle={[
-        styles.container,
-        { backgroundColor: colors.background, alignItems: "center" },
-      ]}
+      contentContainerStyle={[styles.container, { alignItems: "center" }]}
     >
       <Text style={[styles.headline, { color: "#2C4A5E" }]}>{title}</Text>
 
@@ -51,7 +45,6 @@ export default function BodySensationScreen({
         {selectedEmotions.join(" · ")}
       </Text>
 
-      {/* Body map */}
       <View style={styles.bodyContainer}>
         <BodyHighlighter
           data={selectedParts}
@@ -65,7 +58,6 @@ export default function BodySensationScreen({
       <Text style={[styles.hint, { color: colors.primary }]}>
         Tap the areas where you notice these sensations:
       </Text>
-      {/* Front / Back toggle */}
       <View style={styles.toggle}>
         {["front", "back"].map((s) => (
           <Button
@@ -73,7 +65,7 @@ export default function BodySensationScreen({
             mode={side === s ? "contained" : "outlined"}
             onPress={() => setSide(s as "front" | "back")}
             style={[
-              styles.toggleButton,         
+              styles.toggleButton,
               {
                 borderColor: colors.primary,
                 backgroundColor: side === s ? colors.primary : "transparent",
@@ -86,13 +78,14 @@ export default function BodySensationScreen({
               textTransform: "uppercase",
               color: side === s ? colors.onPrimary : colors.primary,
             }}
+            disabled={disabled}
           >
             {s}
           </Button>
         ))}
         <Button
           mode="outlined"
-          onPress={() => onComplete(selectedParts.map((p) => p.slug))}
+          onPress={() => onComplete(selectedParts.map((p) => p.slug!))}
           style={[
             styles.toggleButton,
             { borderColor: colors.primary, borderWidth: 1.5, marginTop: 0 },
@@ -104,6 +97,7 @@ export default function BodySensationScreen({
             textTransform: "uppercase",
             color: colors.primary,
           }}
+          disabled={disabled}
         >
           Done
         </Button>

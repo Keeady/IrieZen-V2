@@ -31,6 +31,7 @@ export type MoodItemRendererProps = {
   onBodySensationComplete: (bodyParts: string[]) => void;
   bodySensationIntroMessage: string;
   showBodyScreen: boolean;
+  disabledOnComplete: boolean;
 };
 
 export default function MoodItemRenderer({
@@ -59,6 +60,7 @@ export default function MoodItemRenderer({
   onBodySensationComplete,
   bodySensationIntroMessage,
   showBodyScreen,
+  disabledOnComplete,
 }: MoodItemRendererProps) {
   let screenComponent = null;
 
@@ -113,6 +115,7 @@ export default function MoodItemRenderer({
         loadingReflection={loadingReflection}
         height={height}
         title={reflectionTitle}
+        disabled={disabledOnComplete}
       />
     );
   } else if (item === "body") {
@@ -123,7 +126,7 @@ export default function MoodItemRenderer({
         selectedEmotions={selectedMoods}
         onComplete={onBodySensationComplete}
         title={bodySensationIntroMessage}
-        disabled={disabled}
+        disabled={disabledOnComplete}
       />
     );
   }

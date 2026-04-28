@@ -10,6 +10,7 @@ export type ReflectionScreenProps = {
   loadingReflection: boolean | undefined;
   height: number;
   title: string;
+  disabled: boolean;
 };
 
 export default function ReflectionScreen({
@@ -18,6 +19,7 @@ export default function ReflectionScreen({
   loadingReflection,
   height,
   title,
+  disabled,
 }: ReflectionScreenProps) {
   const { colors } = useTheme();
   return (
@@ -66,6 +68,7 @@ export default function ReflectionScreen({
               letterSpacing: 1.8,
               textTransform: "uppercase",
             }}
+            disabled={disabled}
           >
             Continue
           </Button>

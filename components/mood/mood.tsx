@@ -37,6 +37,7 @@ export default function MoodScreen({
     boolean | undefined
   >(undefined);
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [disabledOnComplete, setDisabledOnComplete] = useState<boolean>(false);
   const [reflectionMessage, setReflectionMessage] = useState<string[] | null>(
     null,
   );
@@ -152,6 +153,7 @@ export default function MoodScreen({
 
   const onBodySensationComplete = (_bodyParts: string[]) => {
     onComplete();
+    setDisabledOnComplete(true);
   };
 
   const reflectionTitle = getRandomReflectionIntroMessage();
@@ -187,6 +189,7 @@ export default function MoodScreen({
           onBodySensationComplete={onBodySensationComplete}
           bodySensationIntroMessage={bodySensationIntroMessage()}
           showBodyScreen={showBodyScreen}
+          disabledOnComplete={disabledOnComplete}
         />
       )}
       height={height}
