@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
-import { Text, Button, useTheme, ActivityIndicator } from "react-native-paper";
+import { Text, Button, useTheme } from "react-native-paper";
 import BodyHighlighter, {
   ExtendedBodyPart,
 } from "react-native-body-highlighter";

@@ -101,6 +101,7 @@ export default function SettingsRenderer({
           onPress={onPress}
           color={colors.primary}
           uncheckedColor={colors.outline}
+          disabled={disabled}
         />
       </View>
     </TouchableRipple>
