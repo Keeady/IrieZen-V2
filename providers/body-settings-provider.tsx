@@ -10,6 +10,11 @@ import React, {
 export const BODY_TYPE_KEY = "bodyType";
 export type BODY_TYPE = "male" | "female";
 
+export const BODY_OPTIONS: { value: BODY_TYPE; label: string }[] = [
+  { value: "female", label: "Female" },
+  { value: "male", label: "Male" },
+];
+
 type ContextProps = {
   body: BODY_TYPE;
   saveBodyType: (value: BODY_TYPE) => void;
@@ -43,7 +48,6 @@ const BodySettingsContextProvider = (props: Props) => {
       setBody(value);
       AsyncStorage.setItem(BODY_TYPE_KEY, value);
     }
-    
   }, []);
 
   useEffect(() => {
@@ -60,7 +64,7 @@ const BodySettingsContextProvider = (props: Props) => {
     >
       {props.children}
     </BodySettingsContext.Provider>
-  )
+  );
 };
 
 export function useBodySettingsContext() {

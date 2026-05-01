@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     opacity: 0.8,
   },
-    section: {
+  section: {
     gap: 12,
   },
   sectionTitle: {
@@ -164,6 +164,38 @@ const styles = StyleSheet.create({
     fontFamily: "Lora_400Regular",
     fontSize: 15,
     letterSpacing: 0.4,
+  },
+  divider: {
+    height: 1,
+    marginVertical: -8,
+  },
+  optionText: {
+    flex: 1,
+    paddingRight: 12,
+    gap: 4,
+  },
+  optionDescription: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 12,
+    lineHeight: 18,
+    opacity: 0.55,
+  },
+  badge: {
+    borderRadius: 2,
+    borderWidth: 1,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  badgeText: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 10,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+  },
+  optionLabelRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
 });
 
