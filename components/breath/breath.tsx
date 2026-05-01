@@ -38,8 +38,8 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
         animationRef.current?.pause();
       }
 
-      // scale circle up on "breathe in", down on "breathe out", normal on "hold"
-      let toValue;
+      // scale circle up on "breathe in", down on "breathe out", keep scale on "hold"
+      let toValue: number;
       if (stepIndex === 0) {
         toValue = 1.5; // breathe in → scale up
       } else if (stepIndex === 1) {
