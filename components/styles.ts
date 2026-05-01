@@ -131,6 +131,40 @@ const styles = StyleSheet.create({
     textAlign: "center",
     opacity: 0.8,
   },
+    section: {
+    gap: 12,
+  },
+  sectionTitle: {
+    fontFamily: "Lora_600SemiBold",
+    fontSize: 13,
+    letterSpacing: 1.4,
+    textTransform: "uppercase",
+    opacity: 0.8,
+    marginBottom: 4,
+  },
+  sectionHint: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 14,
+    lineHeight: 22,
+    opacity: 0.6,
+    marginBottom: 4,
+  },
+  option: {
+    borderRadius: 2,
+    borderWidth: 1.5,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  optionInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  optionLabel: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 15,
+    letterSpacing: 0.4,
+  },
 });
 
 export default styles;

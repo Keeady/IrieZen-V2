@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
-import { Text, Button, useTheme } from "react-native-paper";
+import { Text, Button, useTheme, ActivityIndicator } from "react-native-paper";
 import BodyHighlighter, {
   ExtendedBodyPart,
 } from "react-native-body-highlighter";
 import styles from "../styles";
+import { useBodySettingsContext } from "@/providers/body-settings-provider";
 
 type BodySensationScreenProps = {
   selectedEmotions: string[];
@@ -22,6 +23,7 @@ export default function BodySensationScreen({
   const { colors } = useTheme();
   const [selectedParts, setSelectedParts] = useState<ExtendedBodyPart[]>([]);
   const [side, setSide] = useState<"front" | "back">("front");
+  const { body } = useBodySettingsContext();
 
   const handleBodyPartPress = (part: ExtendedBodyPart) => {
     setSelectedParts((prev) => {
@@ -52,7 +54,7 @@ export default function BodySensationScreen({
           onBodyPartPress={handleBodyPartPress}
           colors={["#D6E8F4", "#4A7FA5"]} // light → primary blue
           scale={1.6}
-          gender={"female"}
+          gender={body}
         />
       </View>
       <Text style={[styles.hint, { color: colors.primary }]}>
