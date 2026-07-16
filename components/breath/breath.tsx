@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, useWindowDimensions } from "react-native";
 import { ScreenProps } from "../screen.interface";
 import BreathFlowRenderer from "./breath-renderer";
+import { useHandleSubmit } from "./handle-submit";
+import { useFlowContext } from "@/providers/flow-provider";
 
 const steps = ["Breathe In", "Hold", "Breathe Out", "Hold"];
 const duration = 4000; // 4s per step
@@ -21,6 +23,8 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
   const [cycleCount, setCycleCount] = useState(0);
   const opacity = useRef(new Animated.Value(0)).current;
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // const { submit } = useHandleSubmit();
+  // const { addBreath } = useFlowContext();
 
   useMemo(() => {
     const message = getRandomBreathingIntroMessage();
@@ -104,6 +108,19 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
     setCycleCount(0);
     setStepIndex(0);
     setRunning(true);
+    // addBreath?.();
+  };
+
+  const handleComplete = () => {
+    // setRunning(false);
+    // setCompleted(true);
+    // animationRef.current?.reset();
+    console.log("Submitting breath data...", running, completed);
+    setDisabled(true);
+    onComplete();
+   /* submit().then(() => {
+      onComplete();
+    });*/
   };
 
   return (
@@ -113,10 +130,7 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
       height={height}
       scale={scale}
       animationRef={animationRef}
-      onComplete={() => {
-        setDisabled(true);
-        onComplete();
-      }}
+      onComplete={handleComplete}
       disabled={disabled}
       running={running}
       completed={completed}

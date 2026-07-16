@@ -7,6 +7,7 @@ import SummaryScreen from "./summary/summary";
 import GratitudeScreen from "./gratitude/gratitude";
 import FocusScreen from "./focus/focus";
 import WinsScreen from "./wins/wins";
+import { FlowContextProps } from "@/providers/flow-provider";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -16,6 +17,7 @@ export type ScreenRendererProps = {
   coreEmotion?: string;
   width: number;
   height: number;
+  context: Partial<FlowContextProps>
 };
 
 export const ScreenItemRenderer = ({
@@ -26,6 +28,7 @@ export const ScreenItemRenderer = ({
   coreEmotion,
   width,
   height,
+  context
 }: ScreenRendererProps) => {
   let screenComponent;
   if (item.id === "mood") {
@@ -35,6 +38,7 @@ export const ScreenItemRenderer = ({
         setCoreEmotion={setCoreEmotion}
         width={width}
         height={height}
+        context={context}
       />
     );
   } else if (item.id === "gratitude") {
@@ -43,6 +47,7 @@ export const ScreenItemRenderer = ({
         onComplete={() => onScreenComplete(index)}
         width={width}
         height={height}
+        context={context}
       />
     );
   } else if (item.id === "breath") {
@@ -51,6 +56,7 @@ export const ScreenItemRenderer = ({
         onComplete={() => onScreenComplete(index)}
         width={width}
         height={height}
+        context={context}
       />
     );
   } else if (item.id === "focus") {
@@ -59,6 +65,7 @@ export const ScreenItemRenderer = ({
         onComplete={() => onScreenComplete(index)}
         width={width}
         height={height}
+        context={context}
       />
     );
   } else if (item.id === "wins") {
@@ -67,6 +74,7 @@ export const ScreenItemRenderer = ({
         onComplete={() => onScreenComplete(index)}
         width={width}
         height={height}
+        context={context}
       />
     );
   } else {

@@ -27,7 +27,7 @@ export const STORAGE_OPTIONS: {
     label: "Local only",
     description:
       "Saved on your device for up to 2 weeks. Never leaves your phone.",
-    disabled: true, // Not implemented yet
+   // disabled: true, // Not implemented yet
   },
   {
     value: "cloud",
@@ -51,7 +51,7 @@ interface Props {
 }
 
 const StorageSettingsContextProvider = (props: Props) => {
-  const defaultStorageType: StorageType = "none";
+  const defaultStorageType: StorageType = "local";
   const [storageType, setStorageType] =
     useState<StorageType>(defaultStorageType);
 

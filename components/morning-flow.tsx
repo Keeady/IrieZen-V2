@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Animated, FlatList, useWindowDimensions } from "react-native";
 import FlowRenderer from "./screen-renderer";
 import { ScreenItemRenderer } from "./screen-item-renderer";
+import { useFlowContext } from "@/providers/flow-provider";
 
 export default function MorningFlow() {
   const { width, height } = useWindowDimensions();
@@ -11,6 +12,7 @@ export default function MorningFlow() {
   const [coreEmotion, setCoreEmotion] = useState<string | undefined>();
   const [fadeAnim] = useState(new Animated.Value(0));
   const [message, setMessage] = useState<string | null>(null);
+  const flowContext = useFlowContext();
 
   const showMessage = (text: string, nextIndex: number) => {
     setMessage(text);
@@ -57,6 +59,7 @@ export default function MorningFlow() {
           coreEmotion={coreEmotion}
           width={width}
           height={height}
+          context={flowContext}
         />
       )}
       message={message}

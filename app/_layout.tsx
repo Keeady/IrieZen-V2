@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { BodySettingsContextProvider } from "@/providers/body-settings-provider";
 import { StorageSettingsContextProvider } from "@/providers/storage-settings-provider";
+import { FlowContextProvider } from "@/providers/flow-provider";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -39,6 +40,7 @@ export default function RootLayout() {
     <StorageSettingsContextProvider>
       <BodySettingsContextProvider>
         <PaperProvider theme={theme}>
+          <FlowContextProvider>
           <Tabs
             screenOptions={{
               headerShown: false,
@@ -81,6 +83,7 @@ export default function RootLayout() {
               }}
             />
           </Tabs>
+          </FlowContextProvider>
         </PaperProvider>
       </BodySettingsContextProvider>
     </StorageSettingsContextProvider>

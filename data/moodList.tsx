@@ -4,6 +4,9 @@ export type PrimaryMood = {
   core: string;
   valence: "positive" | "neutral" | "negative";
   energy: "low" | "medium" | "high" | "varied";
+  bg: string;
+  border: string;
+  text: string;
 };
 
 export const neutral = ["tired", "sad", "unsure", "mixed"];
@@ -17,6 +20,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Peaceful",
     valence: "positive",
     energy: "low",
+    bg: "#08f2b4",       // rich mint
+    border: "#1A9E74",   // vivid emerald
+    text: "#0D4F3A"
   },
   {
     label: "Restless",
@@ -24,6 +30,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Scared",
     valence: "neutral",
     energy: "high",
+    bg: "#8107f4",       // rich lavender
+    border: "#7B2DE8",   // vivid violet
+    text: "#2D0A5C" 
   },
   {
     label: "Sad",
@@ -31,6 +40,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Sad",
     valence: "neutral",
     energy: "low",
+    bg: "#064bf8",       // rich periwinkle
+    border: "#2D4FE8",   // vivid cobalt
+    text: "#0D1A5C" 
   },
   {
     label: "Happy",
@@ -38,6 +50,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Joyful",
     valence: "positive",
     energy: "low",
+    bg: "#f64d05",       // rich peach
+    border: "#E84D1C",   // vivid coral-red
+    text: "#5C1A00" 
   },
   {
     label: "Motivated",
@@ -45,6 +60,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Powerful",
     valence: "positive",
     energy: "high",
+    bg: "#f8b304",       // rich amber
+    border: "#E08C00",   // vivid gold
+    text: "#3D2800" 
   },
   {
     label: "Stressed",
@@ -52,6 +70,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Scared",
     valence: "negative",
     energy: "high",
+    bg: "#f70909",       // rich rose
+    border: "#E81C1C",   // vivid red
+    text: "#5C0000" 
   },
   {
     label: "Alone",
@@ -59,6 +80,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Sad",
     valence: "neutral",
     energy: "low",
+    bg: "#840af6",       // rich lavender
+    border: "#7B2DE8",   // vivid violet
+    text: "#2D0A5C" 
   },
   {
     label: "Meh",
@@ -66,6 +90,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Unsure",
     valence: "neutral",
     energy: "low",
+    bg: "#df0c0c",       // rich grey
+    border: "#606060",   // vivid charcoal
+    text: "#1A1A1A" 
   },
   {
     label: "Hopeful",
@@ -73,6 +100,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Joyful",
     valence: "positive",
     energy: "medium",
+    bg: "#ff7300",       // rich peach
+    border: "#E84D1C",   // vivid coral-red
+    text: "#5C1A00" 
   },
   {
     label: "Frustrated",
@@ -80,6 +110,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Mad",
     valence: "negative",
     energy: "high",
+    bg: "#f80c0c",       // rich rose
+    border: "#E81C1C",   // vivid red
+    text: "#5C0000" 
   },
   {
     label: "A Lot",
@@ -87,6 +120,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Mixed",
     valence: "neutral",
     energy: "varied",
+    bg: "#f90c0c",       // rich rose
+    border: "#E81C1C",   // vivid red
+    text: "#5C0000" 
   },
   {
     label: "Tired",
@@ -94,6 +130,9 @@ export const primaryMoods: PrimaryMood[] = [
     core: "Tired",
     valence: "neutral",
     energy: "low",
+    bg: "#0a78e6",       // rich slate
+    border: "#2D6A9E",   // vivid steel blue
+    text: "#0D2A3D" 
   },
 ];
 

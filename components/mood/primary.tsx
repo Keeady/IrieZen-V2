@@ -30,7 +30,7 @@ export default function PrimaryMoodScreen({
               mood={mood.label}
               selected={selectedMoods.includes(mood.label)}
               onPress={() => onPress(mood)}
-              icon={() => <Icon source={mood.icon} size={48} />}
+              icon={mood.icon}
             />
           </View>
         ))}

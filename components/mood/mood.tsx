@@ -15,15 +15,24 @@ import {
 } from "@/data/moodList";
 import MoodItemRenderer from "./mood-item-renderer";
 import { getSmartResponse } from "../smart-response";
+import { useFlowContext } from "@/providers/flow-provider";
+import { useHandleSubmit } from "./handle-submit";
 
 export default function MoodScreen({
   onComplete,
   setCoreEmotion,
   width,
   height,
+  context
 }: ScreenProps) {
   const moodRef = React.useRef<FlatList<string> | null>(null);
-  const moodScreens = ["primary", "secondary", "tertiary", "reflection", "body"];
+  const moodScreens = [
+    "primary",
+    "secondary",
+    "tertiary",
+    "reflection",
+    "body",
+  ];
   const randomTitlePrompt = getRandomMoodTitlePrompt();
 
   const [primaryMood, setPrimaryMood] = useState<string | null>(null);
@@ -46,6 +55,19 @@ export default function MoodScreen({
     string | null
   >(null);
   const [showBodyScreen, setShowBodyScreen] = useState(false);
+  const [selectedBodyParts, setSelectedBodyParts] = useState<string[]>([]);
+
+  const {
+    addPrimaryMood,
+    removePrimaryMood,
+    addSecondaryMood,
+    removeSecondaryMood,
+    addTertiaryMood,
+    removeTertiaryMood,
+    addBody,
+    getBody,
+    getMoods
+  } = context;
 
   const scrollToEndOfScreen = () => {
     // only scroll once
@@ -128,32 +150,68 @@ export default function MoodScreen({
     onSelectionComplete();
   };
 
+  const togglePrimaryMood = (core: string, mood: string) => {
+    if (selectedMoods.includes(mood)) {
+      setSelectedMoods(selectedMoods.filter((m) => m !== mood));
+      removePrimaryMood?.(core, mood);
+    } else {
+      setSelectedMoods([...selectedMoods, mood]);
+      addPrimaryMood?.(core, mood);
+    }
+  };
+
   const onPrimaryMoodPress = (mood: PrimaryMood) => {
     setCoreMood(mood.core);
     setPrimaryMood(mood.label);
-    toggleMood(mood.label);
+    togglePrimaryMood(mood.core, mood.label);
     setSelectedSecondaryMood(null);
     setMixedCoreMood(null);
   };
 
+  const toggleSecondaryMood = (core: string, mood: string) => {
+    if (selectedMoods.includes(mood)) {
+      setSelectedMoods(selectedMoods.filter((m) => m !== mood));
+      removeSecondaryMood?.(core, mood);
+    } else {
+      setSelectedMoods([...selectedMoods, mood]);
+      addSecondaryMood?.(core, mood);
+    }
+  };
+
   const onSecondaryMoodPress = (mood: string, mixedMood: string | null) => {
     setSelectedSecondaryMood(mood);
-    toggleMood(mood);
+    toggleSecondaryMood(mixedMood || coreMood || "", mood);
     setMixedCoreMood(mixedMood);
+  };
+
+  const toggleTertiaryMood = (core: string, mood: string) => {
+    if (selectedMoods.includes(mood)) {
+      setSelectedMoods(selectedMoods.filter((m) => m !== mood));
+      removeTertiaryMood?.(core, mood);
+    } else {
+      setSelectedMoods([...selectedMoods, mood]);
+      addTertiaryMood?.(core, mood);
+    }
   };
 
   const onTertiaryMoodPress = (mood: string) => {
     setSelectedTertiaryMood(mood);
-    toggleMood(mood);
+    toggleTertiaryMood(mixedCoreMood || coreMood || "", mood);
   };
 
   const onReflectionComplete = () => {
     scrollToNextScreen(4);
   };
 
-  const onBodySensationComplete = (_bodyParts: string[]) => {
-    onComplete();
+  const onBodySensationComplete = (bodyParts: string[]) => {
+    setSelectedBodyParts(bodyParts);
     setDisabledOnComplete(true);
+    onComplete();
+
+    /* submit?.().then(() => {
+      console.log("getBody on completion:", getBody?.());
+      onComplete();
+    });*/
   };
 
   const reflectionTitle = getRandomReflectionIntroMessage();
