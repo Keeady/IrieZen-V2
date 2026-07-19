@@ -72,6 +72,15 @@ export default function RootLayout() {
               }}
             />
             <Tabs.Screen
+              name="reports"
+              options={{
+                title: "Reports",
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons name="file" size={22} color={color} />
+                ),
+              }}
+            />
+            <Tabs.Screen
               name="settings"
               options={{
                 title: "Settings",

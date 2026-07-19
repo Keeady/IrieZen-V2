@@ -25,15 +25,34 @@ export default function BodySensationScreen({
   const [side, setSide] = useState<"front" | "back">("front");
   const { body } = useBodySettingsContext();
 
-  const handleBodyPartPress = (part: ExtendedBodyPart) => {
+  const handleBodyPartPress = (
+    part: ExtendedBodyPart,
+    side?: "left" | "right",
+  ) => {
     setSelectedParts((prev) => {
       const exists = prev.find((p) => p.slug === part.slug);
       if (exists) {
+        if (side && exists.side === undefined) {
+          // both sides are already selected, deselect the side that was pressed
+          return prev.map((p) =>
+            p.slug === part.slug
+              ? { ...p, side: side === "left" ? "right" : "left" }
+              : p,
+          );
+        } else if (side && exists.side === side) {
+          // deselect the side that was pressed
+          return prev.filter((p) => !(p.slug === part.slug && p.side === side));
+        } else if (side && exists.side !== side) {
+          // select both sides
+          return prev.map((p) =>
+            p.slug === part.slug ? { ...p, side: undefined } : p,
+          );
+        }
         // deselect
         return prev.filter((p) => p.slug !== part.slug);
       }
-      // select at intensity 2 for full primary color
-      return [...prev, { slug: part.slug, intensity: 2 }];
+      // select part with intensity 2 and the side that was pressed
+      return [...prev, { slug: part.slug, intensity: 2, side }];
     });
   };
 
