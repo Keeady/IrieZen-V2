@@ -11,6 +11,7 @@ export default function MorningFlow() {
   const [coreEmotion, setCoreEmotion] = useState<string | undefined>();
   const [fadeAnim] = useState(new Animated.Value(0));
   const [message, setMessage] = useState<string | null>(null);
+  const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
   const showMessage = (text: string, nextIndex: number) => {
     setMessage(text);
@@ -57,6 +58,8 @@ export default function MorningFlow() {
           coreEmotion={coreEmotion}
           width={width}
           height={height}
+          setSelectedEmotions={setSelectedEmotions}
+          selectedEmotions={selectedEmotions}
         />
       )}
       message={message}

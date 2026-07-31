@@ -3,7 +3,6 @@ import { ScreenProps } from "../screen.interface";
 import MoodFlowRenderer from "./mood-renderer";
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  getBodySensationIntroMessage,
   getMoodIntroMessage,
   getRandomMoodTitlePrompt,
   getRandomReflectionIntroMessage,
@@ -15,15 +14,18 @@ import {
 } from "@/data/moodList";
 import MoodItemRenderer from "./mood-item-renderer";
 import { getSmartResponse } from "../smart-response";
+import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
+import { handleSavingMoodsToLocalStorage } from "../handle-submit";
+import { useReportContext } from "@/providers/report-provider";
 
 export default function MoodScreen({
   onComplete,
   setCoreEmotion,
-  width,
+  setSelectedEmotions,
   height,
 }: ScreenProps) {
   const moodRef = React.useRef<FlatList<string> | null>(null);
-  const moodScreens = ["primary", "secondary", "tertiary", "reflection", "body"];
+  const moodScreens = ["primary", "secondary", "tertiary", "reflection"];
   const randomTitlePrompt = getRandomMoodTitlePrompt();
 
   const [primaryMood, setPrimaryMood] = useState<string | null>(null);
@@ -45,7 +47,9 @@ export default function MoodScreen({
   const [selectedTertiaryMood, setSelectedTertiaryMood] = useState<
     string | null
   >(null);
-  const [showBodyScreen, setShowBodyScreen] = useState(false);
+  
+  const { storageType } = useStorageSettingsContext();
+  const { saveInsight } = useReportContext();
 
   const scrollToEndOfScreen = () => {
     // only scroll once
@@ -97,9 +101,9 @@ export default function MoodScreen({
     return getMoodIntroMessage(primaryMood || "");
   }, [primaryMood]);
 
-  const bodySensationIntroMessage = useCallback(() => {
-    return getBodySensationIntroMessage();
-  }, []);
+  useEffect(() => {
+    setSelectedEmotions?.(selectedMoods);
+  }, [selectedMoods]);
 
   const onSelectionComplete = () => {
     setLoadingReflection(true);
@@ -120,12 +124,13 @@ export default function MoodScreen({
         ]);
       }
       scrollToNextScreen(3);
-      setShowBodyScreen(true);
     });
   };
 
   const onDonePress = () => {
+    console.log("On done press called");
     onSelectionComplete();
+    saveMoodsToStorage();
   };
 
   const onPrimaryMoodPress = (mood: PrimaryMood) => {
@@ -148,15 +153,26 @@ export default function MoodScreen({
   };
 
   const onReflectionComplete = () => {
-    scrollToNextScreen(4);
-  };
-
-  const onBodySensationComplete = (_bodyParts: string[]) => {
     onComplete();
     setDisabledOnComplete(true);
+    console.log("Reflection complete");
   };
 
   const reflectionTitle = getRandomReflectionIntroMessage();
+
+  const saveMoodsToStorage = useCallback(() => {
+    console.log("storageType", storageType);
+    if (storageType === "local") {
+      console.log(saveInsight, "saveInsight function");
+      handleSavingMoodsToLocalStorage({
+        moods: selectedMoods,
+        core: mixedCoreMood ? [mixedCoreMood] : coreMood ? [coreMood] : [],
+        primary: primaryMood ? [primaryMood] : [],
+        secondary: selectedSecondaryMood ? [selectedSecondaryMood] : [],
+        tertiary: selectedTertiaryMood ? [selectedTertiaryMood] : [],
+      }, saveInsight);
+    }
+  }, [selectedMoods, storageType, saveInsight, mixedCoreMood, coreMood, primaryMood, selectedSecondaryMood, selectedTertiaryMood]);
 
   return (
     <MoodFlowRenderer
@@ -186,9 +202,6 @@ export default function MoodScreen({
           onSecondaryMoodPress={onSecondaryMoodPress}
           onTertiaryMoodPress={onTertiaryMoodPress}
           onReflectionComplete={onReflectionComplete}
-          onBodySensationComplete={onBodySensationComplete}
-          bodySensationIntroMessage={bodySensationIntroMessage()}
-          showBodyScreen={showBodyScreen}
           disabledOnComplete={disabledOnComplete}
         />
       )}

@@ -26,16 +26,16 @@ export const STORAGE_OPTIONS: {
     value: "local",
     label: "Local only",
     description:
-      "Saved on your device for up to 2 weeks. Never leaves your phone.",
-    disabled: true, // Not implemented yet
+      "Saved on your device. Never leaves your phone.",
+    disabled: false, // Not implemented yet
   },
-  {
+  /* {
     value: "cloud",
     label: "Cloud",
     description: "Your full history, always available. No time limits.",
     disabled: true, // Not implemented yet
     badge: "Pro",
-  },
+  },*/
 ];
 
 type ContextProps = {
@@ -56,6 +56,7 @@ const StorageSettingsContextProvider = (props: Props) => {
     useState<StorageType>(defaultStorageType);
 
   const getSelectedStorageType = useCallback(async () => {
+    console.log("getSelectedStorageType called");
     try {
       const storedStorageType = await AsyncStorage.getItem(STORAGE_TYPE_KEY);
       if (
@@ -63,6 +64,7 @@ const StorageSettingsContextProvider = (props: Props) => {
         storedStorageType === "local" ||
         storedStorageType === "cloud"
       ) {
+        setStorageType(storedStorageType);
         return storedStorageType;
       }
       return defaultStorageType;
@@ -79,6 +81,7 @@ const StorageSettingsContextProvider = (props: Props) => {
   }, []);
 
   useEffect(() => {
+    console.log("useEffect in StorageSettingsContextProvider called");
     getSelectedStorageType();
   }, [getSelectedStorageType]);
 

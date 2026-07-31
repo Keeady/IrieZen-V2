@@ -4,7 +4,10 @@ import {
 } from "@/data/moodList";
 import { ScreenProps } from "../screen.interface";
 import GratitudeFlowRenderer from "./gratitude-renderer";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
+import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
+import { handleSavingGratitudeToLocalStorage } from "../handle-submit";
+import { useReportContext } from "@/providers/report-provider";
 
 export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   const placeholder = "";
@@ -13,6 +16,9 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   const [label, setLabel] = useState("");
   const [disabled, setDisabled] = useState(false);
 
+  const { storageType } = useStorageSettingsContext();
+  const { saveInsight } = useReportContext();
+
   useMemo(() => {
     const message = getRandomGratitudeIntroMessage();
     setMessage(message);
@@ -20,10 +26,18 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
     setLabel(label);
   }, []);
 
+  const saveGratitude = useCallback(() => {
+    console.log("GratitudeScreen text", text);
+    if (storageType === "local") {
+      handleSavingGratitudeToLocalStorage({label, text}, saveInsight);
+    }
+  }, [text, label, storageType, saveInsight]);
+
   return (
     <GratitudeFlowRenderer
       onComplete={() => {
         setDisabled(true);
+        saveGratitude();
         onComplete();
       }}
       title={message}

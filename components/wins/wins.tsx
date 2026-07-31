@@ -4,7 +4,10 @@ import {
 } from "@/data/moodList";
 import { ScreenProps } from "../screen.interface";
 import WinsFlowRenderer from "./wins-renderer";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useCallback } from "react";
+import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
+import { handleSavingWinsToLocalStorage } from "../handle-submit";
+import { useReportContext } from "@/providers/report-provider";
 
 export default function WinsScreen({ onComplete }: ScreenProps) {
   const placeholder = "";
@@ -13,6 +16,9 @@ export default function WinsScreen({ onComplete }: ScreenProps) {
   const [label, setLabel] = useState("");
   const [disabled, setDisabled] = useState(false);
 
+  const { storageType } = useStorageSettingsContext();
+  const { saveInsight } = useReportContext();
+
   useMemo(() => {
     const message = getRandomWinsIntroMessage();
     setMessage(message);
@@ -20,10 +26,18 @@ export default function WinsScreen({ onComplete }: ScreenProps) {
     setLabel(label);
   }, []);
 
+  const saveWins = useCallback(() => {
+    console.log("WinsScreen text", text);
+    if (storageType === "local") {
+      handleSavingWinsToLocalStorage({label, text}, saveInsight);
+    }
+  }, [text, label, storageType, saveInsight]);
+
   return (
     <WinsFlowRenderer
       onComplete={() => {
         setDisabled(true);
+        saveWins();
         onComplete();
       }}
       title={message}

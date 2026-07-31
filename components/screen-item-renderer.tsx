@@ -7,6 +7,7 @@ import SummaryScreen from "./summary/summary";
 import GratitudeScreen from "./gratitude/gratitude";
 import FocusScreen from "./focus/focus";
 import WinsScreen from "./wins/wins";
+import BodySensationScreen from "./body/body";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -16,6 +17,8 @@ export type ScreenRendererProps = {
   coreEmotion?: string;
   width: number;
   height: number;
+  setSelectedEmotions: (emotions: string[]) => void;
+  selectedEmotions: string[];
 };
 
 export const ScreenItemRenderer = ({
@@ -26,6 +29,8 @@ export const ScreenItemRenderer = ({
   coreEmotion,
   width,
   height,
+  setSelectedEmotions,
+  selectedEmotions,
 }: ScreenRendererProps) => {
   let screenComponent;
   if (item.id === "mood") {
@@ -33,6 +38,7 @@ export const ScreenItemRenderer = ({
       <MoodScreen
         onComplete={() => onScreenComplete(index)}
         setCoreEmotion={setCoreEmotion}
+        setSelectedEmotions={setSelectedEmotions}
         width={width}
         height={height}
       />
@@ -41,6 +47,15 @@ export const ScreenItemRenderer = ({
     screenComponent = (
       <GratitudeScreen
         onComplete={() => onScreenComplete(index)}
+        width={width}
+        height={height}
+      />
+    );
+  } else if (item.id === "body") {
+    screenComponent = (
+      <BodySensationScreen
+        onComplete={() => onScreenComplete(index)}
+        selectedEmotions={selectedEmotions}
         width={width}
         height={height}
       />

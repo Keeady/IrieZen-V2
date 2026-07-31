@@ -149,6 +149,12 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     marginBottom: 4,
   },
+  sectionContent: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 14,
+    lineHeight: 22,
+    opacity: 0.8,
+  },
   option: {
     borderRadius: 2,
     borderWidth: 1.5,
