@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import { View, ScrollView } from "react-native";
 import { Text, Button, useTheme } from "react-native-paper";
 import BodyHighlighter, {

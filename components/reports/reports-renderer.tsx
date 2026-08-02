@@ -1,11 +1,5 @@
 import { ScrollView, View } from "react-native";
-import {
-  Divider,
-  RadioButton,
-  Text,
-  TouchableRipple,
-  useTheme,
-} from "react-native-paper";
+import { Divider, Text, useTheme } from "react-native-paper";
 import styles from "../styles";
 import { DailyInsight } from "../screen.interface";
 
@@ -45,16 +39,14 @@ export default function ReportsRenderer({
         </Text>
 
         <Text style={[styles.sectionTitle, { color: colors.primary }]}>
-          Today's Insights
+          Today&apos;s Insights
         </Text>
         {!currentDaily && (
           <Text style={[styles.sectionHint, { color: colors.onSurface }]}>
             No insights available.
           </Text>
         )}
-        {currentDaily && (
-          renderDailyInsight(0, currentDaily, colors)
-        )}
+        {currentDaily && renderDailyInsight(0, currentDaily, colors)}
 
         <Text style={[styles.sectionTitle, { color: colors.primary }]}>
           Previous Insights
@@ -162,9 +154,7 @@ function renderDailyInsight(
         ) : (
           currentDaily.intentions.map((i, index) => (
             <View key={index}>
-              <Text
-                style={[styles.sectionHint, { color: colors.onSurface }]}
-              >
+              <Text style={[styles.sectionHint, { color: colors.onSurface }]}>
                 {i.label}
               </Text>
               <Text
@@ -190,9 +180,7 @@ function renderDailyInsight(
         ) : (
           currentDaily.gratitude.map((g, index) => (
             <View key={index}>
-              <Text
-                style={[styles.sectionHint, { color: colors.onSurface }]}
-              >
+              <Text style={[styles.sectionHint, { color: colors.onSurface }]}>
                 {g.label}
               </Text>
               <Text
@@ -215,9 +203,7 @@ function renderDailyInsight(
         ) : (
           currentDaily.wins.map((w, index) => (
             <View key={index}>
-              <Text
-                style={[styles.sectionHint, { color: colors.onSurface }]}
-              >
+              <Text style={[styles.sectionHint, { color: colors.onSurface }]}>
                 {w.label}
               </Text>
               <Text

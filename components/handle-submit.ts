@@ -1,9 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   BodyInsight,
   DailyInsight,
   GratitudeInsight,
-  Insight,
   IntentionsInsight,
   MoodInsight,
   WinsInsight,

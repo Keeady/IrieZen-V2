@@ -4,7 +4,7 @@ import {
 } from "@/data/moodList";
 import { ScreenProps } from "../screen.interface";
 import GratitudeFlowRenderer from "./gratitude-renderer";
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { handleSavingGratitudeToLocalStorage } from "../handle-submit";
 import { useReportContext } from "@/providers/report-provider";

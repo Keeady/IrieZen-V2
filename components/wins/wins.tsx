@@ -4,7 +4,7 @@ import {
 } from "@/data/moodList";
 import { ScreenProps } from "../screen.interface";
 import WinsFlowRenderer from "./wins-renderer";
-import { useMemo, useState, useEffect, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { handleSavingWinsToLocalStorage } from "../handle-submit";
 import { useReportContext } from "@/providers/report-provider";

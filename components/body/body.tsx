@@ -1,10 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, ScrollView } from "react-native";
-import { Text, Button, useTheme } from "react-native-paper";
-import BodyHighlighter, {
-  ExtendedBodyPart,
-} from "react-native-body-highlighter";
-import styles from "../styles";
+import { ExtendedBodyPart } from "react-native-body-highlighter";
 import { useBodySettingsContext } from "@/providers/body-settings-provider";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { handleSavingBodyToLocalStorage } from "../handle-submit";
@@ -22,7 +17,6 @@ export default function BodySensationScreen({
   selectedEmotions,
   onComplete,
 }: BodySensationScreenProps & ScreenProps) {
-  const { colors } = useTheme();
   const [selectedParts, setSelectedParts] = useState<ExtendedBodyPart[]>([]);
   const [side, setSide] = useState<BodySide>("front");
   const [title, setTitle] = useState("");
@@ -30,7 +24,6 @@ export default function BodySensationScreen({
   const { body } = useBodySettingsContext();
   const { storageType } = useStorageSettingsContext();
   const { saveInsight } = useReportContext();
-  const bodyRef = React.useRef<ScrollView | null>(null);
 
   useEffect(() => {
     const message = getBodySensationIntroMessage();
@@ -83,15 +76,10 @@ export default function BodySensationScreen({
     });
   };
 
-  const scrollToEndOfScreen = () => {
-    bodyRef.current?.scrollToEnd();
-  }
-
   const handleOnComplete = useCallback(() => {
     setDisabled(true);
     saveBodyToStorage();
     onComplete(selectedParts.map((p) => p.slug!));
-    
   }, [selectedParts, onComplete, saveBodyToStorage]);
 
   return (
