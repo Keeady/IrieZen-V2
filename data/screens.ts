@@ -8,6 +8,11 @@ export const screens: Screen[] = [
   {
     id: "mood",
     title: "How are you feeling?",
+    message: "Great job! Let's move on to body sensations.",
+  },
+  {
+    id: "body",
+    title: "Body Sensations",
     message: "Great job! Let's move on to breath work.",
   },
   {

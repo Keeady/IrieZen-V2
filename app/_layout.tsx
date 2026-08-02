@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { BodySettingsContextProvider } from "@/providers/body-settings-provider";
 import { StorageSettingsContextProvider } from "@/providers/storage-settings-provider";
+import { ReportProvider } from "@/providers/report-provider";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -37,6 +38,7 @@ export default function RootLayout() {
 
   return (
     <StorageSettingsContextProvider>
+      <ReportProvider>
       <BodySettingsContextProvider>
         <PaperProvider theme={theme}>
           <Tabs
@@ -72,6 +74,15 @@ export default function RootLayout() {
               }}
             />
             <Tabs.Screen
+              name="insights"
+              options={{
+                title: "Insights",
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons name="chart-bubble" size={22} color={color} />
+                ),
+              }}
+            />
+            <Tabs.Screen
               name="settings"
               options={{
                 title: "Settings",
@@ -83,6 +94,7 @@ export default function RootLayout() {
           </Tabs>
         </PaperProvider>
       </BodySettingsContextProvider>
+      </ReportProvider>
     </StorageSettingsContextProvider>
   );
 }

@@ -1,18 +1,23 @@
 import {
-    getRandomFocusIntroMessage,
+  getRandomFocusIntroMessage,
   getRandomFocusLabelPrompt,
 } from "@/data/moodList";
 import { ScreenProps } from "../screen.interface";
 import FocusFlowRenderer from "./focus-renderer";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
+import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
+import { handleSavingIntentionsToLocalStorage } from "../handle-submit";
+import { useReportContext } from "@/providers/report-provider";
 
 export default function FocusScreen({ onComplete, height }: ScreenProps) {
-  const placeholder =
-    "";
+  const placeholder = "";
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
   const [label, setLabel] = useState("");
   const [disabled, setDisabled] = useState(false);
+
+  const { storageType } = useStorageSettingsContext();
+  const { saveInsight } = useReportContext();
 
   useMemo(() => {
     const message = getRandomFocusIntroMessage();
@@ -21,10 +26,18 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
     setLabel(label);
   }, []);
 
+  const saveFocus = useCallback(() => {
+    console.log("FocusScreen text", text);
+    if (storageType === "local") {
+      handleSavingIntentionsToLocalStorage({label, text}, saveInsight);
+    }
+  }, [text, label, storageType, saveInsight]);
+
   return (
     <FocusFlowRenderer
       onComplete={() => {
         setDisabled(true);
+        saveFocus();
         onComplete();
       }}
       title={message}

@@ -32,9 +32,11 @@ const BodySettingsContextProvider = (props: Props) => {
   const [body, setBody] = useState<BODY_TYPE>(defaultBodyType);
 
   const getSelectedBodyType = useCallback(async () => {
+    console.log("getSelectedBodyType called");
     try {
       const storedBodyType = await AsyncStorage.getItem(BODY_TYPE_KEY);
       if (storedBodyType === "male" || storedBodyType === "female") {
+        setBody(storedBodyType);
         return storedBodyType;
       }
       return defaultBodyType;
@@ -51,6 +53,7 @@ const BodySettingsContextProvider = (props: Props) => {
   }, []);
 
   useEffect(() => {
+    console.log("useEffect in BodySettingsContextProvider called");
     getSelectedBodyType();
   }, [getSelectedBodyType]);
 
