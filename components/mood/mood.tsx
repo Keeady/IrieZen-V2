@@ -128,7 +128,6 @@ export default function MoodScreen({
   };
 
   const onDonePress = () => {
-    console.log("On done press called");
     onSelectionComplete();
     saveMoodsToStorage();
   };
@@ -155,15 +154,12 @@ export default function MoodScreen({
   const onReflectionComplete = () => {
     onComplete();
     setDisabledOnComplete(true);
-    console.log("Reflection complete");
   };
 
   const reflectionTitle = getRandomReflectionIntroMessage();
 
   const saveMoodsToStorage = useCallback(() => {
-    console.log("storageType", storageType);
     if (storageType === "local") {
-      console.log(saveInsight, "saveInsight function");
       handleSavingMoodsToLocalStorage({
         moods: selectedMoods,
         core: mixedCoreMood ? [mixedCoreMood] : coreMood ? [coreMood] : [],

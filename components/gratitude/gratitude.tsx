@@ -27,7 +27,6 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   }, []);
 
   const saveGratitude = useCallback(() => {
-    console.log("GratitudeScreen text", text);
     if (storageType === "local") {
       handleSavingGratitudeToLocalStorage({label, text}, saveInsight);
     }

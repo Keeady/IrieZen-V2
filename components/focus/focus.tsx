@@ -27,7 +27,6 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
   }, []);
 
   const saveFocus = useCallback(() => {
-    console.log("FocusScreen text", text);
     if (storageType === "local") {
       handleSavingIntentionsToLocalStorage({label, text}, saveInsight);
     }

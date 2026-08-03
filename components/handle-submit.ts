@@ -18,8 +18,6 @@ export function handleSavingMoodsToLocalStorage(
     moods: moodInsight,
   };
 
-  console.log("handleSavingMoodsToLocalStorage updatedInsight", updatedInsight);
-
   saveInsight?.(updatedInsight);
 }
 
