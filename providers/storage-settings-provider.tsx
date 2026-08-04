@@ -56,7 +56,6 @@ const StorageSettingsContextProvider = (props: Props) => {
     useState<StorageType>(defaultStorageType);
 
   const getSelectedStorageType = useCallback(async () => {
-    console.log("getSelectedStorageType called");
     try {
       const storedStorageType = await AsyncStorage.getItem(STORAGE_TYPE_KEY);
       if (
@@ -81,7 +80,6 @@ const StorageSettingsContextProvider = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    console.log("useEffect in StorageSettingsContextProvider called");
     getSelectedStorageType();
   }, [getSelectedStorageType]);
 

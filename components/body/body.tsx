@@ -32,7 +32,6 @@ export default function BodySensationScreen({
 
   const saveBodyToStorage = useCallback(() => {
     if (storageType === "local") {
-      console.log("saveinsight body", saveInsight);
       const bodyParts = selectedParts.map((p) => {
         if (p.side) {
           return { part: p.slug!, side: p.side };

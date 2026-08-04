@@ -2,7 +2,6 @@ import { DailyInsight, Insight } from "@/components/screen.interface";
 
 export function buildNewDailyInsight() {
   const key = new Date().toLocaleDateString();
-  console.log("Key for AsyncStorage:", key);
 
   const newData: DailyInsight = {
     date: key,

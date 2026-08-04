@@ -27,7 +27,6 @@ export default function WinsScreen({ onComplete }: ScreenProps) {
   }, []);
 
   const saveWins = useCallback(() => {
-    console.log("WinsScreen text", text);
     if (storageType === "local") {
       handleSavingWinsToLocalStorage({label, text}, saveInsight);
     }

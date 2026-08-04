@@ -30,9 +30,7 @@ const ReportProvider = (props: Props) => {
 
   const saveInsight = useCallback(
     async (insight: Partial<DailyInsight>) => {
-      console.log("saveInsight called with insight:", insight);
       const key = new Date().toLocaleDateString();
-      console.log("Key for AsyncStorage:", key, "Insight:", insight);
       const newReport = addNewDailyInsight(insight);
       const existingReport = await getReports();
       const existingReportIndex = existingReport.findIndex(
@@ -40,7 +38,6 @@ const ReportProvider = (props: Props) => {
       );
       let updatedReports = [];
 
-      console.log("Existing report index:", existingReportIndex);
       if (existingReportIndex !== -1) {
         const mergedReport = mergeDailyInsight(existingReport[existingReportIndex], newReport);
         updatedReports = existingReport.map((report, index) => {
@@ -60,7 +57,6 @@ const ReportProvider = (props: Props) => {
   );
 
   const getReports = useCallback(async () => {
-    console.log("getReports called");
     try {
       const storedReports = await AsyncStorage.getItem(REPORTS_KEY);
       if (storedReports) {
@@ -69,13 +65,12 @@ const ReportProvider = (props: Props) => {
         return parsedReports;
       }
     } catch (error) {
-      console.error("Error fetching reports:", error);
+      
     }
     return [];
   }, []);
 
   useEffect(() => {
-    console.log("useEffect in ReportProvider called");
     getReports();
   }, [getReports]);
 
@@ -87,7 +82,6 @@ const ReportProvider = (props: Props) => {
 };
 
 export function useReportContext() {
-  console.log("useReportContext called");
   const ctx = useContext(ReportContext);
   if (!ctx) throw new Error("Context unavailable.");
   return ctx;
