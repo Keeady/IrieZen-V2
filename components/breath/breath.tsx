@@ -1,9 +1,12 @@
 import { getRandomBreathingIntroMessage } from "@/data/moodList";
 import LottieView from "lottie-react-native";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, useWindowDimensions } from "react-native";
 import { ScreenProps } from "../screen.interface";
 import BreathFlowRenderer from "./breath-renderer";
+import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
+import { handleSavingBreathToLocalStorage } from "../handle-submit";
+import { useReportContext } from "@/providers/report-provider";
 
 const steps = ["Breathe In", "Hold", "Breathe Out", "Hold"];
 const duration = 4000; // 4s per step
@@ -22,6 +25,9 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
   const opacity = useRef(new Animated.Value(0)).current;
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const { storageType } = useStorageSettingsContext();
+  const { saveInsight } = useReportContext();
+
   useMemo(() => {
     const message = getRandomBreathingIntroMessage();
     setMessage(message);
@@ -38,8 +44,17 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
         animationRef.current?.pause();
       }
 
-      // scale circle up on "breathe in", down on "breathe out", normal on "hold"
-      let toValue = stepIndex === 0 ? 1.5 : stepIndex === 2 ? 1 : scale;
+      // scale circle up on "breathe in", down on "breathe out", keep scale on "hold"
+      let toValue: number;
+      if (stepIndex === 0) {
+        toValue = 1.5; // breathe in → scale up
+      } else if (stepIndex === 1) {
+        toValue = 1.5; // hold after breathe in → keep scaled
+      } else if (stepIndex === 2) {
+        toValue = 1; // breathe out → scale down
+      } else {
+        toValue = 1; // hold after breathe out → keep normal
+      }
 
       Animated.timing(scale, {
         toValue,
@@ -97,6 +112,12 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
     setRunning(true);
   };
 
+  const saveBreath = useCallback(() => {
+    if (storageType === "local") {
+      handleSavingBreathToLocalStorage("Box Breathing", saveInsight);
+    }
+  }, [storageType, saveInsight]);
+
   return (
     <BreathFlowRenderer
       message={message}
@@ -106,6 +127,7 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
       animationRef={animationRef}
       onComplete={() => {
         setDisabled(true);
+        saveBreath();
         onComplete();
       }}
       disabled={disabled}
