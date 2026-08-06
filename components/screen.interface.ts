@@ -1,3 +1,6 @@
+import { AppDispatch, RootState } from "@/providers/store-provider";
+import { useDispatch, useSelector } from "react-redux";
+
 export type ScreenProps = {
   onComplete: () => void;
   setSelectedMoods?: (moods: string[]) => void;
@@ -48,3 +51,6 @@ export type DailyInsight = {
   gratitude: GratitudeInsight[];
   wins: WinsInsight[];
 };
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
