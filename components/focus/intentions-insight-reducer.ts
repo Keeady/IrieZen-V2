@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IntentionsInsight } from "../screen.interface";
+import type { IntentionsInsight } from "../screen.interface";
 
 type IntentionsInsightState = IntentionsInsight[];
 

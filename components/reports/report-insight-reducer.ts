@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
+import type {
   BodyInsight,
   DailyInsight,
   GratitudeInsight,

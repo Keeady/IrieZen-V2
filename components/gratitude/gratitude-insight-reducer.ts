@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GratitudeInsight } from "../screen.interface";
+import type { GratitudeInsight } from "../screen.interface";
 
 type GratitudeInsightState = GratitudeInsight[];
 

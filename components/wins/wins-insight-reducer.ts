@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WinsInsight } from "../screen.interface";
+import type { WinsInsight } from "../screen.interface";
 
 type WinsInsightState = WinsInsight[];
 

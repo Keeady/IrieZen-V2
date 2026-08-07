@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MoodInsight } from "../screen.interface";
+import type { MoodInsight } from "../screen.interface";
 
 type MoodInsightState = MoodInsight;
 

@@ -1,4 +1,4 @@
-import { AppDispatch, RootState } from "@/providers/store-provider";
+import type { AppDispatch, RootState } from "@/providers/store-provider";
 import { useDispatch, useSelector } from "react-redux";
 
 export type ScreenProps = {

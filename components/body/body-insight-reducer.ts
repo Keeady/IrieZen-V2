@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BodyInsight } from "../screen.interface";
+import type { BodyInsight } from "../screen.interface";
 
 type BodyInsightState = BodyInsight[];
 
