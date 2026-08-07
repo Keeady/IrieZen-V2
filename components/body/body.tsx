@@ -39,7 +39,7 @@ export default function BodySensationScreen({
       });
       dispatch(addBodyInsight(bodyParts));
     }
-  }, [selectedParts, storageType]);
+  }, [selectedParts, storageType, dispatch]);
 
   const handleBodyPartPress = (
     part: ExtendedBodyPart,

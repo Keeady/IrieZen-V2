@@ -29,7 +29,7 @@ export default function WinsScreen({ onComplete }: ScreenProps) {
     if (storageType === "local") {
       dispatch(addWinsInsight({ label, text }));
     }
-  }, [text, label, storageType]);
+  }, [text, label, storageType, dispatch]);
 
   return (
     <WinsFlowRenderer

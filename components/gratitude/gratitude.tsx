@@ -29,7 +29,7 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
     if (storageType === "local") {
       dispatch(addGratitudeInsight({ label, text }));
     }
-  }, [text, label, storageType]);
+  }, [text, label, storageType, dispatch]);
 
   return (
     <GratitudeFlowRenderer

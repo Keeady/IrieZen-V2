@@ -15,7 +15,6 @@ import {
 import MoodItemRenderer from "./mood-item-renderer";
 import { getSmartResponse } from "../smart-response";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
-import { useReportContext } from "@/providers/report-provider";
 import { addMoodInsight } from "./mood-insight-reducer";
 
 export default function MoodScreen({
@@ -47,9 +46,8 @@ export default function MoodScreen({
   const [selectedTertiaryMood, setSelectedTertiaryMood] = useState<
     string | null
   >(null);
-  
+
   const { storageType } = useStorageSettingsContext();
-  const { saveInsight } = useReportContext();
   const dispatch = useAppDispatch();
 
   const scrollToEndOfScreen = () => {
@@ -161,15 +159,26 @@ export default function MoodScreen({
 
   const saveMoodsToStorage = useCallback(() => {
     if (storageType === "local") {
-      dispatch(addMoodInsight({
-        moods: selectedMoods,
-        core: mixedCoreMood ? [mixedCoreMood] : coreMood ? [coreMood] : [],
-        primary: primaryMood ? [primaryMood] : [],
-        secondary: selectedSecondaryMood ? [selectedSecondaryMood] : [],
-        tertiary: selectedTertiaryMood ? [selectedTertiaryMood] : [],
-      }));
+      dispatch(
+        addMoodInsight({
+          moods: selectedMoods,
+          core: mixedCoreMood ? [mixedCoreMood] : coreMood ? [coreMood] : [],
+          primary: primaryMood ? [primaryMood] : [],
+          secondary: selectedSecondaryMood ? [selectedSecondaryMood] : [],
+          tertiary: selectedTertiaryMood ? [selectedTertiaryMood] : [],
+        }),
+      );
     }
-  }, [selectedMoods, storageType, saveInsight, mixedCoreMood, coreMood, primaryMood, selectedSecondaryMood, selectedTertiaryMood]);
+  }, [
+    selectedMoods,
+    storageType,
+    mixedCoreMood,
+    coreMood,
+    primaryMood,
+    selectedSecondaryMood,
+    selectedTertiaryMood,
+    dispatch,
+  ]);
 
   return (
     <MoodFlowRenderer

@@ -29,7 +29,7 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
     if (storageType === "local") {
       dispatch(addIntentionsInsight({ label, text }));
     }
-  }, [text, label, storageType]);
+  }, [text, label, storageType, dispatch]);
 
   return (
     <FocusFlowRenderer
