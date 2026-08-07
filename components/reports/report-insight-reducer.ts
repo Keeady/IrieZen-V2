@@ -1,9 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BodyInsight, DailyInsight, MoodInsight } from "../screen.interface";
+import {
+  BodyInsight,
+  DailyInsight,
+  IntentionsInsight,
+  MoodInsight,
+} from "../screen.interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addMoodInsight } from "../mood/mood-insight-reducer";
 import { addBodyInsight } from "../body/body-insight-reducer";
 import { addBreathInsight } from "../breath/breath-insight-reducer";
+import { addIntentionsInsight } from "../focus/intentions-insight-reducer";
 
 type ReportInsightState = DailyInsight;
 
@@ -205,7 +211,53 @@ export const reportInsightSlice = createSlice({
         saveNewReport(newState);
 
         return newState;
-      });
+      })
+      .addCase(
+        addIntentionsInsight,
+        (state, action: PayloadAction<IntentionsInsight>) => {
+          let newState;
+          // Find the report for the current date
+          const existingReportIndex = state.findIndex(
+            (report) => report.date === key,
+          );
+
+          if (existingReportIndex !== -1) {
+            // If the report exists, update the intentions insight
+            const existingReport = state[existingReportIndex];
+            const updatedReport = {
+              ...existingReport,
+              intentions: [...existingReport.intentions, action.payload],
+            };
+            // Update the state with the updated report
+            newState = state.map((report, index) =>
+              index === existingReportIndex ? updatedReport : report,
+            );
+          } else {
+            // If the report doesn't exist, create a new one with the intentions insight
+            const newReport: ReportInsightState = {
+              date: key,
+              moods: {
+                moods: [],
+                core: [],
+                primary: [],
+                secondary: [],
+                tertiary: [],
+              },
+              body: [],
+              breath: "",
+              intentions: [action.payload],
+              gratitude: [],
+              wins: [],
+            };
+            // Add the new report to the state
+            newState = [newReport, ...state];
+          }
+          // Save the updated state to AsyncStorage
+          saveNewReport(newState);
+
+          return newState;
+        },
+      );
   },
 });
 
