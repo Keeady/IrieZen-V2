@@ -10,7 +10,6 @@ import winsInsightReducer from "@/components/wins/wins-insight-reducer";
 
 const store = configureStore({
   reducer: {
-    // settings: settingsReducer,
     reports: reportsReducer,
     daily: dailyInsightReducer,
     moods: moodInsightReducer,
