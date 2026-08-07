@@ -1,50 +1,30 @@
-# Welcome to your Expo app 👋
+# Welcome to Irie-Zen 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## About
 
-## Get started
+Understanding what we're actually feeling in the moment is harder than it sounds. IrieZen helps you name your emotions, understand where they come from, and turn them into information you can use — instead of noise that runs the show. Just a few quiet minutes a day is enough to build a better relationship with yourself.
 
-1. Install dependencies
+When you understand your emotions, everything else shifts. You show up differently — as a partner, a parent, a friend, a colleague. Stress and anxiety feel more manageable. You react less and respond more. You become someone people feel safe around.
 
-   ```bash
-   npm install
-   ```
+Befriending your own mind isn't a luxury. It's one of the most important things you can do.
 
-2. Start the app
+## Features
 
-   ```bash
-   npx expo start
-   ```
+- **Mood Selection Deep Dive**
+  Built on the emotion wheel concept, helping you bring awareness to the emotions showing up beneath the surface.
 
-In the output, you'll find options to open the app in a
+- **Body Sensation Check-In**
+  Reflect on where those emotions live in your body.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Breathing Exercise**
+  Pause and reset with guided Box Breathing.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Gratitude, Intentions & Wins**
+  A moment to reflect on what's going right and what you're working toward.
 
-## Get a fresh project
+## Tech Stack
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- React Native
+- Expo
+- Redux
+- TypeScript
