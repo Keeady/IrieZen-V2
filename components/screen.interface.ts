@@ -10,7 +10,12 @@ export type ScreenProps = {
   setSelectedEmotions?: (emotions: string[]) => void;
 };
 
-export type Insight = MoodInsight | BodyInsight | IntentionsInsight | GratitudeInsight | WinsInsight;
+export type Insight =
+  | MoodInsight
+  | BodyInsight
+  | IntentionsInsight
+  | GratitudeInsight
+  | WinsInsight;
 
 export type MoodInsight = {
   moods: string[];
@@ -54,3 +59,5 @@ export type DailyInsight = {
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
+export type ReportInsightState = DailyInsight;
+export const REPORTS_KEY = "reports";

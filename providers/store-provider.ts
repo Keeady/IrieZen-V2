@@ -7,6 +7,7 @@ import breathInsightReducer from "@/components/breath/breath-insight-reducer";
 import intentionsInsightReducer from "@/components/focus/intentions-insight-reducer";
 import gratitudeInsightReducer from "@/components/gratitude/gratitude-insight-reducer";
 import winsInsightReducer from "@/components/wins/wins-insight-reducer";
+import reportInsightMiddleware from "@/components/reports/report-insight-middleware";
 
 const store = configureStore({
   reducer: {
@@ -19,6 +20,8 @@ const store = configureStore({
     gratitude: gratitudeInsightReducer,
     wins: winsInsightReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(reportInsightMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
