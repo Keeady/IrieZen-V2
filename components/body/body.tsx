@@ -3,9 +3,10 @@ import { ExtendedBodyPart } from "react-native-body-highlighter";
 import { useBodySettingsContext } from "@/providers/body-settings-provider";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import BodyFlowRenderer from "./body-renderer";
-import { BodySide, ScreenProps, useAppDispatch } from "../screen.interface";
+import { BodySide, ScreenProps } from "../screen.interface";
 import { getBodySensationIntroMessage } from "@/data/moodList";
 import { addBodyInsight } from "./body-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 type BodySensationScreenProps = {
   selectedEmotions: string[];

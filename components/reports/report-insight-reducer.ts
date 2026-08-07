@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type {
-  BodyInsight,
-  DailyInsight,
-  GratitudeInsight,
-  IntentionsInsight,
-  MoodInsight,
-  WinsInsight,
+import {
+  type BodyInsight,
+  type GratitudeInsight,
+  type IntentionsInsight,
+  type MoodInsight,
+  type WinsInsight,
 } from "../screen.interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addMoodInsight } from "../mood/mood-insight-reducer";
@@ -14,11 +13,9 @@ import { addBreathInsight } from "../breath/breath-insight-reducer";
 import { addIntentionsInsight } from "../focus/intentions-insight-reducer";
 import { addGratitudeInsight } from "../gratitude/gratitude-insight-reducer";
 import { addWinsInsight } from "../wins/wins-insight-reducer";
-
-type ReportInsightState = DailyInsight;
+import { ReportInsightState, REPORTS_KEY } from "../store.interface";
 
 const key = new Date().toLocaleDateString();
-const REPORTS_KEY = "reports";
 
 // initialize the state with an empty array
 const initialState: ReportInsightState[] = [
@@ -122,9 +119,6 @@ export const reportInsightSlice = createSlice({
           newState = [newReport, ...state];
         }
 
-        // Save the updated state to AsyncStorage
-        saveNewReport(newState);
-
         return newState;
       })
       .addCase(
@@ -167,8 +161,6 @@ export const reportInsightSlice = createSlice({
             // Add the new report to the state
             newState = [newReport, ...state];
           }
-          // Save the updated state to AsyncStorage
-          saveNewReport(newState);
 
           return newState;
         },
@@ -211,8 +203,6 @@ export const reportInsightSlice = createSlice({
           // Add the new report to the state
           newState = [newReport, ...state];
         }
-        // Save the updated state to AsyncStorage
-        saveNewReport(newState);
 
         return newState;
       })
@@ -256,8 +246,6 @@ export const reportInsightSlice = createSlice({
             // Add the new report to the state
             newState = [newReport, ...state];
           }
-          // Save the updated state to AsyncStorage
-          saveNewReport(newState);
 
           return newState;
         },
@@ -302,8 +290,6 @@ export const reportInsightSlice = createSlice({
             // Add the new report to the state
             newState = [newReport, ...state];
           }
-          // Save the updated state to AsyncStorage
-          saveNewReport(newState);
 
           return newState;
         },
@@ -346,24 +332,11 @@ export const reportInsightSlice = createSlice({
           // Add the new report to the state
           newState = [newReport, ...state];
         }
-        // Save the updated state to AsyncStorage
-        saveNewReport(newState);
 
         return newState;
       });
   },
 });
-
-// Save the updated state to AsyncStorage
-function saveNewReport(state: ReportInsightState[]) {
-  AsyncStorage.setItem(REPORTS_KEY, JSON.stringify(state))
-    .then(() => {
-      console.log("Successfully saved updated reports to AsyncStorage");
-    })
-    .catch((error) => {
-      console.error("Error saving updated reports to AsyncStorage:", error);
-    });
-}
 
 export const { getReports } = reportInsightSlice.actions;
 export default reportInsightSlice.reducer;

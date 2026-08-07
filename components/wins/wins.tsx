@@ -2,11 +2,12 @@ import {
   getRandomWinsLabelPrompt,
   getRandomWinsIntroMessage,
 } from "@/data/moodList";
-import { ScreenProps, useAppDispatch } from "../screen.interface";
+import { ScreenProps } from "../screen.interface";
 import WinsFlowRenderer from "./wins-renderer";
 import { useMemo, useState, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addWinsInsight } from "./wins-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 export default function WinsScreen({ onComplete }: ScreenProps) {
   const placeholder = "";

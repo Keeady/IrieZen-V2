@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Animated, FlatList, useWindowDimensions } from "react-native";
 import FlowRenderer from "./screen-renderer";
 import { ScreenItemRenderer } from "./screen-item-renderer";
-import { useAppDispatch } from "./screen.interface";
+import { useAppDispatch } from "./store.interface";
 import { fetchReports } from "./reports/report-insight-reducer";
 
 export default function MorningFlow() {

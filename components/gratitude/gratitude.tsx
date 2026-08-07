@@ -2,11 +2,12 @@ import {
   getRandomGratitudeIntroMessage,
   getRandomGratitudeLabelPrompt,
 } from "@/data/moodList";
-import { ScreenProps, useAppDispatch } from "../screen.interface";
+import { ScreenProps } from "../screen.interface";
 import GratitudeFlowRenderer from "./gratitude-renderer";
 import { useState, useMemo, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addGratitudeInsight } from "./gratitude-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   const placeholder = "";
