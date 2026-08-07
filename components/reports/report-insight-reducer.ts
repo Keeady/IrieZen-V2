@@ -2,14 +2,18 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   BodyInsight,
   DailyInsight,
+  GratitudeInsight,
   IntentionsInsight,
   MoodInsight,
+  WinsInsight,
 } from "../screen.interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addMoodInsight } from "../mood/mood-insight-reducer";
 import { addBodyInsight } from "../body/body-insight-reducer";
 import { addBreathInsight } from "../breath/breath-insight-reducer";
 import { addIntentionsInsight } from "../focus/intentions-insight-reducer";
+import { addGratitudeInsight } from "../gratitude/gratitude-insight-reducer";
+import { addWinsInsight } from "../wins/wins-insight-reducer";
 
 type ReportInsightState = DailyInsight;
 
@@ -257,7 +261,96 @@ export const reportInsightSlice = createSlice({
 
           return newState;
         },
-      );
+      )
+      .addCase(
+        addGratitudeInsight,
+        (state, action: PayloadAction<GratitudeInsight>) => {
+          let newState;
+          // Find the report for the current date
+          const existingReportIndex = state.findIndex(
+            (report) => report.date === key,
+          );
+
+          if (existingReportIndex !== -1) {
+            // If the report exists, update the gratitude insight
+            const existingReport = state[existingReportIndex];
+            const updatedReport = {
+              ...existingReport,
+              gratitude: [...existingReport.gratitude, action.payload],
+            };
+            // Update the state with the updated report
+            newState = state.map((report, index) =>
+              index === existingReportIndex ? updatedReport : report,
+            );
+          } else {
+            // If the report doesn't exist, create a new one with the gratitude insight
+            const newReport: ReportInsightState = {
+              date: key,
+              moods: {
+                moods: [],
+                core: [],
+                primary: [],
+                secondary: [],
+                tertiary: [],
+              },
+              body: [],
+              breath: "",
+              intentions: [],
+              gratitude: [action.payload],
+              wins: [],
+            };
+            // Add the new report to the state
+            newState = [newReport, ...state];
+          }
+          // Save the updated state to AsyncStorage
+          saveNewReport(newState);
+
+          return newState;
+        },
+      )
+      .addCase(addWinsInsight, (state, action: PayloadAction<WinsInsight>) => {
+        let newState;
+        // Find the report for the current date
+        const existingReportIndex = state.findIndex(
+          (report) => report.date === key,
+        );
+
+        if (existingReportIndex !== -1) {
+          // If the report exists, update the wins insight
+          const existingReport = state[existingReportIndex];
+          const updatedReport = {
+            ...existingReport,
+            wins: [...existingReport.wins, action.payload],
+          };
+          // Update the state with the updated report
+          newState = state.map((report, index) =>
+            index === existingReportIndex ? updatedReport : report,
+          );
+        } else {
+          // If the report doesn't exist, create a new one with the wins insight
+          const newReport: ReportInsightState = {
+            date: key,
+            moods: {
+              moods: [],
+              core: [],
+              primary: [],
+              secondary: [],
+              tertiary: [],
+            },
+            body: [],
+            breath: "",
+            intentions: [],
+            gratitude: [],
+            wins: [action.payload],
+          };
+          // Add the new report to the state
+          newState = [newReport, ...state];
+        }
+        // Save the updated state to AsyncStorage
+        saveNewReport(newState);
+
+        return newState;
+      });
   },
 });
 

@@ -5,6 +5,8 @@ import dailyInsightReducer from "@/components/daily-insight-reducer";
 import bodyInsightReducer from "@/components/body/body-insight-reducer";
 import breathInsightReducer from "@/components/breath/breath-insight-reducer";
 import intentionsInsightReducer from "@/components/focus/intentions-insight-reducer";
+import gratitudeInsightReducer from "@/components/gratitude/gratitude-insight-reducer";
+import winsInsightReducer from "@/components/wins/wins-insight-reducer";
 
 const store = configureStore({
   reducer: {
@@ -15,8 +17,8 @@ const store = configureStore({
     body: bodyInsightReducer,
     breath: breathInsightReducer,
     intentions: intentionsInsightReducer,
-    // gratitude: gratitudeInsightReducer,
-    // wins: winsInsightReducer,
+    gratitude: gratitudeInsightReducer,
+    wins: winsInsightReducer,
   },
 });
 
