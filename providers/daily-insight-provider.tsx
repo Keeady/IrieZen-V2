@@ -1,4 +1,4 @@
-import { DailyInsight, Insight } from "@/components/screen.interface";
+import { DailyInsight } from "@/components/screen.interface";
 
 export function buildNewDailyInsight() {
   const key = new Date().toLocaleDateString();

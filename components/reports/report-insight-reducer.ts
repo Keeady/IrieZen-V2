@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  REPORTS_KEY,
   type BodyInsight,
   type GratitudeInsight,
   type IntentionsInsight,
   type MoodInsight,
-  type ReportInsightState,
   type WinsInsight,
 } from "../screen.interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,6 +13,7 @@ import { addBreathInsight } from "../breath/breath-insight-reducer";
 import { addIntentionsInsight } from "../focus/intentions-insight-reducer";
 import { addGratitudeInsight } from "../gratitude/gratitude-insight-reducer";
 import { addWinsInsight } from "../wins/wins-insight-reducer";
+import { ReportInsightState, REPORTS_KEY } from "../store.interface";
 
 const key = new Date().toLocaleDateString();
 

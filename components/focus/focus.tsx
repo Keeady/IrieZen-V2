@@ -2,11 +2,12 @@ import {
   getRandomFocusIntroMessage,
   getRandomFocusLabelPrompt,
 } from "@/data/moodList";
-import { ScreenProps, useAppDispatch } from "../screen.interface";
+import { ScreenProps } from "../screen.interface";
 import FocusFlowRenderer from "./focus-renderer";
 import { useState, useMemo, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addIntentionsInsight } from "./intentions-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 export default function FocusScreen({ onComplete, height }: ScreenProps) {
   const placeholder = "";

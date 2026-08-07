@@ -2,10 +2,11 @@ import { getRandomBreathingIntroMessage } from "@/data/moodList";
 import LottieView from "lottie-react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, useWindowDimensions } from "react-native";
-import { ScreenProps, useAppDispatch } from "../screen.interface";
+import { ScreenProps } from "../screen.interface";
 import BreathFlowRenderer from "./breath-renderer";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addBreathInsight } from "./breath-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 const steps = ["Breathe In", "Hold", "Breathe Out", "Hold"];
 const duration = 4000; // 4s per step

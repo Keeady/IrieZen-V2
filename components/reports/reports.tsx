@@ -1,7 +1,7 @@
 import ReportsRenderer from "./reports-renderer";
-import { useAppDispatch, useAppSelector } from "@/components/screen.interface";
 import { useEffect } from "react";
 import { getReports } from "./report-insight-reducer";
+import { useAppDispatch, useAppSelector } from "../store.interface";
 
 export default function ReportsScreen() {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export default function ReportsScreen() {
   useEffect(() => {
     dispatch(getReports());
   }, [dispatch]);
-
+  
   return (
     <ReportsRenderer
       currentDaily={currentDailyReport || null}

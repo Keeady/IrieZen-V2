@@ -1,5 +1,5 @@
 import { FlatList } from "react-native";
-import { ScreenProps, useAppDispatch } from "../screen.interface";
+import { ScreenProps } from "../screen.interface";
 import MoodFlowRenderer from "./mood-renderer";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -16,6 +16,7 @@ import MoodItemRenderer from "./mood-item-renderer";
 import { getSmartResponse } from "../smart-response";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addMoodInsight } from "./mood-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 export default function MoodScreen({
   onComplete,

@@ -1,5 +1,5 @@
 import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
-import { REPORTS_KEY, type ReportInsightState } from "../screen.interface";
+import { REPORTS_KEY, type ReportInsightState } from "../store.interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addMoodInsight } from "../mood/mood-insight-reducer";
 import { addBodyInsight } from "../body/body-insight-reducer";
@@ -22,8 +22,8 @@ reportInsightMiddleware.startListening({
     addWinsInsight,
   ),
   effect: async (action, listenerApi) => {
-    const state = listenerApi.getState() as ReportInsightState[];
-    await saveNewReport(state);
+    const { reports } = listenerApi.getState() as { reports: ReportInsightState[] };
+    await saveNewReport(reports);
   },
 });
 
