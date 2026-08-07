@@ -3,6 +3,7 @@ import { BodyInsight, DailyInsight, MoodInsight } from "../screen.interface";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addMoodInsight } from "../mood/mood-insight-reducer";
 import { addBodyInsight } from "../body/body-insight-reducer";
+import { addBreathInsight } from "../breath/breath-insight-reducer";
 
 type ReportInsightState = DailyInsight;
 
@@ -161,7 +162,50 @@ export const reportInsightSlice = createSlice({
 
           return newState;
         },
-      );
+      )
+      .addCase(addBreathInsight, (state, action: PayloadAction<string>) => {
+        let newState;
+        // Find the report for the current date
+        const existingReportIndex = state.findIndex(
+          (report) => report.date === key,
+        );
+
+        if (existingReportIndex !== -1) {
+          // If the report exists, update the breath insight
+          const existingReport = state[existingReportIndex];
+          const updatedReport = {
+            ...existingReport,
+            breath: action.payload,
+          };
+          // Update the state with the updated report
+          newState = state.map((report, index) =>
+            index === existingReportIndex ? updatedReport : report,
+          );
+        } else {
+          // If the report doesn't exist, create a new one with the breath insight
+          const newReport: ReportInsightState = {
+            date: key,
+            moods: {
+              moods: [],
+              core: [],
+              primary: [],
+              secondary: [],
+              tertiary: [],
+            },
+            body: [],
+            breath: action.payload,
+            intentions: [],
+            gratitude: [],
+            wins: [],
+          };
+          // Add the new report to the state
+          newState = [newReport, ...state];
+        }
+        // Save the updated state to AsyncStorage
+        saveNewReport(newState);
+
+        return newState;
+      });
   },
 });
 
