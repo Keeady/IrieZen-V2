@@ -1,5 +1,5 @@
 import { FlatList } from "react-native";
-import { ScreenProps } from "../screen.interface";
+import { ScreenProps, useAppDispatch } from "../screen.interface";
 import MoodFlowRenderer from "./mood-renderer";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -15,8 +15,7 @@ import {
 import MoodItemRenderer from "./mood-item-renderer";
 import { getSmartResponse } from "../smart-response";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
-import { handleSavingMoodsToLocalStorage } from "../handle-submit";
-import { useReportContext } from "@/providers/report-provider";
+import { addMoodInsight } from "./mood-insight-reducer";
 
 export default function MoodScreen({
   onComplete,
@@ -47,9 +46,9 @@ export default function MoodScreen({
   const [selectedTertiaryMood, setSelectedTertiaryMood] = useState<
     string | null
   >(null);
-  
+
   const { storageType } = useStorageSettingsContext();
-  const { saveInsight } = useReportContext();
+  const dispatch = useAppDispatch();
 
   const scrollToEndOfScreen = () => {
     // only scroll once
@@ -160,15 +159,26 @@ export default function MoodScreen({
 
   const saveMoodsToStorage = useCallback(() => {
     if (storageType === "local") {
-      handleSavingMoodsToLocalStorage({
-        moods: selectedMoods,
-        core: mixedCoreMood ? [mixedCoreMood] : coreMood ? [coreMood] : [],
-        primary: primaryMood ? [primaryMood] : [],
-        secondary: selectedSecondaryMood ? [selectedSecondaryMood] : [],
-        tertiary: selectedTertiaryMood ? [selectedTertiaryMood] : [],
-      }, saveInsight);
+      dispatch(
+        addMoodInsight({
+          moods: selectedMoods,
+          core: mixedCoreMood ? [mixedCoreMood] : coreMood ? [coreMood] : [],
+          primary: primaryMood ? [primaryMood] : [],
+          secondary: selectedSecondaryMood ? [selectedSecondaryMood] : [],
+          tertiary: selectedTertiaryMood ? [selectedTertiaryMood] : [],
+        }),
+      );
     }
-  }, [selectedMoods, storageType, saveInsight, mixedCoreMood, coreMood, primaryMood, selectedSecondaryMood, selectedTertiaryMood]);
+  }, [
+    selectedMoods,
+    storageType,
+    mixedCoreMood,
+    coreMood,
+    primaryMood,
+    selectedSecondaryMood,
+    selectedTertiaryMood,
+    dispatch,
+  ]);
 
   return (
     <MoodFlowRenderer
