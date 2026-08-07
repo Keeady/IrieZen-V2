@@ -1,4 +1,4 @@
-# Welcome to Irie-Zen 👋
+# Welcome to IrieZen 👋
 
 📲 [Download on the App Store](https://apps.apple.com/us/app/iriezen-emotional-clarity/id6763864620)
 
