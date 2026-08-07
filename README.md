@@ -1,5 +1,7 @@
 # Welcome to Irie-Zen 👋
 
+📲 [Download on the App Store](https://apps.apple.com/us/app/iriezen-emotional-clarity/id6763864620)
+
 ## About
 
 Understanding what we're actually feeling in the moment is harder than it sounds. IrieZen helps you name your emotions, understand where they come from, and turn them into information you can use — instead of noise that runs the show. Just a few quiet minutes a day is enough to build a better relationship with yourself.
