@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ExtendedBodyPart } from "react-native-body-highlighter";
 import { useBodySettingsContext } from "@/providers/body-settings-provider";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
-import { handleSavingBodyToLocalStorage } from "../handle-submit";
 import BodyFlowRenderer from "./body-renderer";
 import { BodySide, ScreenProps } from "../screen.interface";
 import { getBodySensationIntroMessage } from "@/data/moodList";
-import { useReportContext } from "@/providers/report-provider";
+import { addBodyInsight } from "./body-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 type BodySensationScreenProps = {
   selectedEmotions: string[];
@@ -23,7 +23,7 @@ export default function BodySensationScreen({
   const [disabled, setDisabled] = useState(false);
   const { body } = useBodySettingsContext();
   const { storageType } = useStorageSettingsContext();
-  const { saveInsight } = useReportContext();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const message = getBodySensationIntroMessage();
@@ -38,9 +38,9 @@ export default function BodySensationScreen({
         }
         return { part: p.slug! };
       });
-      handleSavingBodyToLocalStorage(bodyParts, saveInsight);
+      dispatch(addBodyInsight(bodyParts));
     }
-  }, [selectedParts, saveInsight, storageType]);
+  }, [selectedParts, storageType, dispatch]);
 
   const handleBodyPartPress = (
     part: ExtendedBodyPart,

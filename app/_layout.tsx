@@ -9,7 +9,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { BodySettingsContextProvider } from "@/providers/body-settings-provider";
 import { StorageSettingsContextProvider } from "@/providers/storage-settings-provider";
-import { ReportProvider } from "@/providers/report-provider";
+import { Provider as StoreProvider } from "react-redux";
+import store from "../providers/store-provider";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -37,64 +38,72 @@ export default function RootLayout() {
   };
 
   return (
-    <StorageSettingsContextProvider>
-      <ReportProvider>
-      <BodySettingsContextProvider>
-        <PaperProvider theme={theme}>
-          <Tabs
-            screenOptions={{
-              headerShown: false,
-              tabBarActiveTintColor: "#4A7FA5",
-              tabBarInactiveTintColor: "#2C4A5E",
-              tabBarStyle: {
-                backgroundColor: "#D6E8F4",
-                borderTopWidth: 1,
-                borderTopColor: "#A8C4D8",
-                elevation: 0, // removes Android shadow
-                shadowOpacity: 0, // removes iOS shadow
-              },
-              tabBarLabelStyle: {
-                fontFamily: "Lora_400Regular",
-                fontSize: 11,
-                letterSpacing: 0.4,
-              },
-            }}
-          >
-            <Tabs.Screen
-              name="index"
-              options={{
-                title: "Today",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="weather-sunset"
-                    size={22}
-                    color={color}
-                  />
-                ),
+    <StoreProvider store={store}>
+      <StorageSettingsContextProvider>
+        <BodySettingsContextProvider>
+          <PaperProvider theme={theme}>
+            <Tabs
+              screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: "#4A7FA5",
+                tabBarInactiveTintColor: "#2C4A5E",
+                tabBarStyle: {
+                  backgroundColor: "#D6E8F4",
+                  borderTopWidth: 1,
+                  borderTopColor: "#A8C4D8",
+                  elevation: 0, // removes Android shadow
+                  shadowOpacity: 0, // removes iOS shadow
+                },
+                tabBarLabelStyle: {
+                  fontFamily: "Lora_400Regular",
+                  fontSize: 11,
+                  letterSpacing: 0.4,
+                },
               }}
-            />
-            <Tabs.Screen
-              name="insights"
-              options={{
-                title: "Insights",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="chart-bubble" size={22} color={color} />
-                ),
-              }}
-            />
-            <Tabs.Screen
-              name="settings"
-              options={{
-                title: "Settings",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="tune" size={22} color={color} />
-                ),
-              }}
-            />
-          </Tabs>
-        </PaperProvider>
-      </BodySettingsContextProvider>
-      </ReportProvider>
-    </StorageSettingsContextProvider>
+            >
+              <Tabs.Screen
+                name="index"
+                options={{
+                  title: "Today",
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="weather-sunset"
+                      size={22}
+                      color={color}
+                    />
+                  ),
+                }}
+              />
+              <Tabs.Screen
+                name="insights"
+                options={{
+                  title: "Insights",
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="chart-bubble"
+                      size={22}
+                      color={color}
+                    />
+                  ),
+                }}
+              />
+              <Tabs.Screen
+                name="settings"
+                options={{
+                  title: "Settings",
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="tune"
+                      size={22}
+                      color={color}
+                    />
+                  ),
+                }}
+              />
+            </Tabs>
+          </PaperProvider>
+        </BodySettingsContextProvider>
+      </StorageSettingsContextProvider>
+    </StoreProvider>
   );
 }

@@ -6,8 +6,8 @@ import { ScreenProps } from "../screen.interface";
 import GratitudeFlowRenderer from "./gratitude-renderer";
 import { useState, useMemo, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
-import { handleSavingGratitudeToLocalStorage } from "../handle-submit";
-import { useReportContext } from "@/providers/report-provider";
+import { addGratitudeInsight } from "./gratitude-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   const placeholder = "";
@@ -17,7 +17,7 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   const [disabled, setDisabled] = useState(false);
 
   const { storageType } = useStorageSettingsContext();
-  const { saveInsight } = useReportContext();
+  const dispatch = useAppDispatch();
 
   useMemo(() => {
     const message = getRandomGratitudeIntroMessage();
@@ -28,9 +28,9 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
 
   const saveGratitude = useCallback(() => {
     if (storageType === "local") {
-      handleSavingGratitudeToLocalStorage({label, text}, saveInsight);
+      dispatch(addGratitudeInsight({ label, text }));
     }
-  }, [text, label, storageType, saveInsight]);
+  }, [text, label, storageType, dispatch]);
 
   return (
     <GratitudeFlowRenderer

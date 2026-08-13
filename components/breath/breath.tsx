@@ -5,8 +5,8 @@ import { Animated, Easing, useWindowDimensions } from "react-native";
 import { ScreenProps } from "../screen.interface";
 import BreathFlowRenderer from "./breath-renderer";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
-import { handleSavingBreathToLocalStorage } from "../handle-submit";
-import { useReportContext } from "@/providers/report-provider";
+import { addBreathInsight } from "./breath-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 const steps = ["Breathe In", "Hold", "Breathe Out", "Hold"];
 const duration = 4000; // 4s per step
@@ -26,7 +26,7 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { storageType } = useStorageSettingsContext();
-  const { saveInsight } = useReportContext();
+  const dispatch = useAppDispatch();
 
   useMemo(() => {
     const message = getRandomBreathingIntroMessage();
@@ -114,9 +114,9 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
 
   const saveBreath = useCallback(() => {
     if (storageType === "local") {
-      handleSavingBreathToLocalStorage("Box Breathing", saveInsight);
+      dispatch(addBreathInsight("Box Breathing"));
     }
-  }, [storageType, saveInsight]);
+  }, [storageType, dispatch]);
 
   return (
     <BreathFlowRenderer

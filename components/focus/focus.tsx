@@ -6,8 +6,8 @@ import { ScreenProps } from "../screen.interface";
 import FocusFlowRenderer from "./focus-renderer";
 import { useState, useMemo, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
-import { handleSavingIntentionsToLocalStorage } from "../handle-submit";
-import { useReportContext } from "@/providers/report-provider";
+import { addIntentionsInsight } from "./intentions-insight-reducer";
+import { useAppDispatch } from "../store.interface";
 
 export default function FocusScreen({ onComplete, height }: ScreenProps) {
   const placeholder = "";
@@ -17,7 +17,7 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
   const [disabled, setDisabled] = useState(false);
 
   const { storageType } = useStorageSettingsContext();
-  const { saveInsight } = useReportContext();
+  const dispatch = useAppDispatch();
 
   useMemo(() => {
     const message = getRandomFocusIntroMessage();
@@ -28,9 +28,9 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
 
   const saveFocus = useCallback(() => {
     if (storageType === "local") {
-      handleSavingIntentionsToLocalStorage({label, text}, saveInsight);
+      dispatch(addIntentionsInsight({ label, text }));
     }
-  }, [text, label, storageType, saveInsight]);
+  }, [text, label, storageType, dispatch]);
 
   return (
     <FocusFlowRenderer

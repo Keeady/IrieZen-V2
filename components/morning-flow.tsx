@@ -1,9 +1,11 @@
 import type { Screen } from "@/data/screens";
 import { screens } from "@/data/screens";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Animated, FlatList, useWindowDimensions } from "react-native";
 import FlowRenderer from "./screen-renderer";
 import { ScreenItemRenderer } from "./screen-item-renderer";
+import { useAppDispatch } from "./store.interface";
+import { fetchReports } from "./reports/report-insight-reducer";
 
 export default function MorningFlow() {
   const { width, height } = useWindowDimensions();
@@ -12,6 +14,8 @@ export default function MorningFlow() {
   const [fadeAnim] = useState(new Animated.Value(0));
   const [message, setMessage] = useState<string | null>(null);
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
+
+  const dispatch = useAppDispatch();
 
   const showMessage = (text: string, nextIndex: number) => {
     setMessage(text);
@@ -44,6 +48,10 @@ export default function MorningFlow() {
 
     showMessage(screens[index].message, nextIndex);
   };
+
+  useEffect(() => {
+    dispatch(fetchReports());
+  }, [dispatch]);
 
   return (
     <FlowRenderer
