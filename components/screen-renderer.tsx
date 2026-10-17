@@ -21,8 +21,6 @@ export default function ScreenFlowRenderer({
   listRef,
   screens,
   screenItemRenderer,
-  message,
-  fadeAnim,
 }: FlowRendererProps) {
   const { colors } = useTheme();
   return (

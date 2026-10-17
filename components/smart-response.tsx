@@ -20,6 +20,17 @@ import {
   outros as negativeOutros,
 } from "@/data/negative-reflection-list";
 
+export type SmartResponse = {
+  intro: string;
+  outro: string;
+  acceptanceIntro: string;
+  acceptanceOutro: string;
+  investigationIntro: string;
+  investigationOutro: string;
+  nurturingIntro: string;
+  nurturingOutro: string;
+};
+
 export function getSmartResponse({
   userMessage,
   coreMood,
@@ -28,21 +39,30 @@ export function getSmartResponse({
   userMessage: string[];
   coreMood: string;
   step: number;
-}): Promise<string[]> {
+}): Promise<SmartResponse> {
   switch (step) {
     case 1:
       return handleMoodAnalysis(userMessage, coreMood);
     default:
-      return Promise.resolve([]);
+      return Promise.resolve({
+        intro: "",
+        outro: "",
+        acceptanceIntro: "",
+        acceptanceOutro: "",
+        investigationIntro: "",
+        investigationOutro: "",
+        nurturingIntro: "",
+        nurturingOutro: "",
+      });
   }
 }
 
 function handleMoodAnalysis(
   userMessage: string[],
   coreMood: string,
-): Promise<string[]> {
+): Promise<SmartResponse> {
   const moods = userMessage.map((m) => m.toLocaleLowerCase()).join(", ");
-  let messages = [];
+  let messages;
   const coreMoodLower = coreMood.toLocaleLowerCase();
   if (positive.includes(coreMoodLower)) {
     messages = handlePositiveMood(moods);
@@ -52,12 +72,12 @@ function handleMoodAnalysis(
     messages = handleNegativeMood(moods);
   }
 
-  return new Promise<string[]>((resolve) =>
+  return new Promise<SmartResponse>((resolve) =>
     setTimeout(() => resolve(messages), 1000),
   );
 }
 
-function handlePositiveMood(moods: string): string[] {
+function handlePositiveMood(moods: string): SmartResponse {
   const intro =
     positiveIntros[Math.floor(Math.random() * positiveIntros.length)];
 
@@ -76,17 +96,21 @@ function handlePositiveMood(moods: string): string[] {
       Math.floor(Math.random() * positiveNurturingIntro.length)
     ];
 
-  const messages = [
-    `${intro} ${moods}.`,
-    acceptanceIntroMessage,
-    investigationMessageIntro,
-    nurturingMessageIntro,
-  ];
+  const messages = {
+    intro: `${intro} ${moods}.`,
+    outro: "",
+    acceptanceIntro: acceptanceIntroMessage,
+    acceptanceOutro: "",
+    investigationIntro: investigationMessageIntro,
+    investigationOutro: "",
+    nurturingIntro: nurturingMessageIntro,
+    nurturingOutro: "",
+  };
 
   return messages;
 }
 
-function handleNeutralMood(moods: string): string[] {
+function handleNeutralMood(moods: string): SmartResponse {
   const intro = intros[Math.floor(Math.random() * intros.length)];
   const outro = outros[Math.floor(Math.random() * outros.length)];
   const acceptanceIntroMessage =
@@ -102,21 +126,21 @@ function handleNeutralMood(moods: string): string[] {
   const nurturingMessageOutro =
     nurturingOutro[Math.floor(Math.random() * nurturingOutro.length)];
 
-  const messages = [
-    `${intro} ${moods}.`,
+  const messages = {
+    intro: `${intro} ${moods}.`,
     outro,
-    acceptanceIntroMessage,
-    acceptanceOutroMessage,
-    investigationMessageIntro,
-    investigationMessageOutro,
-    nurturingMessageIntro,
-    nurturingMessageOutro,
-  ];
+    acceptanceIntro: acceptanceIntroMessage,
+    acceptanceOutro: acceptanceOutroMessage,
+    investigationIntro: investigationMessageIntro,
+    investigationOutro: investigationMessageOutro,
+    nurturingIntro: nurturingMessageIntro,
+    nurturingOutro: nurturingMessageOutro,
+  };
 
   return messages;
 }
 
-function handleNegativeMood(moods: string): string[] {
+function handleNegativeMood(moods: string): SmartResponse {
   const intro =
     negativeIntros[Math.floor(Math.random() * negativeIntros.length)];
   const outro =
@@ -134,16 +158,16 @@ function handleNegativeMood(moods: string): string[] {
   const nurturingMessageOutro =
     nurturingOutro[Math.floor(Math.random() * nurturingOutro.length)];
 
-  const messages = [
-    `${intro} ${moods}.`,
+  const messages = {
+    intro: `${intro} ${moods}.`,
     outro,
-    acceptanceIntroMessage,
-    acceptanceOutroMessage,
-    investigationMessageIntro,
-    investigationMessageOutro,
-    nurturingMessageIntro,
-    nurturingMessageOutro,
-  ];
+    acceptanceIntro: acceptanceIntroMessage,
+    acceptanceOutro: acceptanceOutroMessage,
+    investigationIntro: investigationMessageIntro,
+    investigationOutro: investigationMessageOutro,
+    nurturingIntro: nurturingMessageIntro,
+    nurturingOutro: nurturingMessageOutro,
+  };
 
   return messages;
 }
