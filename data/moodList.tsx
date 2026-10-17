@@ -13,21 +13,21 @@ export const positive = ["powerful", "peaceful", "joyful"];
 export const primaryMoods: PrimaryMood[] = [
   {
     label: "Calm",
-    icon: "emoticon-happy-outline",
+    icon: "weather-night",
     core: "Peaceful",
     valence: "positive",
     energy: "low",
   },
   {
     label: "Restless",
-    icon: "emoticon-frown-outline",
+    icon: "weather-windy",
     core: "Scared",
     valence: "neutral",
     energy: "high",
   },
   {
     label: "Sad",
-    icon: "emoticon-cry-outline",
+    icon: "emoticon-sad-outline",
     core: "Sad",
     valence: "neutral",
     energy: "low",
@@ -41,21 +41,21 @@ export const primaryMoods: PrimaryMood[] = [
   },
   {
     label: "Motivated",
-    icon: "emoticon-cool-outline",
+    icon: "lightning-bolt-outline",
     core: "Powerful",
     valence: "positive",
     energy: "high",
   },
   {
     label: "Stressed",
-    icon: "emoticon-frown-outline",
+    icon: "head-alert-outline",
     core: "Scared",
     valence: "negative",
     energy: "high",
   },
   {
     label: "Alone",
-    icon: "emoticon-frown-outline",
+    icon: "account-outline",
     core: "Sad",
     valence: "neutral",
     energy: "low",
@@ -69,7 +69,7 @@ export const primaryMoods: PrimaryMood[] = [
   },
   {
     label: "Hopeful",
-    icon: "emoticon-excited-outline",
+    icon: "weather-sunset-up",
     core: "Joyful",
     valence: "positive",
     energy: "medium",
@@ -83,19 +83,20 @@ export const primaryMoods: PrimaryMood[] = [
   },
   {
     label: "A Lot",
-    icon: "emoticon-dead-outline",
+    icon: "layers-triple-outline",
     core: "Mixed",
     valence: "neutral",
     energy: "varied",
   },
   {
     label: "Tired",
-    icon: "emoticon-neutral-outline",
+    icon: "sleep",
     core: "Tired",
     valence: "neutral",
     energy: "low",
   },
 ];
+
 
 export const secondaryMoods = {
   Peaceful: [
