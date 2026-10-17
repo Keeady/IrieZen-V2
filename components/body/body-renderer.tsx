@@ -5,9 +5,7 @@ import BodyHighlighter, {
   ExtendedBodyPart,
 } from "react-native-body-highlighter";
 import styles from "../styles";
-import {
-  BODY_TYPE,
-} from "@/providers/body-settings-provider";
+import { BODY_TYPE } from "@/providers/body-settings-provider";
 import { BodySide } from "../screen.interface";
 
 type BodyFlowRendererProps = {
@@ -41,55 +39,53 @@ export default function BodyFlowRenderer({
   return (
     <ScrollView
       style={{ flex: 1 }}
-      contentContainerStyle={[{ alignContent: "center",
-          justifyContent: "center",
-          paddingVertical: 100,}]}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        justifyContent: "center",
+        paddingTop: 100,
+      }}
     >
-      <View style={{ backgroundColor: colors.background, alignItems: "center" }}>
-        <Text style={[styles.title, { color: "#2C4A5E", marginBottom: 10 }]}>
-          {title}
-        </Text>
-
-        <Text
-          style={[
-            styles.subheadline,
-            { color: colors.primary, marginBottom: 5 },
-          ]}
+      <View
+        style={{
+          alignItems: "center",
+          flex: 1,
+        }}
+      >
+        <View style={{ gap: 10 }}>
+          <Text style={[styles.title, { color: "#2C4A5E", marginVertical: 0 }]}>
+            {title}
+          </Text>
+          <Text style={[styles.hint, { color: colors.primary }]}>
+            Tap the areas where you notice these sensations:
+          </Text>
+          <Text style={[styles.subheadline, { color: colors.primary }]}>
+            {selectedEmotions.join(" · ")}
+          </Text>
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            flexGrow: 1,
+          }}
         >
-          {selectedEmotions.join(" · ")}
-        </Text>
-        <BodyHighlighter
-          data={selectedParts}
-          side={side}
-          onBodyPartPress={handleBodyPartPress}
-          colors={["#D6E8F4", "#4A7FA5"]} // light → primary blue
-          scale={1.6}
-          gender={body}
-        />
-
-        <Text style={[styles.hint, { color: colors.primary }]}>
-          Tap the areas where you notice these sensations:
-        </Text>
-        <View style={[styles.toggle, { marginTop: 10 }]}>
+          <BodyHighlighter
+            data={selectedParts}
+            side={side}
+            onBodyPartPress={handleBodyPartPress}
+            colors={["#A6CDD3", "#345A6A"]} // light → primary blue
+            scale={2}
+            gender={body}
+          />
+        </View>
+        <View style={[styles.toggle]}>
           {["front", "back"].map((s) => (
             <Button
               key={s}
               mode={side === s ? "contained" : "outlined"}
               onPress={() => setSide(s as "front" | "back")}
-              style={[
-                styles.toggleButton,
-                {
-                  borderColor: colors.primary,
-                  backgroundColor: side === s ? colors.primary : "transparent",
-                },
-              ]}
-              labelStyle={{
-                fontFamily: "Lora_400Regular",
-                fontSize: 13,
-                letterSpacing: 1.2,
-                textTransform: "uppercase",
-                color: side === s ? colors.onPrimary : colors.primary,
-              }}
+              contentStyle={styles.buttonContent}
+              style={styles.continueButton}
+              labelStyle={styles.buttonLabel}
               disabled={disabled}
             >
               {s}
@@ -98,17 +94,10 @@ export default function BodyFlowRenderer({
           <Button
             mode="outlined"
             onPress={onComplete}
-            style={[
-              styles.toggleButton,
-              { borderColor: colors.primary, borderWidth: 1.5, marginTop: 0 },
-            ]}
-            labelStyle={{
-              fontFamily: "Lora_400Regular",
-              fontSize: 15,
-              letterSpacing: 1.8,
-              textTransform: "uppercase",
-              color: colors.primary,
-            }}
+            icon="arrow-right"
+            contentStyle={styles.buttonContent}
+            style={styles.continueButton}
+            labelStyle={styles.buttonLabel}
             disabled={disabled}
           >
             Done

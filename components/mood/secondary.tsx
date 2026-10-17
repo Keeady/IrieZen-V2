@@ -6,7 +6,7 @@ import MoodChip from "./mood-chip";
 export type SecondaryMoodScreenProps = {
   primaryMood: string | null;
   coreMood: string | null;
-  secondaryMoodIntroMessage: string;
+  secondaryMoodIntroMessage: () => string;
   secondaryMoods: Record<string, string[]>;
   secondaryMixedMoods: Record<string, string[]>;
   selectedMoods: string[];
@@ -25,7 +25,7 @@ export default function SecondaryMoodScreen({
   return (
     <View style={styles.container}>
       <Text variant="titleLarge" style={styles.secondaryTitle}>
-        {secondaryMoodIntroMessage}
+        {secondaryMoodIntroMessage()}
       </Text>
       <View style={styles.chipContainer}>
         {coreMood &&

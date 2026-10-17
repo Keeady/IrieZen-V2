@@ -1,18 +1,23 @@
 import React, { useRef, useEffect } from "react";
-import { View, Animated, Text, StyleSheet } from "react-native";
+import { View, Animated, StyleSheet } from "react-native";
+import { Text } from "react-native-paper";
 
 type FadeInMessagesProps = {
   messages: string[];
 };
 
 const BORDER_OPACITIES = [0.35, 0.35, 0.55, 0.55, 0.75, 0.75, 1, 1];
-const ACCENT_COLOR = { r: 74, g: 127, b: 165 }; // #4A7FA5 — sky blue primary 
+const ACCENT_COLOR = { r: 74, g: 127, b: 165 }; // #4A7FA5 — sky blue primary
 
 const FadeInMessages = ({ messages }: FadeInMessagesProps) => {
   const filteredMessages = messages.filter((m) => m.trim() !== "");
 
-  const fadeAnims = useRef(filteredMessages.map(() => new Animated.Value(0))).current;
-  const slideAnims = useRef(filteredMessages.map(() => new Animated.Value(8))).current;
+  const fadeAnims = useRef(
+    filteredMessages.map(() => new Animated.Value(0)),
+  ).current;
+  const slideAnims = useRef(
+    filteredMessages.map(() => new Animated.Value(8)),
+  ).current;
 
   useEffect(() => {
     const animations = fadeAnims.map((anim, index) =>
@@ -29,7 +34,7 @@ const FadeInMessages = ({ messages }: FadeInMessagesProps) => {
           delay: index * 1500,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     );
 
     Animated.stagger(300, animations).start();
@@ -58,7 +63,7 @@ const FadeInMessages = ({ messages }: FadeInMessagesProps) => {
               },
             ]}
           >
-            <Text style={styles.body}>
+            <Text variant="bodyLarge" style={styles.paragraphText}>
               <Text style={[styles.firstWord, { color: borderColor }]}>
                 {firstWord}{" "}
               </Text>
@@ -79,6 +84,12 @@ const styles = StyleSheet.create({
   paragraph: {
     borderLeftWidth: 2,
     paddingLeft: 20,
+  },
+  paragraphText: {
+    fontFamily: "Lora_400Regular",
+    fontSize: 16,
+    lineHeight: 28,
+    letterSpacing: 0,
   },
   body: {
     fontFamily: "Lora_400Regular",

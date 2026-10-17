@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignContent: "center",
     justifyContent: "center",
     paddingVertical: 100,
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontFamily: "Lora_400Regular", // matches reflection typography
     fontSize: 15,
-    letterSpacing: 1.8, // spaced caps feel intentional and calm
+    letterSpacing: 0.3, // spaced caps feel intentional and calm
     textTransform: "uppercase",
   },
   instruction: {
@@ -112,8 +111,7 @@ const styles = StyleSheet.create({
   },
   toggle: {
     flexDirection: "row",
-    gap: 12,
-    marginTop: 8,
+    gap: 4,
   },
   toggleButton: {
     borderRadius: 2,
@@ -202,6 +200,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+  },
+  continueButton: {
+    borderRadius: 14,
+    marginTop: 28,
+  },
+  buttonContent: {
+    minHeight: 52,
+    flexDirection: "row-reverse",
   },
 });
 

@@ -24,12 +24,16 @@ export default function GratitudeFlowRenderer({
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
       <ScrollView
-        style={{ flex: 1 }}
+        style={{}}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={{
+          justifyContent: "center",
+          flex: 1,
+          paddingTop: 100,
+        }}
       >
-        <View style={{ flexGrow: 1 }}>
+        <View style={{ flex: 1 }}>
           <Text variant="headlineMedium" style={styles.title}>
             {title}
           </Text>
@@ -56,9 +60,12 @@ export default function GratitudeFlowRenderer({
             mode="contained"
             onPress={onComplete}
             disabled={disabled}
-            style={styles.button}
+            icon="arrow-right"
+            contentStyle={styles.buttonContent}
+            style={styles.continueButton}
+            labelStyle={styles.buttonLabel}
           >
-            Done
+            Continue
           </Button>
         </View>
       </ScrollView>

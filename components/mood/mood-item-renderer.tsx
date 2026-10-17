@@ -3,11 +3,12 @@ import { PrimaryMood } from "@/data/moodList";
 import SecondaryMoodScreen from "./secondary";
 import TertiaryMoodScreen from "./tertiary";
 import ReflectionScreen from "./reflection";
+import { SmartResponse } from "../smart-response";
 
 export type MoodItemRendererProps = {
   item: string;
-  randomTitlePrompt: string;
-  secondaryMoodIntroMessage: string;
+  randomTitlePrompt: () => string;
+  secondaryMoodIntroMessage: () => string;
   primaryMood: string | null;
   primaryMoods: PrimaryMood[];
   coreMood: string | null;
@@ -21,8 +22,8 @@ export type MoodItemRendererProps = {
   mixedCoreMood: string | null;
   loadingReflection: boolean | undefined;
   height: number;
-  reflectionMessage: string[];
-  reflectionTitle: string;
+  reflectionMessage: SmartResponse;
+  reflectionTitle: () => string;
   onPrimaryMoodPress: (mood: PrimaryMood) => void;
   onSecondaryMoodPress: (mood: string, mixedMood: string | null) => void;
   onTertiaryMoodPress: (mood: string) => void;
@@ -103,6 +104,7 @@ export default function MoodItemRenderer({
     }
     screenComponent = (
       <ReflectionScreen
+        selectedMoods={selectedMoods}
         messages={reflectionMessage}
         onPress={onReflectionComplete}
         loadingReflection={loadingReflection}

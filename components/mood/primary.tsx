@@ -5,7 +5,7 @@ import styles from "../styles";
 import MoodChip from "./mood-chip";
 
 export type PrimaryMoodScreenProps = {
-  randomTitlePrompt: string;
+  randomTitlePrompt: () => string;
   primaryMoods: PrimaryMood[];
   selectedMoods: string[];
   onPress: (mood: PrimaryMood) => void;
@@ -18,9 +18,9 @@ export default function PrimaryMoodScreen({
   onPress,
 }: PrimaryMoodScreenProps) {
   return (
-    <View style={styles.container}>
+    <View style={{}}>
       <Text variant="headlineMedium" style={styles.title}>
-        {randomTitlePrompt}
+        {randomTitlePrompt()}
       </Text>
       <View style={styles.chipContainer}>
         {primaryMoods.map((mood) => (
@@ -31,6 +31,7 @@ export default function PrimaryMoodScreen({
               selected={selectedMoods.includes(mood.label)}
               onPress={() => onPress(mood)}
               icon={() => <Icon source={mood.icon} size={48} />}
+              variant="primary"
             />
           </View>
         ))}

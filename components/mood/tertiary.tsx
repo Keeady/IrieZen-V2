@@ -72,22 +72,11 @@ export default function TertiaryMoodScreen({
           mode="contained"
           onPress={onSelectionComplete}
           disabled={disabled}
-          style={{
-            marginHorizontal: 24,
-            marginTop: 32,
-            marginBottom: 50,
-            borderRadius: 2,
-            borderWidth: 1.5,
-            borderColor: colors.primary,
-          }}
-          labelStyle={{
-            fontFamily: "Lora_400Regular",
-            fontSize: 15,
-            letterSpacing: 1.8,
-            textTransform: "uppercase",
-          }}
+          icon="arrow-down"
+          contentStyle={styles.buttonContent}
+          style={styles.continueButton}
         >
-          Done
+          Continue to reflection
         </Button>
       )}
     </View>

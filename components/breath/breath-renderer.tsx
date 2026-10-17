@@ -39,7 +39,7 @@ export default function BreathFlowRenderer({
   disabled,
 }: BreathFlowRendererProps) {
   return (
-    <View style={styles.container}>
+    <View style={{ justifyContent: "center" }}>
       <Text
         variant="headlineMedium"
         style={[
@@ -92,7 +92,13 @@ export default function BreathFlowRenderer({
             </Text>
           </>
         ) : !completed ? (
-          <Button mode="contained" onPress={handleStart} style={styles.button}>
+          <Button
+            mode="contained"
+            onPress={handleStart}
+            contentStyle={styles.buttonContent}
+            style={styles.continueButton}
+            labelStyle={styles.buttonLabel}
+          >
             Start
           </Button>
         ) : (
@@ -100,7 +106,9 @@ export default function BreathFlowRenderer({
             <Button
               mode="contained"
               onPress={handleStart}
-              style={styles.button}
+              contentStyle={styles.buttonContent}
+              style={styles.continueButton}
+              labelStyle={styles.buttonLabel}
               disabled={disabled}
             >
               Restart
@@ -109,9 +117,12 @@ export default function BreathFlowRenderer({
               mode="contained"
               onPress={onComplete}
               disabled={disabled}
-              style={styles.button}
+              icon="arrow-right"
+              contentStyle={styles.buttonContent}
+              style={styles.continueButton}
+              labelStyle={styles.buttonLabel}
             >
-              Done
+              Continue
             </Button>
           </View>
         )}

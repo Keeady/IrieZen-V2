@@ -24,10 +24,14 @@ export default function WinsFlowRenderer({
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
       <ScrollView
-        style={{ flex: 1 }}
+        style={{}}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={{
+          justifyContent: "center",
+          flexGrow: 1,
+          paddingTop: 100,
+        }}
       >
         <View style={{ flexGrow: 1 }}>
           <Text variant="headlineMedium" style={styles.title}>
@@ -47,7 +51,7 @@ export default function WinsFlowRenderer({
               value={text}
               onChangeText={setText}
               multiline
-              numberOfLines={16}
+              numberOfLines={5}
               style={styles.textarea}
               placeholder={placeholder}
             />
@@ -56,9 +60,12 @@ export default function WinsFlowRenderer({
             mode="contained"
             onPress={onComplete}
             disabled={disabled}
-            style={styles.button}
+            icon="arrow-right"
+            contentStyle={styles.buttonContent}
+            style={styles.continueButton}
+            labelStyle={styles.buttonLabel}
           >
-            Done
+            Complete
           </Button>
         </View>
       </ScrollView>

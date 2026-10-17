@@ -15,7 +15,7 @@ export default function MoodFlowRenderer({
   height,
 }: MoodFlowRendererProps) {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{}}>
       <FlatList
         ref={moodRef}
         data={moodScreens}

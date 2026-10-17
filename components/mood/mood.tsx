@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { ScreenProps } from "../screen.interface";
 import MoodFlowRenderer from "./mood-renderer";
 import React, { useCallback, useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import {
   tertiaryMoods,
 } from "@/data/moodList";
 import MoodItemRenderer from "./mood-item-renderer";
-import { getSmartResponse } from "../smart-response";
+import { getSmartResponse, SmartResponse } from "../smart-response";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addMoodInsight } from "./mood-insight-reducer";
 import { useAppDispatch } from "../store.interface";
@@ -26,7 +26,6 @@ export default function MoodScreen({
 }: ScreenProps) {
   const moodRef = React.useRef<FlatList<string> | null>(null);
   const moodScreens = ["primary", "secondary", "tertiary", "reflection"];
-  const randomTitlePrompt = getRandomMoodTitlePrompt();
 
   const [primaryMood, setPrimaryMood] = useState<string | null>(null);
   const [coreMood, setCoreMood] = useState<string | null>(null);
@@ -40,9 +39,8 @@ export default function MoodScreen({
   >(undefined);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [disabledOnComplete, setDisabledOnComplete] = useState<boolean>(false);
-  const [reflectionMessage, setReflectionMessage] = useState<string[] | null>(
-    null,
-  );
+  const [reflectionMessage, setReflectionMessage] =
+    useState<SmartResponse | null>();
   const [scrollToEndOnceDone, setScrollToEndOnceDone] = useState(false);
   const [selectedTertiaryMood, setSelectedTertiaryMood] = useState<
     string | null
@@ -101,6 +99,10 @@ export default function MoodScreen({
     return getMoodIntroMessage(primaryMood || "");
   }, [primaryMood]);
 
+  const randomTitlePrompt = useCallback(() => {
+    return getRandomMoodTitlePrompt();
+  }, []);
+
   useEffect(() => {
     setSelectedEmotions?.(selectedMoods);
   }, [selectedMoods]);
@@ -119,9 +121,16 @@ export default function MoodScreen({
       if (smartResponse) {
         setReflectionMessage(smartResponse);
       } else {
-        setReflectionMessage([
-          "Great job! Let's move on to expressing gratitude.",
-        ]);
+        setReflectionMessage({
+          intro: "Great job! Let's move on to expressing gratitude.",
+          outro: "",
+          acceptanceIntro: "",
+          acceptanceOutro: "",
+          investigationIntro: "",
+          investigationOutro: "",
+          nurturingIntro: "",
+          nurturingOutro: "",
+        });
       }
       scrollToNextScreen(3);
     });
@@ -156,7 +165,9 @@ export default function MoodScreen({
     setDisabledOnComplete(true);
   };
 
-  const reflectionTitle = getRandomReflectionIntroMessage();
+  const reflectionTitle = useCallback(() => {
+    return getRandomReflectionIntroMessage();
+  }, []);
 
   const saveMoodsToStorage = useCallback(() => {
     if (storageType === "local") {
@@ -186,31 +197,44 @@ export default function MoodScreen({
       moodRef={moodRef}
       moodScreens={moodScreens}
       renderItem={({ item, index }) => (
-        <MoodItemRenderer
-          item={item}
-          primaryMoods={primaryMoods}
-          randomTitlePrompt={randomTitlePrompt}
-          secondaryMoodIntroMessage={secondaryMoodIntroMessage()}
-          selectedMoods={selectedMoods}
-          primaryMood={primaryMood}
-          coreMood={coreMood}
-          secondaryMoods={secondaryMoods}
-          secondaryMixedMoods={secondaryMixedMoods}
-          selectedSecondaryMood={selectedSecondaryMood}
-          onSelectionComplete={onDonePress}
-          disabled={disabled || !coreMood || !selectedSecondaryMood}
-          tertiaryMoods={tertiaryMoods}
-          mixedCoreMood={mixedCoreMood}
-          loadingReflection={loadingReflection}
-          height={height}
-          reflectionMessage={reflectionMessage || []}
-          reflectionTitle={reflectionTitle}
-          onPrimaryMoodPress={onPrimaryMoodPress}
-          onSecondaryMoodPress={onSecondaryMoodPress}
-          onTertiaryMoodPress={onTertiaryMoodPress}
-          onReflectionComplete={onReflectionComplete}
-          disabledOnComplete={disabledOnComplete}
-        />
+        <View style={{}}>
+          <MoodItemRenderer
+            item={item}
+            primaryMoods={primaryMoods}
+            randomTitlePrompt={randomTitlePrompt}
+            secondaryMoodIntroMessage={secondaryMoodIntroMessage}
+            selectedMoods={selectedMoods}
+            primaryMood={primaryMood}
+            coreMood={coreMood}
+            secondaryMoods={secondaryMoods}
+            secondaryMixedMoods={secondaryMixedMoods}
+            selectedSecondaryMood={selectedSecondaryMood}
+            onSelectionComplete={onDonePress}
+            disabled={disabled || !coreMood || !selectedSecondaryMood}
+            tertiaryMoods={tertiaryMoods}
+            mixedCoreMood={mixedCoreMood}
+            loadingReflection={loadingReflection}
+            height={height}
+            reflectionMessage={
+              reflectionMessage || {
+                intro: "",
+                outro: "",
+                acceptanceIntro: "",
+                acceptanceOutro: "",
+                investigationIntro: "",
+                investigationOutro: "",
+                nurturingIntro: "",
+                nurturingOutro: "",
+              }
+            }
+            reflectionTitle={reflectionTitle}
+            onPrimaryMoodPress={onPrimaryMoodPress}
+            onSecondaryMoodPress={onSecondaryMoodPress}
+            onTertiaryMoodPress={onTertiaryMoodPress}
+            onReflectionComplete={onReflectionComplete}
+            disabledOnComplete={disabledOnComplete}
+          />
+        </View>
       )}
       height={height}
     />
