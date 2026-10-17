@@ -36,22 +36,6 @@ export default function ScreenFlowRenderer({
         keyExtractor={(item) => item.id}
         renderItem={screenItemRenderer}
       />
-      {message && (
-        <Animated.View
-          style={{
-            position: "absolute",
-            bottom: 50,
-            left: 0,
-            right: 0,
-            alignItems: "center",
-            opacity: fadeAnim,
-          }}
-        >
-          <Text variant="bodyLarge" style={{ fontStyle: "italic" }}>
-            {message}
-          </Text>
-        </Animated.View>
-      )}
     </View>
   );
 }
