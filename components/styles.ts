@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontFamily: "Lora_400Regular", // matches reflection typography
     fontSize: 15,
     letterSpacing: 0.3, // spaced caps feel intentional and calm
-    textTransform: "uppercase",
+    textTransform: "capitalize",
   },
   instruction: {
     fontFamily: "Lora_400Regular",
