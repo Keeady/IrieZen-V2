@@ -6,6 +6,7 @@ import FlowRenderer from "./screen-renderer";
 import { ScreenItemRenderer } from "./screen-item-renderer";
 import { useAppDispatch } from "./store.interface";
 import { fetchReports } from "./reports/report-insight-reducer";
+import { KindnessActivity } from "./check-in/choose-act-render-item";
 
 export default function MorningFlow() {
   const { width, height } = useWindowDimensions();
@@ -14,6 +15,7 @@ export default function MorningFlow() {
   const [fadeAnim] = useState(new Animated.Value(0));
   const [message, setMessage] = useState<string | null>(null);
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<KindnessActivity>();
 
   const dispatch = useAppDispatch();
 
@@ -68,6 +70,8 @@ export default function MorningFlow() {
           height={height}
           setSelectedEmotions={setSelectedEmotions}
           selectedEmotions={selectedEmotions}
+          setSelectedActivity={setSelectedActivity}
+          selectedActivity={selectedActivity}
         />
       )}
       message={message}

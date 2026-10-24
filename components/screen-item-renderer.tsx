@@ -8,6 +8,8 @@ import GratitudeScreen from "./gratitude/gratitude";
 import FocusScreen from "./focus/focus";
 import WinsScreen from "./wins/wins";
 import BodySensationScreen from "./body/body";
+import ChooseActScreen from "./check-in/choose-act";
+import SelectedActionRenderer, { KindnessActivity } from "./check-in/choose-act-render-item";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -19,6 +21,8 @@ export type ScreenRendererProps = {
   height: number;
   setSelectedEmotions: (emotions: string[]) => void;
   selectedEmotions: string[];
+  setSelectedActivity: (activity: KindnessActivity) => void;
+  selectedActivity?: KindnessActivity
 };
 
 export const ScreenItemRenderer = ({
@@ -31,6 +35,8 @@ export const ScreenItemRenderer = ({
   height,
   setSelectedEmotions,
   selectedEmotions,
+  setSelectedActivity,
+  selectedActivity,
 }: ScreenRendererProps) => {
   let screenComponent;
   if (item.id === "mood") {
@@ -51,16 +57,17 @@ export const ScreenItemRenderer = ({
         height={height}
       />
     );
-  } else if (item.id === "body") {
+  } /*else if (item.id === "body") {
     screenComponent = (
       <BodySensationScreen
         onComplete={() => onScreenComplete(index)}
         selectedEmotions={selectedEmotions}
         width={width}
         height={height}
+        loadingBody={loadingBody}
       />
     );
-  } else if (item.id === "breath") {
+  }*/ else if (item.id === "breath") {
     screenComponent = (
       <BreathScreen
         onComplete={() => onScreenComplete(index)}
@@ -82,6 +89,29 @@ export const ScreenItemRenderer = ({
         onComplete={() => onScreenComplete(index)}
         width={width}
         height={height}
+      />
+    );
+  } else if (item.id === "choose") {
+    screenComponent = (
+      <ChooseActScreen
+        onComplete={() => onScreenComplete(index)}
+        selectedEmotions={selectedEmotions}
+        coreEmotion={coreEmotion}
+        onSkip={() => onScreenComplete(index + 1)}
+        width={width}
+        height={height}
+        setSelectedActivity={setSelectedActivity}
+      />
+    );
+  } else if (item.id === "selection") {
+    screenComponent = (
+      <SelectedActionRenderer
+        onComplete={() => onScreenComplete(index)}
+        selectedEmotions={selectedEmotions}
+        coreEmotion={coreEmotion}
+        width={width}
+        height={height}
+        activity={selectedActivity}
       />
     );
   } else {

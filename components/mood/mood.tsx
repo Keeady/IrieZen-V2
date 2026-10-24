@@ -25,7 +25,13 @@ export default function MoodScreen({
   height,
 }: ScreenProps) {
   const moodRef = React.useRef<FlatList<string> | null>(null);
-  const moodScreens = ["primary", "secondary", "tertiary", "reflection"];
+  const moodScreens = [
+    "primary",
+    "secondary",
+    "tertiary",
+    "reflection",
+    "body",
+  ];
 
   const [primaryMood, setPrimaryMood] = useState<string | null>(null);
   const [coreMood, setCoreMood] = useState<string | null>(null);
@@ -37,6 +43,9 @@ export default function MoodScreen({
   const [loadingReflection, setLoadingReflection] = useState<
     boolean | undefined
   >(undefined);
+  const [loadingBody, setLoadingBody] = useState<boolean | undefined>(
+    undefined,
+  );
   const [disabled, setDisabled] = useState<boolean>(false);
   const [disabledOnComplete, setDisabledOnComplete] = useState<boolean>(false);
   const [reflectionMessage, setReflectionMessage] =
@@ -161,6 +170,14 @@ export default function MoodScreen({
   };
 
   const onReflectionComplete = () => {
+    setLoadingBody(false);
+    setTimeout(() => {
+          scrollToNextScreen(4);
+
+    }, 500)
+  };
+
+  const onBodyComplete = () => {
     onComplete();
     setDisabledOnComplete(true);
   };
@@ -233,6 +250,8 @@ export default function MoodScreen({
             onTertiaryMoodPress={onTertiaryMoodPress}
             onReflectionComplete={onReflectionComplete}
             disabledOnComplete={disabledOnComplete}
+            onBodyComplete={onBodyComplete}
+            loadingBody={loadingBody}
           />
         </View>
       )}

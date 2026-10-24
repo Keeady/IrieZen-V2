@@ -107,7 +107,7 @@ export default function ReflectionScreen({
             mode="contained"
             onPress={onPress}
             disabled={disabled}
-            icon="arrow-right"
+            icon="arrow-down"
             contentStyle={styles.buttonContent}
             style={styles.continueButton}
             labelStyle={styles.buttonLabel}

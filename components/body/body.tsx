@@ -11,11 +11,14 @@ import { useAppDispatch } from "../store.interface";
 type BodySensationScreenProps = {
   selectedEmotions: string[];
   onComplete: (bodyParts: string[]) => void;
+  loadingBody: boolean | undefined;
 };
 
 export default function BodySensationScreen({
   selectedEmotions,
   onComplete,
+  loadingBody,
+  height
 }: BodySensationScreenProps & ScreenProps) {
   const [selectedParts, setSelectedParts] = useState<ExtendedBodyPart[]>([]);
   const [side, setSide] = useState<BodySide>("front");
@@ -92,6 +95,9 @@ export default function BodySensationScreen({
       disabled={disabled}
       handleBodyPartPress={handleBodyPartPress}
       setSide={setSide}
+      loadingBody={loadingBody}
+      width={0}
+      height={height}
     />
   );
 }

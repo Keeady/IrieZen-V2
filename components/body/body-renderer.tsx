@@ -1,12 +1,13 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Animated } from "react-native";
 import { Text, Button, useTheme } from "react-native-paper";
 import BodyHighlighter, {
   ExtendedBodyPart,
 } from "react-native-body-highlighter";
 import styles from "../styles";
 import { BODY_TYPE } from "@/providers/body-settings-provider";
-import { BodySide } from "../screen.interface";
+import { BodySide, ScreenProps } from "../screen.interface";
+import LottieView from "lottie-react-native";
 
 type BodyFlowRendererProps = {
   body: BODY_TYPE;
@@ -21,6 +22,7 @@ type BodyFlowRendererProps = {
     pressedSide?: "left" | "right",
   ) => void;
   setSide: (side: BodySide) => void;
+  loadingBody: boolean | undefined;
 };
 
 export default function BodyFlowRenderer({
@@ -33,16 +35,20 @@ export default function BodyFlowRenderer({
   disabled,
   handleBodyPartPress,
   setSide,
-}: BodyFlowRendererProps) {
+  loadingBody,
+  height,
+}: BodyFlowRendererProps & ScreenProps) {
   const { colors } = useTheme();
 
   return (
-    <ScrollView
-      style={{ flex: 1 }}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
+    <View
+      style={{
+        flexGrow: 1,
+        //paddingHorizontal: 24,
+        alignContent: "center",
         justifyContent: "center",
-        paddingTop: 100,
+        paddingVertical: 100,
+        minHeight: height,
       }}
     >
       <View
@@ -51,59 +57,77 @@ export default function BodyFlowRenderer({
           flex: 1,
         }}
       >
-        <View style={{ gap: 10 }}>
-          <Text style={[styles.title, { color: "#2C4A5E", marginVertical: 0 }]}>
-            {title}
-          </Text>
-          <Text style={[styles.hint, { color: colors.primary }]}>
-            Tap the areas where you notice these sensations:
-          </Text>
-          <Text style={[styles.subheadline, { color: colors.primary }]}>
-            {selectedEmotions.join(" · ")}
-          </Text>
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            flexGrow: 1,
-          }}
-        >
-          <BodyHighlighter
-            data={selectedParts}
-            side={side}
-            onBodyPartPress={handleBodyPartPress}
-            colors={["#A6CDD3", "#345A6A"]} // light → primary blue
-            scale={2}
-            gender={body}
-          />
-        </View>
-        <View style={[styles.toggle]}>
-          {["front", "back"].map((s) => (
+              {loadingBody === true && (
+                <View style={[{ backgroundColor: colors.secondary }]}>
+                  <Animated.View>
+                    <LottieView
+                      source={require("../../assets/animation/paperplane.json")}
+                      autoPlay={true}
+                      loop
+                      style={{ width: 300, height: 300 }}
+                    />
+                  </Animated.View>
+                </View>
+              )}
+      {loadingBody === false && (
+        <>
+          <View style={{ gap: 10 }}>
+            <Text
+              style={[styles.title, { color: "#2C4A5E", marginVertical: 0 }]}
+            >
+              {title}
+            </Text>
+            <Text style={[styles.hint, { color: colors.primary }]}>
+              Tap the areas where you notice these sensations:
+            </Text>
+            <Text style={[styles.subheadline, { color: colors.primary }]}>
+              {selectedEmotions.join(" · ")}
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              flexGrow: 1,
+            }}
+          >
+            <BodyHighlighter
+              data={selectedParts}
+              side={side}
+              onBodyPartPress={handleBodyPartPress}
+              colors={["#A6CDD3", "#345A6A"]} // light → primary blue
+              scale={2}
+              gender={body}
+            />
+          </View>
+          <View style={[styles.toggle]}>
+            {["front", "back"].map((s) => (
+              <Button
+                key={s}
+                mode={side === s ? "contained" : "outlined"}
+                onPress={() => setSide(s as "front" | "back")}
+                contentStyle={styles.buttonContent}
+                style={styles.continueButton}
+                labelStyle={styles.buttonLabel}
+                disabled={disabled}
+              >
+                {s}
+              </Button>
+            ))}
             <Button
-              key={s}
-              mode={side === s ? "contained" : "outlined"}
-              onPress={() => setSide(s as "front" | "back")}
+              mode="outlined"
+              onPress={onComplete}
+              icon="arrow-right"
               contentStyle={styles.buttonContent}
               style={styles.continueButton}
               labelStyle={styles.buttonLabel}
               disabled={disabled}
             >
-              {s}
+              Done
             </Button>
-          ))}
-          <Button
-            mode="outlined"
-            onPress={onComplete}
-            icon="arrow-right"
-            contentStyle={styles.buttonContent}
-            style={styles.continueButton}
-            labelStyle={styles.buttonLabel}
-            disabled={disabled}
-          >
-            Done
-          </Button>
-        </View>
-      </View>
-    </ScrollView>
+          </View>
+        </>
+      )}
+    </View>
+    </View>
   );
 }

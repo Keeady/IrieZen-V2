@@ -4,6 +4,7 @@ import SecondaryMoodScreen from "./secondary";
 import TertiaryMoodScreen from "./tertiary";
 import ReflectionScreen from "./reflection";
 import { SmartResponse } from "../smart-response";
+import BodySensationScreen from "../body/body";
 
 export type MoodItemRendererProps = {
   item: string;
@@ -29,6 +30,8 @@ export type MoodItemRendererProps = {
   onTertiaryMoodPress: (mood: string) => void;
   onReflectionComplete: () => void;
   disabledOnComplete: boolean;
+  loadingBody: boolean | undefined;
+  onBodyComplete: () => void;
 };
 
 export default function MoodItemRenderer({
@@ -55,6 +58,8 @@ export default function MoodItemRenderer({
   onTertiaryMoodPress,
   onReflectionComplete,
   disabledOnComplete,
+  loadingBody,
+  onBodyComplete,
 }: MoodItemRendererProps) {
   let screenComponent = null;
 
@@ -111,6 +116,19 @@ export default function MoodItemRenderer({
         height={height}
         title={reflectionTitle}
         disabled={disabledOnComplete}
+      />
+    );
+  } else if (item === "body") {
+    if (loadingBody === undefined) {
+      return null;
+    }
+    screenComponent = (
+      <BodySensationScreen
+        onComplete={onBodyComplete}
+        selectedEmotions={selectedMoods}
+        width={0}
+        height={height}
+        loadingBody={loadingBody}
       />
     );
   }
