@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     letterSpacing: 0.8,
     fontStyle: "italic",
-    opacity: 0.7,
+    //opacity: 0.7,
     textAlign: "center",
   },
   toggle: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     letterSpacing: 1.2,
     textAlign: "center",
-    opacity: 0.8,
+    //opacity: 0.8,
   },
   section: {
     gap: 12,
@@ -137,21 +137,21 @@ const styles = StyleSheet.create({
     fontSize: 13,
     letterSpacing: 1.4,
     textTransform: "uppercase",
-    opacity: 0.8,
+   // opacity: 0.8,
     marginBottom: 4,
   },
   sectionHint: {
     fontFamily: "Lora_400Regular",
     fontSize: 14,
     lineHeight: 22,
-    opacity: 0.6,
+    //opacity: 0.6,
     marginBottom: 4,
   },
   sectionContent: {
     fontFamily: "Lora_400Regular",
     fontSize: 14,
     lineHeight: 22,
-    opacity: 0.8,
+   // opacity: 0.8,
   },
   option: {
     borderRadius: 2,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     fontFamily: "Lora_400Regular",
     fontSize: 12,
     lineHeight: 18,
-    opacity: 0.55,
+   // opacity: 0.55,
   },
   badge: {
     borderRadius: 2,

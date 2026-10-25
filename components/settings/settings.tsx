@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect } from "react";
-import SettingsRenderer from "./settings-renderer";
+import SettingsRenderer, {
+  DEFAULT_SAVE_PREFERENCES,
+  SavePreferences,
+} from "./settings-renderer";
 import {
   BODY_TYPE,
   useBodySettingsContext,
@@ -16,6 +19,22 @@ export default function SettingsScreen() {
 
   const { saveBodyType, body } = useBodySettingsContext();
   const { saveStorageType, storageType } = useStorageSettingsContext();
+
+  const [savePreferences, setSavePreferences] = React.useState<SavePreferences>(
+    {
+      ...DEFAULT_SAVE_PREFERENCES,
+    },
+  );
+
+  const onSavePreferenceChange = (
+    key: keyof SavePreferences,
+    enabled: boolean,
+  ) => {
+    setSavePreferences((current) => ({
+      ...current,
+      [key]: enabled,
+    }));
+  };
 
   const onBodyTypeChange = useCallback(
     (type: BODY_TYPE) => {
@@ -53,6 +72,8 @@ export default function SettingsScreen() {
       body={bodyType}
       storageType={selectedStorageType}
       onStorageTypeChange={onStorageTypeChange}
+      savePreferences={savePreferences}
+      onSavePreferenceChange={onSavePreferenceChange}
     />
   );
 }

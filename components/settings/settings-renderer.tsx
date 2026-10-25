@@ -3,6 +3,7 @@ import { ScrollView, View } from "react-native";
 import {
   Divider,
   RadioButton,
+  Switch,
   Text,
   TouchableRipple,
   useTheme,
@@ -19,13 +20,61 @@ type SettingsRendererProps = {
   body: BODY_TYPE;
   storageType: StorageType;
   onStorageTypeChange: (type: StorageType) => void;
+    savePreferences: SavePreferences;
+  onSavePreferenceChange: (
+    key: keyof SavePreferences,
+    enabled: boolean,
+  ) => void;
 };
+
+export type SavePreferences = {
+  moodsAndBody: boolean;
+  journal: boolean;
+  brainDump: boolean;
+  gratitudeAndIntentions: boolean;
+};
+
+export const DEFAULT_SAVE_PREFERENCES: SavePreferences = {
+  moodsAndBody: false,
+  journal: false,
+  brainDump: false,
+  gratitudeAndIntentions: false,
+};
+
+const SAVE_OPTIONS: {
+  key: keyof SavePreferences;
+  label: string;
+  description: string;
+}[] = [
+  {
+    key: "moodsAndBody",
+    label: "Moods & body sensations",
+    description: "Save your emotions and body sensation check-ins.",
+  },
+  {
+    key: "journal",
+    label: "Journal",
+    description: "Save your journal entries and personal reflections.",
+  },
+  {
+    key: "brainDump",
+    label: "Brain dump",
+    description: "Save your brain dump entries to revisit later.",
+  },
+  {
+    key: "gratitudeAndIntentions",
+    label: "Gratitude & intentions",
+    description: "Save your gratitude and intention entries.",
+  },
+];
 
 export default function SettingsRenderer({
   onBodyTypeChange,
   body,
   storageType,
   onStorageTypeChange,
+  savePreferences,
+  onSavePreferenceChange,
 }: SettingsRendererProps) {
   const { colors } = useTheme();
 
@@ -53,8 +102,8 @@ export default function SettingsRenderer({
       style={[
         styles.option,
         {
-          borderColor: selected ? colors.primary : colors.outline,
-          backgroundColor: selected ? colors.secondary : "transparent",
+          borderColor: selected ? colors.onSecondaryContainer : colors.outline,
+          backgroundColor: selected ? colors.secondaryContainer : "transparent",
         },
       ]}
       disabled={disabled}
@@ -153,7 +202,7 @@ export default function SettingsRenderer({
             Data Storage
           </Text>
           <Text style={[styles.sectionHint, { color: colors.onSurface }]}>
-            Choose how your mood data is stored.
+            Choose where your data are stored.
           </Text>
           {STORAGE_OPTIONS.map(
             ({ value, label, description, disabled, badge }) =>
@@ -168,6 +217,86 @@ export default function SettingsRenderer({
               }),
           )}
         </View>
+
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: colors.primary }]}>
+            What to Save
+          </Text>
+
+          <Text
+            style={[styles.sectionHint, { color: colors.onSurfaceVariant }]}
+          >
+            Choose what you’d like to keep for future reflection. All options
+            are off by default.
+          </Text>
+
+          {SAVE_OPTIONS.map(({ key, label, description }) => {
+            const enabled = savePreferences[key];
+
+            return (
+              <View
+                key={key}
+                style={[
+                  styles.option,
+                  {
+                    borderColor: enabled ? colors.primary : colors.outline,
+                    backgroundColor: enabled
+                      ? colors.secondaryContainer
+                      : "transparent",
+                  },
+                ]}
+              >
+                <View style={styles.optionInner}>
+                  <View style={styles.optionText}>
+                    <Text
+                      style={[
+                        styles.optionLabel,
+                        {
+                          color: enabled
+                            ? colors.onSecondaryContainer
+                            : colors.onSurface,
+                        },
+                      ]}
+                    >
+                      {label}
+                    </Text>
+
+                    <Text
+                      style={[
+                        styles.optionDescription,
+                        {
+                          color: enabled
+                            ? colors.onSecondaryContainer
+                            : colors.onSurfaceVariant,
+                        },
+                      ]}
+                    >
+                      {description}
+                    </Text>
+                  </View>
+
+                  <Switch
+                    value={enabled}
+                    onValueChange={(value) =>
+                      onSavePreferenceChange(key, value)
+                    }
+                    color={colors.primary}
+                    accessibilityLabel={`Save ${label.toLowerCase()}`}
+                  />
+                </View>
+              </View>
+            );
+          })}
+
+          <Text
+            style={[styles.sectionHint, { color: colors.onSurfaceVariant }]}
+          >
+            Turning an option off stops future saving. It does not delete
+            previously saved entries.
+          </Text>
+        </View>
+
+        <Divider style={{ backgroundColor: colors.outline }} />
       </View>
     </ScrollView>
   );

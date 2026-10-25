@@ -27,11 +27,13 @@ export default function ChooseActScreen({
   //onBack,
   onComplete,
   setSelectedActivity,
- // disabled = false,
+  // disabled = false,
 }: ChooseActScreenProps & ScreenProps) {
   const { colors } = useTheme();
 
-  const [selected, setSelected] = useState<KindnessActivity | null>("breathing");
+  const [selected, setSelected] = useState<KindnessActivity | null>(
+    "breathing",
+  );
   const [disabled, setDisabled] = useState(false);
 
   return (
