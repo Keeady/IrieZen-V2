@@ -14,13 +14,14 @@ import {
   STORAGE_OPTIONS,
   StorageType,
 } from "@/providers/storage-settings-provider";
+import ManageSavedReports from "../reports/manage-saved-reports";
 
 type SettingsRendererProps = {
   onBodyTypeChange: (type: BODY_TYPE) => void;
   body: BODY_TYPE;
   storageType: StorageType;
   onStorageTypeChange: (type: StorageType) => void;
-    savePreferences: SavePreferences;
+  savePreferences: SavePreferences;
   onSavePreferenceChange: (
     key: keyof SavePreferences,
     enabled: boolean,
@@ -296,6 +297,10 @@ export default function SettingsRenderer({
           </Text>
         </View>
 
+        <Divider style={{ backgroundColor: colors.outline }} />
+
+        <ManageSavedReports />
+        
         <Divider style={{ backgroundColor: colors.outline }} />
       </View>
     </ScrollView>

@@ -15,7 +15,8 @@ import { addGratitudeInsight } from "../gratitude/gratitude-insight-reducer";
 import { addWinsInsight } from "../wins/wins-insight-reducer";
 import { ReportInsightState, REPORTS_KEY } from "../store.interface";
 
-const key = new Date().toLocaleDateString();
+const getTodayKey = () => new Date().toLocaleDateString();
+const key = getTodayKey();
 
 // initialize the state with an empty array
 const initialState: ReportInsightState[] = [
@@ -50,6 +51,30 @@ export const fetchReports = createAsyncThunk(
     } catch (error) {
       throw error;
     }
+  },
+);
+
+export const deleteReport = createAsyncThunk(
+  "reportInsight/deleteReport",
+  async (date: string): Promise<ReportInsightState[]> => {
+    const stored = await AsyncStorage.getItem(REPORTS_KEY);
+
+    const reports: ReportInsightState[] = stored ? JSON.parse(stored) : [];
+
+    const updatedReports = reports.filter((report) => report.date !== date);
+
+    await AsyncStorage.setItem(REPORTS_KEY, JSON.stringify(updatedReports));
+
+    return updatedReports;
+  },
+);
+
+export const deleteAllReports = createAsyncThunk(
+  "reportInsight/deleteAllReports",
+  async (): Promise<ReportInsightState[]> => {
+    await AsyncStorage.removeItem(REPORTS_KEY);
+
+    return [];
   },
 );
 
@@ -334,6 +359,12 @@ export const reportInsightSlice = createSlice({
         }
 
         return newState;
+      })
+      .addCase(deleteReport.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(deleteAllReports.fulfilled, () => {
+        return [];
       });
   },
 });
