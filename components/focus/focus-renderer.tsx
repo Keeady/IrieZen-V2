@@ -30,21 +30,19 @@ export default function FocusFlowRenderer({
         contentContainerStyle={{
           justifyContent: "center",
           flex: 1,
-          paddingTop: 100,
         }}
       >
-        <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flexGrow: 1,
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
           <Text variant="headlineMedium" style={styles.title}>
             {title}
           </Text>
-          <View
-            style={{
-              alignContent: "center",
-              alignItems: "center",
-              justifyContent: "center",
-              flexGrow: 1,
-            }}
-          >
+          <View style={{ flexGrow: 1 }}>
             <TextInput
               mode="outlined"
               label={label}
@@ -54,13 +52,14 @@ export default function FocusFlowRenderer({
               numberOfLines={16}
               style={styles.textarea}
               placeholder={placeholder}
+              disabled={disabled}
             />
           </View>
           <Button
             mode="contained"
             onPress={onComplete}
             disabled={disabled}
-            icon="arrow-right"
+            icon="arrow-down"
             contentStyle={styles.buttonContent}
             style={styles.continueButton}
             labelStyle={styles.buttonLabel}

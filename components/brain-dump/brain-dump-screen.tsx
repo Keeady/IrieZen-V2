@@ -67,10 +67,10 @@ export default function BrainDumpScreen({
           <View style={{}}>
             <BrainDumpField
               title="Things I need to do"
-              //subtitle="List what’s on your plate."
+              subtitle="List what’s on your plate."
               value={todos}
               onChangeText={setTodos}
-              placeholder="..."
+              placeholder=""
               minHeight={140}
             />
           </View>
@@ -80,7 +80,7 @@ export default function BrainDumpScreen({
               subtitle="Even a small step still counts."
               value={smallWin}
               onChangeText={setSmallWin}
-              placeholder="..."
+              placeholder=""
               //minHeight={120}
             />
           </View>
@@ -90,7 +90,7 @@ export default function BrainDumpScreen({
               subtitle="Be honest with yourself here."
               value={feelings}
               onChangeText={setFeelings}
-              placeholder="..."
+              placeholder=""
               //minHeight={140}
             />
           </View>
@@ -100,7 +100,7 @@ export default function BrainDumpScreen({
               subtitle="Name the thoughts that keep circling."
               value={worries}
               onChangeText={setWorries}
-              placeholder="..."
+              placeholder=""
               //minHeight={140}
             />
           </View>
@@ -110,7 +110,7 @@ export default function BrainDumpScreen({
               subtitle="Sometimes naming it is the first step."
               value={puttingOff}
               onChangeText={setPuttingOff}
-              placeholder="..."
+              placeholder=""
               //minHeight={140}
             />
           </View>
