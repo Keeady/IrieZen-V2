@@ -1,3 +1,12 @@
+import { BODY_OPTIONS, BODY_TYPE } from "@/providers/body-settings-provider";
+import {
+  SAVE_OPTIONS,
+  SavePreferences,
+} from "@/providers/save-preference-provider";
+import {
+  STORAGE_OPTIONS,
+  StorageType,
+} from "@/providers/storage-settings-provider";
 import React from "react";
 import { ScrollView, View } from "react-native";
 import {
@@ -8,13 +17,8 @@ import {
   TouchableRipple,
   useTheme,
 } from "react-native-paper";
-import styles from "../styles";
-import { BODY_OPTIONS, BODY_TYPE } from "@/providers/body-settings-provider";
-import {
-  STORAGE_OPTIONS,
-  StorageType,
-} from "@/providers/storage-settings-provider";
 import ManageSavedReports from "../reports/manage-saved-reports";
+import styles from "../styles";
 
 type SettingsRendererProps = {
   onBodyTypeChange: (type: BODY_TYPE) => void;
@@ -27,47 +31,6 @@ type SettingsRendererProps = {
     enabled: boolean,
   ) => void;
 };
-
-export type SavePreferences = {
-  moodsAndBody: boolean;
-  journal: boolean;
-  brainDump: boolean;
-  gratitudeAndIntentions: boolean;
-};
-
-export const DEFAULT_SAVE_PREFERENCES: SavePreferences = {
-  moodsAndBody: false,
-  journal: false,
-  brainDump: false,
-  gratitudeAndIntentions: false,
-};
-
-const SAVE_OPTIONS: {
-  key: keyof SavePreferences;
-  label: string;
-  description: string;
-}[] = [
-  {
-    key: "moodsAndBody",
-    label: "Moods & body sensations",
-    description: "Save your emotions and body sensation check-ins.",
-  },
-  {
-    key: "journal",
-    label: "Journal",
-    description: "Save your journal entries and personal reflections.",
-  },
-  {
-    key: "brainDump",
-    label: "Brain dump",
-    description: "Save your brain dump entries to revisit later.",
-  },
-  {
-    key: "gratitudeAndIntentions",
-    label: "Gratitude & intentions",
-    description: "Save your gratitude and intention entries.",
-  },
-];
 
 export default function SettingsRenderer({
   onBodyTypeChange,
@@ -300,7 +263,7 @@ export default function SettingsRenderer({
         <Divider style={{ backgroundColor: colors.outline }} />
 
         <ManageSavedReports />
-        
+
         <Divider style={{ backgroundColor: colors.outline }} />
       </View>
     </ScrollView>

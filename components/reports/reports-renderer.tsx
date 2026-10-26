@@ -8,6 +8,8 @@ import {
   useTheme,
 } from "react-native-paper";
 import type { DailyInsight } from "../screen.interface";
+import JournalInsightCard from "./journal-insight-card";
+import BrainDumpInsightCard from "./brain-dump-insight-card";
 
 type ReportsRendererProps = {
   currentDaily: DailyInsight | null;
@@ -125,6 +127,9 @@ function DailyReflectionCard({
 
   const breath = insight.breath?.trim();
 
+  const journalEntries = insight.journal ?? [];
+  const brainDumpEntries = insight.brainDump ?? [];
+
   const hasContent =
     moods.length > 0 ||
     body.length > 0 ||
@@ -132,6 +137,7 @@ function DailyReflectionCard({
     intentions.length > 0 ||
     gratitude.length > 0 ||
     wins.length > 0;
+  journalEntries.length > 0 || brainDumpEntries.length > 0;
 
   return (
     <Surface
@@ -191,7 +197,7 @@ function DailyReflectionCard({
                     },
                   ]}
                 >
-                  Body awareness
+                  Body
                 </Text>
                 <Text
                   style={[
@@ -260,6 +266,28 @@ function DailyReflectionCard({
       {wins.length > 0 && (
         <ReflectionSection icon="star-four-points-outline" title="Small wins">
           <EntryList entries={wins} />
+        </ReflectionSection>
+      )}
+
+      {/* Journal entries */}
+      {journalEntries.length > 0 && (
+        <ReflectionSection icon="book-open-outline" title="My journal">
+          <View style={{ gap: 12 }}>
+            {journalEntries.map((entry, index) => (
+              <JournalInsightCard entry={entry} key={index} />
+            ))}
+          </View>
+        </ReflectionSection>
+      )}
+
+      {/* Brain dump entries */}
+      {brainDumpEntries.length > 0 && (
+        <ReflectionSection icon="cloud-outline" title="My brain dump">
+          <View style={{ gap: 12 }}>
+            {brainDumpEntries.map((entry, index) => (
+              <BrainDumpInsightCard entry={entry} key={index} />
+            ))}
+          </View>
         </ReflectionSection>
       )}
     </Surface>

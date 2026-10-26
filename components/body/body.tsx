@@ -7,6 +7,7 @@ import { BodySide, ScreenProps } from "../screen.interface";
 import { getBodySensationIntroMessage } from "@/data/moodList";
 import { addBodyInsight } from "./body-insight-reducer";
 import { useAppDispatch } from "../store.interface";
+import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
 type BodySensationScreenProps = {
   selectedEmotions: string[];
@@ -18,7 +19,7 @@ export default function BodySensationScreen({
   selectedEmotions,
   onComplete,
   loadingBody,
-  height
+  height,
 }: BodySensationScreenProps & ScreenProps) {
   const [selectedParts, setSelectedParts] = useState<ExtendedBodyPart[]>([]);
   const [side, setSide] = useState<BodySide>("front");
@@ -26,6 +27,8 @@ export default function BodySensationScreen({
   const [disabled, setDisabled] = useState(false);
   const { body } = useBodySettingsContext();
   const { storageType } = useStorageSettingsContext();
+  const { savedPreferences } = useSavePreferenceSettingsContext();
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -34,7 +37,7 @@ export default function BodySensationScreen({
   }, []);
 
   const saveBodyToStorage = useCallback(() => {
-    if (storageType === "local") {
+    if (storageType === "local" && savedPreferences?.moodsandbody_preference) {
       const bodyParts = selectedParts.map((p) => {
         if (p.side) {
           return { part: p.slug!, side: p.side };
@@ -43,7 +46,7 @@ export default function BodySensationScreen({
       });
       dispatch(addBodyInsight(bodyParts));
     }
-  }, [selectedParts, storageType, dispatch]);
+  }, [selectedParts, storageType, dispatch, savedPreferences?.moodsandbody_preference]);
 
   const handleBodyPartPress = (
     part: ExtendedBodyPart,

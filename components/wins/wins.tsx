@@ -8,6 +8,7 @@ import { useMemo, useState, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addWinsInsight } from "./wins-insight-reducer";
 import { useAppDispatch } from "../store.interface";
+import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
 export default function WinsScreen({ onComplete }: ScreenProps) {
   const placeholder = "";
@@ -17,6 +18,8 @@ export default function WinsScreen({ onComplete }: ScreenProps) {
   const [disabled, setDisabled] = useState(false);
 
   const { storageType } = useStorageSettingsContext();
+  const { savedPreferences } = useSavePreferenceSettingsContext();
+
   const dispatch = useAppDispatch();
 
   useMemo(() => {
@@ -27,10 +30,19 @@ export default function WinsScreen({ onComplete }: ScreenProps) {
   }, []);
 
   const saveWins = useCallback(() => {
-    if (storageType === "local") {
+    if (
+      storageType === "local" &&
+      savedPreferences?.gratitudeintentions_preference
+    ) {
       dispatch(addWinsInsight({ label, text }));
     }
-  }, [text, label, storageType, dispatch]);
+  }, [
+    text,
+    label,
+    storageType,
+    dispatch,
+    savedPreferences?.gratitudeintentions_preference,
+  ]);
 
   return (
     <WinsFlowRenderer

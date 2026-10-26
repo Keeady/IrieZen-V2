@@ -8,6 +8,7 @@ import { useState, useMemo, useCallback } from "react";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addIntentionsInsight } from "./intentions-insight-reducer";
 import { useAppDispatch } from "../store.interface";
+import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
 export default function FocusScreen({ onComplete, height }: ScreenProps) {
   const placeholder = "";
@@ -17,6 +18,8 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
   const [disabled, setDisabled] = useState(false);
 
   const { storageType } = useStorageSettingsContext();
+  const { savedPreferences } = useSavePreferenceSettingsContext();
+
   const dispatch = useAppDispatch();
 
   useMemo(() => {
@@ -27,10 +30,16 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
   }, []);
 
   const saveFocus = useCallback(() => {
-    if (storageType === "local") {
+    if (storageType === "local" && savedPreferences?.gratitudeintentions_preference) {
       dispatch(addIntentionsInsight({ label, text }));
     }
-  }, [text, label, storageType, dispatch]);
+  }, [
+    text,
+    label,
+    storageType,
+    dispatch,
+    savedPreferences?.gratitudeintentions_preference,
+  ]);
 
   return (
     <FocusFlowRenderer

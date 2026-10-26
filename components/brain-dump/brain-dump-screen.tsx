@@ -1,22 +1,17 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   View,
 } from "react-native";
-import {
-  Button,
-  Icon,
-  IconButton,
-  Surface,
-  Text,
-  TextInput,
-  useTheme,
-} from "react-native-paper";
+import { Button, Text, useTheme } from "react-native-paper";
 import BrainDumpField from "./brain-dump-field";
 import { ScreenProps } from "../screen.interface";
+import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
+import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
+import { useAppDispatch } from "../store.interface";
+import { addBrainDumpInsight } from "./brain-dump-insight-reducer";
 
 export type BrainDumpEntry = {
   todos: string;
@@ -26,11 +21,10 @@ export type BrainDumpEntry = {
   puttingOff: string;
 };
 
-type BrainDumpScreenProps = {
-};
+type BrainDumpScreenProps = {};
 
 export default function BrainDumpScreen({
-    onComplete
+  onComplete,
 }: BrainDumpScreenProps & ScreenProps) {
   const { colors } = useTheme();
 
@@ -40,6 +34,36 @@ export default function BrainDumpScreen({
   const [worries, setWorries] = useState("");
   const [puttingOff, setPuttingOff] = useState("");
   const [disabled, setDisabled] = useState(false);
+
+  const { storageType } = useStorageSettingsContext();
+  const { savedPreferences } = useSavePreferenceSettingsContext();
+  const dispatch = useAppDispatch();
+
+  const onBrainDumpSave = useCallback(() => {
+    setDisabled(true);
+
+    if (storageType === "local" && savedPreferences?.braindump_preference) {
+      dispatch(
+        addBrainDumpInsight({
+          haveToDo: todos.trim(),
+          wantToDo: puttingOff.trim(),
+          wins: smallWin.trim(),
+          feelings: feelings.trim(),
+          worries: worries.trim(),
+        }),
+      );
+    }
+    onComplete();
+  }, [
+    storageType,
+    savedPreferences?.braindump_preference,
+    dispatch,
+    todos,
+    puttingOff,
+    smallWin,
+    feelings,
+    worries,
+  ]);
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
@@ -59,9 +83,11 @@ export default function BrainDumpScreen({
           </Text>
         </View>
         <View
-          style={{
-            //flexGrow: 1,
-          }}
+          style={
+            {
+              //flexGrow: 1,
+            }
+          }
         >
           {/* Prompts */}
           <View style={{}}>
@@ -71,7 +97,6 @@ export default function BrainDumpScreen({
               value={todos}
               onChangeText={setTodos}
               placeholder=""
-              minHeight={140}
             />
           </View>
           <View style={{}}>
@@ -81,7 +106,6 @@ export default function BrainDumpScreen({
               value={smallWin}
               onChangeText={setSmallWin}
               placeholder=""
-              //minHeight={120}
             />
           </View>
           <View style={{}}>
@@ -91,7 +115,6 @@ export default function BrainDumpScreen({
               value={feelings}
               onChangeText={setFeelings}
               placeholder=""
-              //minHeight={140}
             />
           </View>
           <View style={{}}>
@@ -101,7 +124,6 @@ export default function BrainDumpScreen({
               value={worries}
               onChangeText={setWorries}
               placeholder=""
-              //minHeight={140}
             />
           </View>
           <View style={{}}>
@@ -111,15 +133,13 @@ export default function BrainDumpScreen({
               value={puttingOff}
               onChangeText={setPuttingOff}
               placeholder=""
-              //minHeight={140}
             />
           </View>
- 
 
           <Button
             mode="contained"
-            onPress={onComplete}
-            disabled={!disabled}
+            onPress={onBrainDumpSave}
+            disabled={disabled}
             contentStyle={styles.saveButtonContent}
             style={styles.saveButton}
             labelStyle={styles.saveButtonLabel}

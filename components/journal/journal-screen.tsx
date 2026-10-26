@@ -1,22 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   View,
 } from "react-native";
-import {
-  ActivityIndicator,
-  Button,
-  Icon,
-  IconButton,
-  Text,
-  TextInput,
-  useTheme,
-} from "react-native-paper";
-import { getJournalPrompt, JOURNAL_PROMPTS } from "./journal-prompts";
+import { Button, Text, TextInput, useTheme } from "react-native-paper";
 import { ScreenProps } from "../screen.interface";
+import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
+import { useAppDispatch } from "../store.interface";
+import { addJournalInsight } from "./journal-insight-reducer";
+import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
 export type JournalEntry = {
   coreMood: string;
@@ -28,60 +22,35 @@ export type JournalEntry = {
 type JournalScreenProps = {
   coreMood: string;
   selectedMood?: string;
-  //onSave: (entry: JournalEntry) => Promise<void>;
-  //onBack?: () => void;
 };
 
 export default function JournalScreen({
-  coreMood,
-  selectedMood,
-  //onSave,
-  //onBack,
+  onComplete,
 }: JournalScreenProps & ScreenProps) {
   const { colors } = useTheme();
 
   const [content, setContent] = useState("");
-  const [promptIndex, setPromptIndex] = useState(0);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(false);
 
-  const prompts = JOURNAL_PROMPTS[coreMood] ?? JOURNAL_PROMPTS.Unsure;
+  const { storageType } = useStorageSettingsContext();
+  const { savedPreferences } = useSavePreferenceSettingsContext();
+  const dispatch = useAppDispatch();
 
-  const activePrompt = getJournalPrompt(coreMood, promptIndex);
+  const onJournalSave = useCallback(() => {
+    setDisabled(true);
 
-  const wordCount = useMemo(() => {
-    const text = content.trim();
-    return text ? text.split(/\s+/).length : 0;
-  }, [content]);
-
-  const handleSave = async () => {
-    if (!content.trim() || saving) return;
-
-    setSaving(true);
-    setError(null);
-
-    try {
-    } catch {
-      setError("We couldn't save your entry. Please try again.");
-    } finally {
-      setSaving(false);
+    if (storageType === "local" && savedPreferences?.journal_preference) {
+      dispatch(addJournalInsight({ text: content.trim() }));
     }
-  };
-
-  const changePrompt = () => {
-    setPromptIndex((index) => (index + 1) % prompts.length);
-  };
+    onComplete();
+  }, [storageType, savedPreferences?.journal_preference, dispatch, content]);
 
   return (
-    <KeyboardAvoidingView
-      style={{flex: 1}}
-      behavior={"padding"}
-    >
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="interactive"
-         contentContainerStyle={{
+        contentContainerStyle={{
           justifyContent: "center",
           flex: 1,
           paddingTop: 100,
@@ -111,7 +80,7 @@ export default function JournalScreen({
             onChangeText={setContent}
             placeholder="Dear diary, today I've been feeling..."
             placeholderTextColor={colors.onSurfaceVariant}
-            editable={!saving}
+            editable={!disabled}
             style={[
               styles.input,
               {
@@ -123,23 +92,9 @@ export default function JournalScreen({
           />
         </View>
 
-        {/* Save */}
-        {error && (
-          <Text
-            accessibilityRole="alert"
-            style={{
-              color: colors.error,
-              textAlign: "center",
-              marginTop: 14,
-            }}
-          >
-            {error}
-          </Text>
-        )}
-
         <Button
           mode="contained"
-          onPress={handleSave}
+          onPress={onJournalSave}
           disabled={disabled}
           contentStyle={styles.saveButtonContent}
           style={styles.saveButton}

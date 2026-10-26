@@ -8,6 +8,8 @@ import intentionsInsightReducer from "@/components/focus/intentions-insight-redu
 import gratitudeInsightReducer from "@/components/gratitude/gratitude-insight-reducer";
 import winsInsightReducer from "@/components/wins/wins-insight-reducer";
 import reportInsightMiddleware from "@/components/reports/report-insight-middleware";
+import journalInsightReducer from "@/components/journal/journal-insight-reducer";
+import brainDumpInsightReducer from "@/components/brain-dump/brain-dump-insight-reducer";
 
 const store = configureStore({
   reducer: {
@@ -19,6 +21,8 @@ const store = configureStore({
     intentions: intentionsInsightReducer,
     gratitude: gratitudeInsightReducer,
     wins: winsInsightReducer,
+    journal: journalInsightReducer,
+    brainDump: brainDumpInsightReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(reportInsightMiddleware),

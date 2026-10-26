@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  BrainDumpInsight,
+  JournalInsight,
   type BodyInsight,
   type GratitudeInsight,
   type IntentionsInsight,
@@ -14,6 +16,8 @@ import { addIntentionsInsight } from "../focus/intentions-insight-reducer";
 import { addGratitudeInsight } from "../gratitude/gratitude-insight-reducer";
 import { addWinsInsight } from "../wins/wins-insight-reducer";
 import { ReportInsightState, REPORTS_KEY } from "../store.interface";
+import { addJournalInsight } from "../journal/journal-insight-reducer";
+import { addBrainDumpInsight } from "../brain-dump/brain-dump-insight-reducer";
 
 const getTodayKey = () => new Date().toLocaleDateString();
 const key = getTodayKey();
@@ -34,6 +38,8 @@ const initialState: ReportInsightState[] = [
     intentions: [],
     gratitude: [],
     wins: [],
+    journal: [],
+    brainDump: [],
   },
 ];
 
@@ -139,6 +145,8 @@ export const reportInsightSlice = createSlice({
             intentions: [],
             gratitude: [],
             wins: [],
+            journal: [],
+            brainDump: [],
           };
           // Add the new report to the state
           newState = [newReport, ...state];
@@ -182,6 +190,8 @@ export const reportInsightSlice = createSlice({
               intentions: [],
               gratitude: [],
               wins: [],
+              journal: [],
+              brainDump: [],
             };
             // Add the new report to the state
             newState = [newReport, ...state];
@@ -224,6 +234,8 @@ export const reportInsightSlice = createSlice({
             intentions: [],
             gratitude: [],
             wins: [],
+            journal: [],
+            brainDump: [],
           };
           // Add the new report to the state
           newState = [newReport, ...state];
@@ -267,6 +279,8 @@ export const reportInsightSlice = createSlice({
               intentions: [action.payload],
               gratitude: [],
               wins: [],
+              journal: [],
+              brainDump: [],
             };
             // Add the new report to the state
             newState = [newReport, ...state];
@@ -311,6 +325,8 @@ export const reportInsightSlice = createSlice({
               intentions: [],
               gratitude: [action.payload],
               wins: [],
+              journal: [],
+              brainDump: []
             };
             // Add the new report to the state
             newState = [newReport, ...state];
@@ -353,6 +369,94 @@ export const reportInsightSlice = createSlice({
             intentions: [],
             gratitude: [],
             wins: [action.payload],
+            journal: [],
+            brainDump: [],
+          };
+          // Add the new report to the state
+          newState = [newReport, ...state];
+        }
+
+        return newState;
+      })
+      .addCase(addJournalInsight, (state, action: PayloadAction<JournalInsight>) => {
+        let newState;
+        // Find the report for the current date
+        const existingReportIndex = state.findIndex(
+          (report) => report.date === key,
+        );
+
+        if (existingReportIndex !== -1) {
+          // If the report exists, update the wins insight
+          const existingReport = state[existingReportIndex];
+          const updatedReport = {
+            ...existingReport,
+            journal: [...existingReport.journal, action.payload],
+          };
+          // Update the state with the updated report
+          newState = state.map((report, index) =>
+            index === existingReportIndex ? updatedReport : report,
+          );
+        } else {
+          // If the report doesn't exist, create a new one with the wins insight
+          const newReport: ReportInsightState = {
+            date: key,
+            moods: {
+              moods: [],
+              core: [],
+              primary: [],
+              secondary: [],
+              tertiary: [],
+            },
+            body: [],
+            breath: "",
+            intentions: [],
+            gratitude: [],
+            wins: [],
+            journal: [action.payload],
+            brainDump: [],
+          };
+          // Add the new report to the state
+          newState = [newReport, ...state];
+        }
+
+        return newState;
+      })
+      .addCase(addBrainDumpInsight, (state, action: PayloadAction<BrainDumpInsight>) => {
+        let newState;
+        // Find the report for the current date
+        const existingReportIndex = state.findIndex(
+          (report) => report.date === key,
+        );
+
+        if (existingReportIndex !== -1) {
+          // If the report exists, update the wins insight
+          const existingReport = state[existingReportIndex];
+          const updatedReport = {
+            ...existingReport,
+            brainDump: [...existingReport.brainDump, action.payload],
+          };
+          // Update the state with the updated report
+          newState = state.map((report, index) =>
+            index === existingReportIndex ? updatedReport : report,
+          );
+        } else {
+          // If the report doesn't exist, create a new one with the wins insight
+          const newReport: ReportInsightState = {
+            date: key,
+            moods: {
+              moods: [],
+              core: [],
+              primary: [],
+              secondary: [],
+              tertiary: [],
+            },
+            body: [],
+            breath: "",
+            intentions: [],
+            gratitude: [],
+            wins: [],
+            journal: [],
+            brainDump: [action.payload],
           };
           // Add the new report to the state
           newState = [newReport, ...state];

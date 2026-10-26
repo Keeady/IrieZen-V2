@@ -9,7 +9,9 @@ import FocusScreen from "./focus/focus";
 import WinsScreen from "./wins/wins";
 import BodySensationScreen from "./body/body";
 import ChooseActScreen from "./check-in/choose-act";
-import SelectedActionRenderer, { KindnessActivity } from "./check-in/choose-act-render-item";
+import SelectedActionRenderer, {
+  KindnessActivity,
+} from "./check-in/choose-act-render-item";
 
 export type ScreenRendererProps = {
   item: Screen;
@@ -22,7 +24,7 @@ export type ScreenRendererProps = {
   setSelectedEmotions: (emotions: string[]) => void;
   selectedEmotions: string[];
   setSelectedActivity: (activity: KindnessActivity) => void;
-  selectedActivity?: KindnessActivity
+  selectedActivity?: KindnessActivity;
 };
 
 export const ScreenItemRenderer = ({
@@ -49,43 +51,9 @@ export const ScreenItemRenderer = ({
         height={height}
       />
     );
-  } else if (item.id === "gratitude") {
-    screenComponent = (
-      <GratitudeScreen
-        onComplete={() => onScreenComplete(index)}
-        width={width}
-        height={height}
-      />
-    );
-  } /*else if (item.id === "body") {
-    screenComponent = (
-      <BodySensationScreen
-        onComplete={() => onScreenComplete(index)}
-        selectedEmotions={selectedEmotions}
-        width={width}
-        height={height}
-        loadingBody={loadingBody}
-      />
-    );
-  }*/ else if (item.id === "breath") {
+  } else if (item.id === "breath") {
     screenComponent = (
       <BreathScreen
-        onComplete={() => onScreenComplete(index)}
-        width={width}
-        height={height}
-      />
-    );
-  } else if (item.id === "focus") {
-    screenComponent = (
-      <FocusScreen
-        onComplete={() => onScreenComplete(index)}
-        width={width}
-        height={height}
-      />
-    );
-  } else if (item.id === "wins") {
-    screenComponent = (
-      <WinsScreen
         onComplete={() => onScreenComplete(index)}
         width={width}
         height={height}
@@ -97,7 +65,6 @@ export const ScreenItemRenderer = ({
         onComplete={() => onScreenComplete(index)}
         selectedEmotions={selectedEmotions}
         coreEmotion={coreEmotion}
-        onSkip={() => onScreenComplete(index + 1)}
         width={width}
         height={height}
         setSelectedActivity={setSelectedActivity}

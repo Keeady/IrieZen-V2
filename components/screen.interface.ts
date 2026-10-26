@@ -12,7 +12,9 @@ export type Insight =
   | BodyInsight
   | IntentionsInsight
   | GratitudeInsight
-  | WinsInsight;
+  | WinsInsight
+  | JournalInsight
+  | BrainDumpInsight;
 
 export type MoodInsight = {
   moods: string[];
@@ -52,4 +54,18 @@ export type DailyInsight = {
   intentions: IntentionsInsight[];
   gratitude: GratitudeInsight[];
   wins: WinsInsight[];
+  journal: JournalInsight[];
+  brainDump: BrainDumpInsight[];
 };
+
+export type JournalInsight = {
+  text: string;
+}
+
+export type BrainDumpInsight = {
+  haveToDo: string;
+  wins: string;
+  feelings: string;
+  worries: string;
+  wantToDo: string;
+}

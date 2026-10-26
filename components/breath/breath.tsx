@@ -7,6 +7,7 @@ import BreathFlowRenderer from "./breath-renderer";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addBreathInsight } from "./breath-insight-reducer";
 import { useAppDispatch } from "../store.interface";
+import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
 const steps = ["Breathe In", "Hold", "Breathe Out", "Hold"];
 const duration = 4000; // 4s per step
@@ -26,6 +27,8 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { storageType } = useStorageSettingsContext();
+  const { savedPreferences } = useSavePreferenceSettingsContext();
+
   const dispatch = useAppDispatch();
 
   useMemo(() => {
@@ -113,10 +116,10 @@ export default function BreathScreen({ onComplete }: ScreenProps) {
   };
 
   const saveBreath = useCallback(() => {
-    if (storageType === "local") {
+    if (storageType === "local" && savedPreferences?.moodsandbody_preference) {
       dispatch(addBreathInsight("Box Breathing"));
     }
-  }, [storageType, dispatch]);
+  }, [storageType, dispatch, savedPreferences?.moodsandbody_preference]);
 
   return (
     <BreathFlowRenderer

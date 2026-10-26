@@ -12,22 +12,14 @@ import { ScreenProps } from "../screen.interface";
 import { KINDNESS_OPTIONS, KindnessActivity } from "./choose-act-render-item";
 
 export type ChooseActScreenProps = {
-  //onContinue: (activity: KindnessActivity) => void;
-  onSkip: () => void;
-  //onBack?: () => void;
-  //disabled?: boolean;
   selectedEmotions: string[];
   coreEmotion?: string;
   setSelectedActivity: (activity: KindnessActivity) => void;
 };
 
 export default function ChooseActScreen({
-  // onContinue,
-  onSkip,
-  //onBack,
   onComplete,
   setSelectedActivity,
-  // disabled = false,
 }: ChooseActScreenProps & ScreenProps) {
   const { colors } = useTheme();
 
@@ -42,13 +34,13 @@ export default function ChooseActScreen({
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         justifyContent: "center",
-        paddingTop: 100,
+        paddingVertical: 50,
       }}
     >
       {/* Header */}
       <View style={styles.header}>
         <Text style={[styles.title, { color: "#2C4A5E", marginVertical: 0 }]}>
-          A little kindness for yourself
+          An act of kindness for yourself
         </Text>
       </View>
 
@@ -147,23 +139,12 @@ export default function ChooseActScreen({
           disabled={disabled}
           onPress={() => {
             if (selected) {
-              // setDisabled(true);
               setSelectedActivity(selected);
               onComplete();
             }
           }}
         >
           Continue
-        </Button>
-
-        <Button
-          mode="text"
-          onPress={onComplete}
-          disabled={disabled}
-          textColor={colors.primary}
-          labelStyle={styles.skipLabel}
-        >
-          I'm okay for now
         </Button>
 
         <Text style={[styles.footer, { color: colors.onSurfaceVariant }]}>
@@ -274,7 +255,7 @@ const styles = StyleSheet.create({
 
   // Actions
   actions: {
-    marginTop: 32,
+    marginTop: 12,
     alignItems: "center",
     gap: 12,
   },

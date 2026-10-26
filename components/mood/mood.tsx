@@ -17,6 +17,7 @@ import { getSmartResponse, SmartResponse } from "../smart-response";
 import { useStorageSettingsContext } from "@/providers/storage-settings-provider";
 import { addMoodInsight } from "./mood-insight-reducer";
 import { useAppDispatch } from "../store.interface";
+import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
 export default function MoodScreen({
   onComplete,
@@ -56,6 +57,8 @@ export default function MoodScreen({
   >(null);
 
   const { storageType } = useStorageSettingsContext();
+  const { savedPreferences } = useSavePreferenceSettingsContext();
+
   const dispatch = useAppDispatch();
 
   const scrollToEndOfScreen = () => {
@@ -172,9 +175,8 @@ export default function MoodScreen({
   const onReflectionComplete = () => {
     setLoadingBody(false);
     setTimeout(() => {
-          scrollToNextScreen(4);
-
-    }, 500)
+      scrollToNextScreen(4);
+    }, 500);
   };
 
   const onBodyComplete = () => {
@@ -187,7 +189,7 @@ export default function MoodScreen({
   }, []);
 
   const saveMoodsToStorage = useCallback(() => {
-    if (storageType === "local") {
+    if (storageType === "local" && savedPreferences?.moodsandbody_preference) {
       dispatch(
         addMoodInsight({
           moods: selectedMoods,
@@ -207,6 +209,7 @@ export default function MoodScreen({
     selectedSecondaryMood,
     selectedTertiaryMood,
     dispatch,
+    savedPreferences?.moodsandbody_preference,
   ]);
 
   return (
