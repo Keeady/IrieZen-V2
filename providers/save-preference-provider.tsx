@@ -96,7 +96,6 @@ const SavePreferencesSettingsContextProvider = (props: Props) => {
       setSavePreferences(preferences);
       return preferences;
     } catch (error) {
-      console.log(error);
       return defaultSavePreferences;
     }
   }, []);

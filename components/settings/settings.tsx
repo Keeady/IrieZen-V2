@@ -68,8 +68,6 @@ export default function SettingsScreen() {
   }, [storageType]);
 
   useEffect(() => {
-    console.log("settings savedPreferences", savedPreferences);
-
     if (savedPreferences) {
       setSelectedSavedPreferences(savedPreferences);
     }

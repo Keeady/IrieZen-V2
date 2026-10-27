@@ -52,7 +52,6 @@ export default function BrainDumpInsightCard({
   const responses = QUESTIONS.filter(
     (question) => entry[question.key]?.trim()
   );
-  console.log(entry)
 
   // Initially show the first two completed prompts.
   const visibleResponses = expanded
