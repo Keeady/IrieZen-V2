@@ -1,10 +1,8 @@
-import { FlatList, View } from "react-native";
 import BreathScreen from "../breath/breath";
-import GratitudeScreen from "../gratitude/gratitude";
 import { ScreenProps } from "../screen.interface";
 import GratitudeScreenItems from "./gratitude-items";
 import JournalScreen from "../journal/journal-screen";
-import BrainDumpScreen from "../brain-dump/brain-dump-screen";
+import BrainDumpScreenItems from "../brain-dump/brain-dump-screen-items";
 
 export type KindnessActivity =
   | "breathing"
@@ -80,7 +78,7 @@ export default function SelectedActionRenderer({
 
     case "brainDump":
       screenComponent = (
-        <BrainDumpScreen
+        <BrainDumpScreenItems
           width={width}
           height={height}
           onComplete={onComplete}
