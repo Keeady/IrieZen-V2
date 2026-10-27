@@ -10,12 +10,14 @@ import { addIntentionsInsight } from "./intentions-insight-reducer";
 import { useAppDispatch } from "../store.interface";
 import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
-export default function FocusScreen({ onComplete, height }: ScreenProps) {
+export default function FocusScreen({
+  onComplete,
+  disabled,
+}: ScreenProps & { disabled: boolean }) {
   const placeholder = "";
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
   const [label, setLabel] = useState("");
-  const [disabled, setDisabled] = useState(false);
 
   const { storageType } = useStorageSettingsContext();
   const { savedPreferences } = useSavePreferenceSettingsContext();
@@ -30,7 +32,10 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
   }, []);
 
   const saveFocus = useCallback(() => {
-    if (storageType === "local" && savedPreferences?.gratitudeintentions_preference) {
+    if (
+      storageType === "local" &&
+      savedPreferences?.gratitudeintentions_preference
+    ) {
       dispatch(addIntentionsInsight({ label, text }));
     }
   }, [
@@ -44,7 +49,6 @@ export default function FocusScreen({ onComplete, height }: ScreenProps) {
   return (
     <FocusFlowRenderer
       onComplete={() => {
-        setDisabled(true);
         saveFocus();
         onComplete();
       }}

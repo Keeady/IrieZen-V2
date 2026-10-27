@@ -10,12 +10,11 @@ import { addWinsInsight } from "./wins-insight-reducer";
 import { useAppDispatch } from "../store.interface";
 import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
-export default function WinsScreen({ onComplete }: ScreenProps) {
+export default function WinsScreen({ onComplete, disabled }: ScreenProps & { disabled: boolean }) {
   const placeholder = "";
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
   const [label, setLabel] = useState("");
-  const [disabled, setDisabled] = useState(false);
 
   const { storageType } = useStorageSettingsContext();
   const { savedPreferences } = useSavePreferenceSettingsContext();
@@ -47,7 +46,6 @@ export default function WinsScreen({ onComplete }: ScreenProps) {
   return (
     <WinsFlowRenderer
       onComplete={() => {
-        setDisabled(true);
         saveWins();
         onComplete();
       }}

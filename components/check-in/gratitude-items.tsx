@@ -3,7 +3,7 @@ import GratitudeScreen from "../gratitude/gratitude";
 import { ScreenProps } from "../screen.interface";
 import FocusScreen from "../focus/focus";
 import WinsScreen from "../wins/wins";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function GratitudeScreenItems({
   onComplete,
@@ -12,6 +12,7 @@ export default function GratitudeScreenItems({
 }: ScreenProps) {
   const items = ["gratitude", "focus", "wins"];
   const itemsRef = useRef<FlatList<string>>(null);
+  const [disabled, setDisabled] = useState(false);
 
   const handleOnComplete = (index: number) => {
     if (index < items.length - 1) {
@@ -21,6 +22,7 @@ export default function GratitudeScreenItems({
         viewPosition: 0,
       });
     } else {
+      setDisabled(true);
       onComplete();
     }
   };
@@ -39,6 +41,7 @@ export default function GratitudeScreenItems({
                   width={width}
                   height={height}
                   onComplete={() => handleOnComplete(index)}
+                  disabled={disabled}
                 />
               </View>
             );
@@ -49,6 +52,7 @@ export default function GratitudeScreenItems({
                   onComplete={() => handleOnComplete(index)}
                   height={height}
                   width={width}
+                  disabled={disabled}
                 />
               </View>
             );
@@ -59,6 +63,7 @@ export default function GratitudeScreenItems({
                   onComplete={() => handleOnComplete(index)}
                   height={height}
                   width={width}
+                  disabled={disabled}
                 />
               </View>
             );

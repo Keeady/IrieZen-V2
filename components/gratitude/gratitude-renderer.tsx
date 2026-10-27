@@ -53,6 +53,7 @@ export default function GratitudeFlowRenderer({
               style={styles.textarea}
               placeholder={placeholder}
               disabled={disabled}
+              editable={!disabled}
             />
           </View>
           <Button

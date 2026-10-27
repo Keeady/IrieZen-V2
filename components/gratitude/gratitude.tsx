@@ -10,12 +10,14 @@ import { addGratitudeInsight } from "./gratitude-insight-reducer";
 import { useAppDispatch } from "../store.interface";
 import { useSavePreferenceSettingsContext } from "@/providers/save-preference-provider";
 
-export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
+export default function GratitudeScreen({
+  onComplete,
+  disabled,
+}: ScreenProps & { disabled: boolean }) {
   const placeholder = "";
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
   const [label, setLabel] = useState("");
-  const [disabled, setDisabled] = useState(false);
 
   const { storageType } = useStorageSettingsContext();
   const { savedPreferences } = useSavePreferenceSettingsContext();
@@ -30,7 +32,10 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   }, []);
 
   const saveGratitude = useCallback(() => {
-    if (storageType === "local" && savedPreferences?.gratitudeintentions_preference) {
+    if (
+      storageType === "local" &&
+      savedPreferences?.gratitudeintentions_preference
+    ) {
       dispatch(addGratitudeInsight({ label, text }));
     }
   }, [
@@ -44,7 +49,6 @@ export default function GratitudeScreen({ onComplete, height }: ScreenProps) {
   return (
     <GratitudeFlowRenderer
       onComplete={() => {
-        setDisabled(true);
         saveGratitude();
         onComplete();
       }}

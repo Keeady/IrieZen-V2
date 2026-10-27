@@ -42,9 +42,7 @@ export default function WinsFlowRenderer({
           <Text variant="headlineMedium" style={styles.title}>
             {title}
           </Text>
-          <View
-            style={{ flexGrow: 1 }}
-          >
+          <View style={{ flexGrow: 1 }}>
             <TextInput
               mode="outlined"
               label={label}
@@ -55,6 +53,7 @@ export default function WinsFlowRenderer({
               style={styles.textarea}
               placeholder={placeholder}
               disabled={disabled}
+              editable={!disabled}
             />
           </View>
           <Button

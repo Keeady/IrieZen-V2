@@ -7,6 +7,7 @@ type BrainDumpScreen = {
   onComplete:(text: string) => void;
   buttonLabel?: string;
   iconText?: string;
+  disabled: boolean;
 };
 
 export default function BrainDumpScreen({
@@ -15,7 +16,8 @@ export default function BrainDumpScreen({
   label,
   placeholder,
   buttonLabel,
-  iconText
+  iconText,
+  disabled,
 }: BrainDumpScreen) {
 
   return (
@@ -26,6 +28,7 @@ export default function BrainDumpScreen({
       placeholder={placeholder}
       buttonLabel={buttonLabel}
       iconText={iconText}
+      disabled={disabled}
     />
   );
 }

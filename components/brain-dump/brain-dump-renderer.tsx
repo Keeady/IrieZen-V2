@@ -10,6 +10,7 @@ export type BrainDumpFlowRendererProps = {
   placeholder: string;
   buttonLabel?: string;
   iconText?: string;
+  disabled: boolean;
 };
 
 export default function BrainDumpFlowRenderer({
@@ -18,7 +19,8 @@ export default function BrainDumpFlowRenderer({
   label,
   placeholder,
   buttonLabel,
-  iconText
+  iconText,
+  disabled,
 }: BrainDumpFlowRendererProps) {
   const [text, setText] = useState("");
 
@@ -53,6 +55,8 @@ export default function BrainDumpFlowRenderer({
               numberOfLines={16}
               style={styles.textarea}
               placeholder={placeholder}
+              disabled={disabled}
+              editable={!disabled}
             />
           </View>
           <Button
@@ -62,6 +66,7 @@ export default function BrainDumpFlowRenderer({
             contentStyle={styles.buttonContent}
             style={styles.continueButton}
             labelStyle={styles.buttonLabel}
+            disabled={disabled}
           >
             {buttonLabel ?? "Continue"}
           </Button>

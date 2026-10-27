@@ -24,7 +24,7 @@ const items = [
     id: "wins",
   },
   {
-    title: "How I'm actually feeling this week",
+    title: "How I'm actually feeling",
     id: "feelings",
   },
   {
@@ -111,6 +111,7 @@ export default function BrainDumpScreenItems({
                   title={item.title}
                   label={item.label}
                   placeholder={item.placeholder}
+                  disabled={disabled}
                 />
               </View>
             );
@@ -125,6 +126,7 @@ export default function BrainDumpScreenItems({
                   title={item.title}
                   label={item.label}
                   placeholder={item.placeholder}
+                  disabled={disabled}
                 />
               </View>
             );
@@ -140,6 +142,7 @@ export default function BrainDumpScreenItems({
                   title={item.title}
                   label={item.label}
                   placeholder={item.placeholder}
+                  disabled={disabled}
                 />
               </View>
             );
@@ -154,6 +157,7 @@ export default function BrainDumpScreenItems({
                   title={item.title}
                   label={item.label}
                   placeholder={item.placeholder}
+                  disabled={disabled}
                 />
               </View>
             );
@@ -170,6 +174,7 @@ export default function BrainDumpScreenItems({
                   placeholder={item.placeholder}
                   buttonLabel={"Complete"}
                   iconText={"arrow-right"}
+                  disabled={disabled}
                 />
               </View>
             );

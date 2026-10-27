@@ -31,7 +31,7 @@ const QUESTIONS: {
   },
   {
     key: "feelings",
-    title: "How I'm actually feeling this week",
+    title: "How I'm actually feeling",
   },
   {
     key: "worries",
